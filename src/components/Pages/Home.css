@@ -1,0 +1,108 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.navbar{
+    display: flex;
+    padding-left: 2%;
+    padding-bottom: 1%;
+    background-color: white;
+    padding-top: 1.5%;
+    opacity: 0.9;
+    box-shadow: 1px 3px rgba(255, 255, 255, 0.163);
+}
+.navbar img{
+    width: 160px;
+    margin-left: 25px;
+}
+.navlabels{
+    margin-left: 47%;
+}
+.navlabels ul{
+    font-size: 19px;
+    display: flex;
+    margin-right: 80px;
+}
+.logih{
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #EB455F;
+    padding: 5px;
+    border-radius: 2px;
+    width: 90px;
+    text-align: center;
+}
+.logih:hover{
+    background: #c32a41;
+}
+.navlabels a{
+    text-decoration: none;
+}
+.sec{
+    margin-top: 10%;
+}
+.main{
+    background-image: url('../Assets/Bridge2.png');
+    height: 98.5vh;
+    width: 208.25vh;
+    background-size: 210vh;
+    padding-top: 7%;
+    background-repeat: no-repeat;
+}
+.main h1{
+    color: #EB455F;
+    font-size: 70px;
+}
+.main h2{
+    color: white;
+    font-size: 70px;
+}
+.htags{
+    padding: 50px;
+}
+.search-container{
+    display: flex;
+    background-color: white;
+    height: 15%;
+    width: 40%;
+    margin-left: 20%;
+    margin-top: 5%;
+    border-radius: 3px;
+    opacity: 0.85;
+}
+.BridgeDropdown{
+    padding: 7px;
+    text-align: center;
+    width: 120%;
+    height: 40%;
+    cursor: pointer;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    box-shadow: 1px 3px #0000005b;
+    background-color: white;
+    margin-top: 5%;
+    font-size: 15px;
+    margin-left: 60%;
+}
+.locmark{
+    margin-left: 40%;
+    margin-bottom: -35%;
+}
+.searchicon{
+    margin-left: 30px;
+    margin-top: 40px;
+    margin-bottom: -2%;
+    padding: 0px 5px;
+}
+.searchbar input{
+    padding: 15px 25px;
+    border: none;
+    outline: none;
+    background-color: #eaeaea;
+    border-radius: 2px;
+}
+
+@media only screen and (max-width: 767px){
+    
+}

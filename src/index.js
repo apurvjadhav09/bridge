@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Home from './components/Pages/Home';
 import ChangePassword from './components/Pages/ChangePassword';
+import Masterhome from './components/Pages/Masterhome';
+import Superuserhome from './components/Pages/Superuserhome';
 
 import{
   createBrowserRouter,
@@ -14,7 +16,7 @@ import{
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     element: <App/>,
   },
   {
@@ -22,8 +24,28 @@ const router = createBrowserRouter([
     element: <ChangePassword/>,
   },
   {
-    path: "/home",
+    path: "/",
     element: <Home/>,
+  },
+  {
+    path: "/contact",
+    element: <contact/>,
+  },
+  {
+    path: "/services",
+    element: <services/>,
+  },
+  {
+    path: "/about",
+    element: <about/>,
+  },
+  {
+    path: "/masterhome",
+    element: <Masterhome/>,
+  },
+  {
+    path: "/Superuserhome",
+    element: <Superuserhome/>,
   },
 ]);
 

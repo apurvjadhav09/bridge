@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.masterhome{
+    display: flex;
+}
+.masterhome-text{
+    flex-basis: 100%;
+    padding: 5%;
+}
+.masterhome-text h1{
+    display: inline;
+    color: #2b3467;
+    font-size: 60px;
+}
+.masterhome-text h2{
+    color: #EB455F;
+    font-size: 55px;
+}
+.masterhome-text p{
+    font-size: 19px;
+    opacity: 0.85;
+}
+.masterhome-text button{
+    align-content: center;
+}
+.btncenter{
+    text-align: left;
+}
+.btn{
+    padding: 12px 30px;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10%;
+    border: none;
+    outline: none;
+    background-color: #EB455F;
+    color: white;
+    border-radius: 3px;
+}
+.btn:hover{
+    background-color: #c32a41;
+}
+.btn1{
+    margin-right: 5px;
+    padding: 32px 30px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10%;
+    border: none;
+    outline: none;
+    background-color: #1e254d;
+    color: white;
+    /* border-radius: 3px; */
+}
+.btn1:hover{
+    background-color: #EB455F;
+    transition: background-color 0.3s ease;
+}
+
+
+
+.masterhome-image{
+    background: url("../Assets/masterhome.jpg");
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+    background-size: 100vh;
+}
+.masterhome-image img{
+    width: 6%;
+    padding: 3%;
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0;
+}
+
+
+
+.form-container{
+    /* display: inline; */
+    padding-top: 2%;
+    position: absolute;
+    text-align: center;
+    height: 80%;
+    width: 80%;
+    border-radius: 10px;
+    background-color: #ffffff;
+    transform: translate(12%, 10%);
+    border: 2px solid #00000064;
+    box-shadow: -2px 5px #000000;
+}
+.form-container h1{
+    margin-bottom: 2%;
+}
+.form-container input{
+    outline: none;
+    border: none;
+    padding: 20px 20px;
+    width: 300px;
+    margin-top: 20px;
+    background-color: #eaeaea;
+    margin: 20px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+.form-container button{
+    width: 300px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    background-color: #EB455F;
+    color: white;
+    font-size: 17px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+}
+.form-container button:hover{
+    background-color: #c32a41;
+}
+.form-container1{
+    display: flex;
+    justify-content: center;
+}

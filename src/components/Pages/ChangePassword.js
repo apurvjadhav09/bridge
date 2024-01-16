@@ -1,85 +1,169 @@
 import React, { useState } from 'react';
-import './Login.css'
+import axios from 'axios';
+import './Login.css';
 import { useNavigate } from 'react-router-dom';
 
 import logo from '../Assets/logo.png';
 import logo2 from '../Assets/logo2.png';
 
 const ChangePassword = () => {
+  const [currentPassword, setcurrentPassword] = useState('');
+  const [newPassword, setnewPassword] = useState('');
+  const [newPasswordAgain, setnewPasswordAgain] = useState('');
+  const navigate = useNavigate();
 
-    const [CurrentPassword, setCurrentPassword] = useState('');
-    const [NewPassword, setNewPassword] = useState('');
-    const [ConfirmPassword, setConfirmPassword] = useState('');
-    const navigate = useNavigate();
+  const handleConfirm = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
 
-    const password = ['password1', 'password2', 'password3'];
-
-    const handleConfirm = () => {
-
-      if (CurrentPassword === ''){
-        alert('Please Enter Current Password');
+      if (!token) {
+        alert('Authorization token not found. Please log in.');
+        return;
       }
-      else if (NewPassword === ''){
-        alert('Please Enter New Password');
+      if (!currentPassword || !newPassword || !newPasswordAgain) {
+        alert('Please fill in all the fields');
+        return;
       }
-      else if (ConfirmPassword === ''){
-        alert('Please Confirm your Password');
-      }
-      else if(CurrentPassword === NewPassword){
+  
+      if (currentPassword === newPassword) {
         alert('New Password cannot be the same as the old one');
-        setCurrentPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
+        setcurrentPassword('');
+        setnewPassword('');
+        setnewPasswordAgain('');
+        return;
       }
-      else if(NewPassword !== ConfirmPassword){
+  
+      if (newPassword !== newPasswordAgain) {
         alert('Incorrect Confirmation');
-        setCurrentPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
+        setnewPasswordAgain('');
+        return;
       }
-      else if(!password.includes(CurrentPassword)){
-        alert('Incorrect Current Password');
-        setCurrentPassword('');
-        setNewPassword('');
-        setConfirmPassword('');
+  
+      const response = await axios.post('http://localhost:9090/setupnewpassword', {
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+        newPasswordAgain: newPasswordAgain,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
-      else{
-        navigate('/Home');
-      } 
-    };
-
+      );
+  
+      if (response.status >= 200 && response.status < 300) {
+        console.log('Password changed successfully');
+        navigate('/login');
+      } else {
+        console.error('Failed to change password:', response.data);
+        alert('Failed to change password. Please try again.');
+      }
+    } catch (error) {
+      console.error('An error occurred during password change:', error);
+      alert('An error occurred during password change. Please try again.');
+    } finally {
+      // Reset password fields regardless of the outcome
+      setcurrentPassword('');
+      setnewPassword('');
+      setnewPasswordAgain('');
+    }
+  };
   return (
     <>
-    <div className="Landing">
-    <div className="background">
-      <img src={logo} alt="" />
-    </div>  
-    <div className='container'>
-      <div className="header1">
-        <img src={logo2} alt="" />
-        <div className="text1"><h1>Change Password</h1></div>
-        <div className="underline"></div>
-      </div>
-      <div className="inputs">
-        <div className="input">
-          <input type="text" placeholder='Enter Current Password' value={CurrentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+      <div className="Landing">
+        <div className="background">
+          <img src={logo} alt="" />
         </div>
-        <div className="input">
-          <input type="password" placeholder='Enter New Password'  value={NewPassword} onChange={(e) => setNewPassword(e.target.value)} />
-        </div>
-        <div className="input">
-          <input type="password" placeholder='Confirm Password'  value={ConfirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+        <div className="container">
+          <div className="header1">
+            <img src={logo2} alt="" />
+            <div className="text1">
+              <h1>Change Password</h1>
+            </div>
+            <div className="underline"></div>
+          </div>
+          <div className="inputs">
+            <div className="input">
+              <input
+                type="text"
+                placeholder="Enter Current Password"
+                value={currentPassword}
+                onChange={(e) => setcurrentPassword(e.target.value)}
+              />
+            </div>
+            <div className="input">
+              <input
+                type="password"
+                placeholder="Enter New Password"
+                value={newPassword}
+                onChange={(e) => setnewPassword(e.target.value)}
+              />
+            </div>
+            <div className="input">
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={newPasswordAgain}
+                onChange={(e) => setnewPasswordAgain(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="submit-container">
+            <div className="submit1" onClick={handleConfirm}>
+              Confirm
+            </div>
+          </div>
         </div>
       </div>
-      <div className="submit-container">
-        <div className="submit1" onClick={handleConfirm}>Confirm</div>
-      </div>
-      
-    </div>
-    </div>
-    </>  
-  )
-}
+      <section className="responsive1">
+        <div className="Landing1">
+          <div className="background1">
+            <img src={logo} alt="" />
+          </div>
+          <div className="container1">
+            <div className="header1">
+              <img src={logo2} alt="" />
+              <div className="text1">
+                <h1>Change Password</h1>
+              </div>
+              <div className="underline1"></div>
+            </div>
+            <div className="inputs1">
+              <div className="input1">
+                <input
+                  type="text"
+                  placeholder="Enter Current Password"
+                  value={currentPassword}
+                  onChange={(e) => setcurrentPassword(e.target.value)}
+                />
+              </div>
+              <div className="input1">
+                <input
+                  type="password"
+                  placeholder="Enter New Password"
+                  value={newPassword}
+                  onChange={(e) => setnewPassword(e.target.value)}
+                />
+              </div>
+              <div className="input1">
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  value={newPasswordAgain}
+                  onChange={(e) => setnewPasswordAgain(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="submit-container1">
+              <div className="submit1" onClick={handleConfirm}>
+                Confirm
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+};
 
 export default ChangePassword;
-
