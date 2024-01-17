@@ -71,7 +71,7 @@ function Superuserhome() {
                     <input type="text" defaultValue="Bridge Engineer" readOnly/>
                 </div>
                 <br /><br />
-                <button onClick={closeForm}>Submit</button> <br />
+                <button type='submit' onClick={closeForm}>Submit</button> <br />
                 <button className="cancel" onClick={closeForm}>Cancel</button>
               </form>
           </div>
@@ -96,7 +96,7 @@ function Superuserhome() {
                     <input type="text" defaultValue="Bridge Incharge" readOnly/>
                 </div>
                 <br /><br />
-                <button onClick={closeForm1}>Submit</button> <br />
+                <button type='submit' onClick={closeForm1}>Submit</button> <br />
                 <button className="cancel" onClick={closeForm1}>Cancel</button>
               </form>
           </div>
@@ -121,7 +121,7 @@ function Superuserhome() {
                     <input type="text" defaultValue="Bridge Owner" readOnly/>
                 </div>
                 <br /><br />
-                <button onClick={closeForm2}>Submit</button> <br />
+                <button type='submit' onClick={closeForm2}>Submit</button> <br />
                 <button className="cancel" onClick={closeForm2}>Cancel</button>
               </form>
           </div>

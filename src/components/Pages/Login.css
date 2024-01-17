@@ -9,6 +9,7 @@
     background-image: url('../Assets/Bridge.png');
     height: 100vh;
     width: 99.9vh;
+    background-size: 100vh;
     margin-left: -0.30%;
     background-repeat: no-repeat;
 }
@@ -122,6 +123,7 @@
     }
     .responsive{
         background-image: url('../Assets/Bridge.png');
+        background-size: 100vh;
         display: block;
         height: 100vh;
         margin-left: -1%;
@@ -168,5 +170,81 @@
         background-image: url('../Assets/Bridge.png');
         margin-left: -1%;
         height: 100vh;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1025px){
+    .input img{
+        display: none;
+    }
+    .background{
+        margin-left: -15%;
+        background-repeat: no-repeat;
+        background-size: 100vh;
+    }
+    .background img{
+        margin-left: 25%;
+    }
+    .container{
+        margin-right: 5%;
+        margin-left: 10%;
+    }
+    .submit-container{
+        margin-left: 40%;
+    }
+  }
+
+  @media only screen and (min-height: 757px) and (max-height: 1430px){
+    .background img{
+        margin-left: 2%;
+        width: 150px;
+    }
+    .submit-container{
+        margin-left: 38%;
+        margin-top: 20%;
+    }
+    .submit{
+        width: 100px;
+        padding: 10px 60px 40px;
+        font-size: 35px;
+    }
+    .container{
+        margin-left: 5%;
+        margin-top: 5%;
+    }
+    .header1 img{
+        width: 50%;
+        margin-left: 35%;
+    }
+    .text1 h1{
+        font-size: 60px;
+        margin-left: 20%;
+    }
+    .input{
+        padding-top: 30px;
+        margin-left: 10%;
+    }
+    .input input{
+        width: 40vh;
+        padding: 30px 50px;
+        border-radius: 5px;
+        border: none;
+        background-color: #eaeaea;
+        font-size: 30px;
+    }
+    .submit-container{
+        margin-left: 50%;
+    }
+    .submit1{
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        padding: 10px 20px;
+        background: #EB455F;
+        color: white;
+        border-radius: 5px;
+        font-size: 30px;
+        width: 40%;
+        height: 10%;
     }
   }

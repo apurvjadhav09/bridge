@@ -16,10 +16,10 @@
 }
 .masterhome-text h2{
     color: #EB455F;
-    font-size: 55px;
+    font-size: 50px;
 }
 .masterhome-text p{
-    font-size: 19px;
+    font-size: 2.5vh;
     opacity: 0.85;
 }
 .masterhome-text button{
@@ -82,7 +82,6 @@
 
 
 .form-container{
-    /* display: inline; */
     padding-top: 2%;
     position: absolute;
     text-align: center;
@@ -126,4 +125,114 @@
 .form-container1{
     display: flex;
     justify-content: center;
+}
+.form-container label{
+    display: none;
+}
+
+
+
+@media only screen and (min-width:767px) and (max-width: 1025px){
+    .masterhome-image{
+        height: 100vh;
+        background-size: 100vh;
+    }
+    .masterhome-text h1{
+        font-size: 6.5vh;
+    }
+    .masterhome-text h2{
+        font-size: 6vh;
+    }
+    .masterhome-text p{
+        font-size: 2.5vh;
+    }
+    .btn{
+        margin-top: 20%;
+        font-size: 13px;
+    }
+    .form-container input{
+        padding: 10px 20px;
+        width: 200px;
+        font-size: 15px;
+    }
+    .form-container button{
+        width: 200px;
+        padding: 8px 20px;
+        margin-top: 2%;
+        font-size: 15px;
+    }
+    .form-container label{
+        display: none;
+    }
+}
+
+
+
+
+@media only screen and (max-width: 767px){
+    .masterhome{
+        display: block;
+    }
+    .masterhome-image{
+        display: none;
+    }
+    .masterhome-text{
+        background: linear-gradient(to bottom, #0000005d, #00000030), url("../Assets/masterhome.jpg");
+        background-repeat: no-repeat;
+        height: 83vh;
+        background-size: 100vh;
+        padding-top: 25%;
+    }
+    .masterhome-text h1{
+        color: #EB455F;
+        font-size: 4.5vh;
+    }
+    .masterhome-text h2{
+        color: white;
+        font-size: 4vh;
+    }
+    .masterhome-text p{
+        line-height: 150%;
+        background-color: #00000059;
+        border-radius: 7px;
+        color: white;
+        margin-top: 10%;
+        font-size: 1.5vh;
+        opacity: 0.95;
+    }
+    .form-container{
+        margin-top: -100vh;
+    }
+    .btn{
+        margin-top: 20%;
+        font-size: 13px;
+    }
+    .form-container input{
+        padding: 8px 20px;
+        width: 150px;
+        font-size: 10px;
+    }
+    .form-container button{
+        width: 150px;
+        padding: 7px 20px;
+        margin-top: 2%;
+        font-size: 10px;
+    }
+    .form-container1{
+        display: inline-block;
+    }
+    .form-container h1{
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+    .form-container input{
+        margin-top: 10px;
+    }
+    .form-container label{
+        font-size: 10px;
+        display: block;
+        text-align: left;
+        margin-left: 10%;
+        margin-bottom: -4%;
+    }
 }

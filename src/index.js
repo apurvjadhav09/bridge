@@ -7,6 +7,7 @@ import Home from './components/Pages/Home';
 import ChangePassword from './components/Pages/ChangePassword';
 import Masterhome from './components/Pages/Masterhome';
 import Superuserhome from './components/Pages/Superuserhome';
+import ResetPassword from './components/Pages/ResetPassword';
 
 import{
   createBrowserRouter,
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/Superuserhome",
     element: <Superuserhome/>,
+  },
+  {
+    path: "/ResetPassword",
+    element: <ResetPassword/>,
   },
 ]);
 
