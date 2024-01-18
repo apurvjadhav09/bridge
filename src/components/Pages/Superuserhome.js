@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './masterhome.css';
-import axios from 'axios';
+// import axios from 'axios';
 
 import logo from '../Assets/logo.png';
-import logo2 from '../Assets/logo2.png';
 
 function Superuserhome() {
     const [showForm, setShowForm] = useState(false);
     const [showForm1, setShowForm1] = useState(false);
     const [showForm2, setShowForm2] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
+    // const [showMenu, setShowMenu] = useState(false);
     const [showUsers, setShowUsers] = useState(false);
 
     const toggleForm = () => {
@@ -33,16 +32,16 @@ function Superuserhome() {
         setShowForm2(false);
       };
 
-
-    const toggleMenu = () => {
-        setShowMenu(!showMenu);
-    };
+    
+    const toggleUsers = () => {
+        setShowUsers(!showUsers);
+    }
 
 
   return (
     <>
     <nav className='navbar'>
-        <button className='menu' onClick={toggleMenu}>&#x2630;</button>
+        <button className='menu'>&#x2630;</button>
         <ul>SUPER ADMIN DASHBOARD</ul>
         <p className='userinfo'>&#x1F464;formData[name]</p>
     </nav>
@@ -55,15 +54,9 @@ function Superuserhome() {
             
             <br /><br /><br />
             <p>The Superadmin Dashboard serves as the central hub for overseeing and managing critical roles within the bridge 
-                infrastructure ecosystem. <br /><br />
-                Through an intuitive and secure interface, the Superadmin can seamlessly integrate new Bridge Owners, individuals 
-                responsible for the strategic oversight and maintenance of specific bridge structures. <br /><br /> This comprehensive 
-                approach not only streamlines the administrative processes but also enhances the overall efficiency and effectiveness 
-                of bridge management, ensuring a robust and well-organized infrastructure.</p>
+                infrastructure ecosystem.</p>
             <div className="btncenter1">
-                <button className="btn1" onClick={toggleForm}>Add Bridge Manager &#x2192;</button>
-                <button className="btn1" onClick={toggleForm1}>Add Bridge Admininistrator &#x2192;</button>
-                <button className="btn1" onClick={toggleForm2}>Add Bridge Owner &#x2192;</button>
+                <button className="btn1" onClick={toggleForm}>Register &#x2192;</button>
             </div>
         </div>
 
@@ -71,17 +64,26 @@ function Superuserhome() {
         
             <div className="menubar">
                 <ul><a href="/">Home</a></ul>
-                <ul><select className="UserDropdown" name="Users">
-                    <option value="1">Select User</option>
-                    <option value="2" onClick={toggleForm}>Add Bridge Admininistrator</option>
-                    <option value="3" onClick={toggleForm1}>Add Bridge Manager</option>
-                    <option value="4" onClick={toggleForm2}>Add Bridge Owner</option>
-                </select></ul>
+                <hr />
+                <ul onClick={toggleUsers}>Add User</ul>
+                <hr />
                 <ul>Add Bridge</ul>
+                <hr />
                 <ul><a href="/login">Menu Option 4</a></ul>
+                <hr />
             </div>
 
-
+        {showUsers &&(
+            <div className="showusers">
+                <hr />
+                <ul onClick={toggleForm1}>Add Admin</ul>
+                <hr />
+                <ul onClick={toggleForm}>Add Manager</ul>
+                <hr />
+                <ul onClick={toggleForm2}>Add Owner</ul>
+                <hr />
+            </div>
+        )}
 
 
         {showForm && (

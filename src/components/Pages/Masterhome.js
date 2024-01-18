@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './masterhome.css';
 import axios from 'axios';
 
 import logo from '../Assets/logo.png';
-import logo2 from '../Assets/logo2.png';
+// import logo2 from '../Assets/logo2.png';
 
 function Masterhome() {
   const [showForm, setShowForm] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const toggleForm = () => {
     setShowForm(!showForm);

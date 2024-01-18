@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
     <Routes>
       <Route path="/login" element={<App />} />
-      <Route path="/resetpassword" element={<ResetPassword />} />
+      <Route path="/newuser/resetpassword" element={<ResetPassword />} />
       <Route path="/changepassword" element={<ChangePassword />} />
       <Route path="/" element={<Home />} />
       <Route path="/masterhome" element={<Masterhome />} />

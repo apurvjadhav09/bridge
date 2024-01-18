@@ -2,8 +2,8 @@ import React from 'react';
 import './Home.css';
 
 import logo2 from '../Assets/logo2.png'
-import locmark from '../Assets/locmark.png';
-import searchicon from '../Assets/searchicon.png';
+// import locmark from '../Assets/locmark.png';
+// import searchicon from '../Assets/searchicon.png';
 
 function Home() {
   return (
