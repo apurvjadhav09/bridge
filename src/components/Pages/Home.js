@@ -1,6 +1,5 @@
 import React from 'react';
 import './Home.css';
-import axios from 'axios';
 
 import logo2 from '../Assets/logo2.png'
 import locmark from '../Assets/locmark.png';

@@ -16,6 +16,7 @@ const ResetPassword = () => {
   
     useEffect(() => {
         const tokenFromURL = new URLSearchParams(location.search).get('token');
+        console.log('Token from URL:', tokenFromURL);
         setToken(tokenFromURL);
       }, [location.search]);
 
@@ -47,7 +48,7 @@ const ResetPassword = () => {
           return;
         }
     
-        const response = await axios.post('http://localhost:9090/setupnewpassword', {
+        const response = await axios.post(`http://localhost:9090/newuser/Resetpassword?token=${token}`, {
           currentPassword: currentPassword,
           newPassword: newPassword,
           newPasswordAgain: newPasswordAgain,
@@ -133,7 +134,7 @@ const ResetPassword = () => {
             <div className="header1">
               <img src={logo2} alt="" />
               <div className="text1">
-                <h1>Change Password</h1>
+                <h1>Reset Password</h1>
               </div>
               <div className="underline1"></div>
             </div>
