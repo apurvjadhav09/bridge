@@ -29,7 +29,9 @@ const Login = () => {
           console.log('Login successful');
           const token = response.data.token;
           localStorage.setItem('authToken', token);
-          navigate('/');
+          const dashboardUrl = response.data.dashboardUrl;
+          localStorage.setItem('dashboardUrl', dashboardUrl);          
+          navigate(dashboardUrl);
         } else {
           alert('Incorrect User ID or Password');
           setemail('');

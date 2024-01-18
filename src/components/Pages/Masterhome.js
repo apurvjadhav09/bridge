@@ -53,60 +53,56 @@ function Masterhome() {
     <>
       <div className="masterhome">
         <div className="masterhome-text">
-          <h1>MASTER-ADMIN</h1>
-          <h2>DASHBOARD</h2>
-
+          <h1>MASTER-ADMIN DASHBOARD</h1>
           <br />
           <br />
           <br />
-          <p>
-            The Master Admin Dashboard ensures that managing user access and enhancing permissions is quick, secure, and
-            hassle-free, allowing you to adapt the system to evolving needs with unparalleled ease.
-          </p>
-          <br />
-          <br />
-          <p>
-            The process is straightforward – click the button, input essential details for the new Superuser in the form
-            that appears, and submit. Once submitted, the Superuser is seamlessly integrated into the system, endowed
-            with enhanced capabilities and permissions.
-          </p>
           <div className="btncenter">
             <button className="btn" onClick={toggleForm}>
               Add Super-User &#x2192;
+            </button>
+            <button className="btn" onClick={toggleForm}>
+              Button 1
+            </button>
+            <button className="btn" onClick={toggleForm}>
+              Button 2
+            </button>
+            <button className="btn" onClick={toggleForm}>
+              Button 3
             </button>
           </div>
         </div>
         {showForm && (
           <div className="form-container">
             <form onSubmit={submitForm}>
-              <h1>REGISTER SUPERUSER</h1>
+              <h1>REGISTER SUPERADMIN</h1>
               <br />
               <div className="form-container1">
-                <label htmlFor="name">Name:</label>
-                <input type="text" placeholder="Name" name="name" required />
-                <label htmlFor="designation">Designation:</label>
-                <input type="text" placeholder="Designation" name="designation" required />
+                <label className='lab' htmlFor="name">Name:</label>
+                <input type="text" name="name" required />
+                <label className='lab' htmlFor="designation">Designation:</label>
+                <input type="text" name="designation" required />
               </div>
 
               <div className="form-container1">
-                <label htmlFor="companyName">Company Name:</label>
-                <input type="text" placeholder="Company Name" name="companyName" required />
+                <label className='lab' htmlFor="companyName">Company Name:</label>
+                <input type="text" name="companyName" required />
                 <br />
-                <label htmlFor="email">Email id:</label>
-                <input type="email" placeholder="Email id" name="email" required />
+                <label className='lab' htmlFor="email">Email id:</label>
+                <input type="email" name="email" required />
                 <br />
               </div>
             <br />
               <div className="form-container1">
-                <label htmlFor="phoneNumber">Mobile Number:</label>
-                <input type="text" placeholder="Mobile Number" name="phoneNumber" />
+                <label className='lab' htmlFor="phoneNumber">Mobile Number:</label>
+                <input type="text" name="phoneNumber" />
                 <br />
-                <label htmlFor="Role">Role:</label>
-                <input type="text" placeholder="superadmin" defaultValue="SUPERADMIN" name="superadmin" readOnly />
+                <label className='lab' htmlFor="Role">Role:</label>
+                <input type="text" defaultValue="SUPERADMIN" name="superadmin" readOnly />
               </div>
               <br />
               <br />
-              <button type="submit">Submit</button> <br />
+              <button type="submit">Submit</button>
               <button className="cancel" onClick={closeForm}>
                 Cancel
               </button>

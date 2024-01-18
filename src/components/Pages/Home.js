@@ -27,7 +27,7 @@ function Home() {
           <h1>Structural Health <br /></h1>
           <h2>Monitoring Dashboard</h2>
         </div>
-        <div className="search-container">
+        {/* <div className="search-container">
           <div className="searchbar">
             <img className='searchicon' src={searchicon} alt="" />
             <input type="text" placeholder='Search' />
@@ -43,7 +43,7 @@ function Home() {
               <option value="E">E</option>
             </select>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
     </>
