@@ -62,7 +62,7 @@ const ResetPassword = () => {
     
         if (response.status >= 200 && response.status < 300) {
           console.log('Password changed successfully');
-          navigate('/login');
+          navigate('/');
         } else {
           console.error('Failed to change password:', response.data);
           alert('Failed to change password. Please try again.');
@@ -93,14 +93,6 @@ const ResetPassword = () => {
             <div className="underline"></div>
           </div>
           <div className="inputs">
-            <div className="input">
-              <input
-                type="text"
-                placeholder="Enter Current Password"
-                value={currentPassword}
-                onChange={(e) => setcurrentPassword(e.target.value)}
-              />
-            </div>
             <div className="input">
               <input
                 type="password"
@@ -139,14 +131,6 @@ const ResetPassword = () => {
               <div className="underline1"></div>
             </div>
             <div className="inputs1">
-              <div className="input1">
-                <input
-                  type="text"
-                  placeholder="Enter Current Password"
-                  value={currentPassword}
-                  onChange={(e) => setcurrentPassword(e.target.value)}
-                />
-              </div>
               <div className="input1">
                 <input
                   type="password"

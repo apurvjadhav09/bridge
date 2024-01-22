@@ -24,7 +24,7 @@ const Login = () => {
           email: email,
           password: password,
         });
-  
+
         if (response.status >= 200 && response.status < 300) {
           console.log('Login successful');
           const token = response.data.token;
