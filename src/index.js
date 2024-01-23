@@ -16,7 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
     <Routes>
       <Route path="/" element={<App />} />
-
       <Route path="/newuser/resetpassword" element={<ResetPassword />} />
       <Route path="/superadmin_home" element={<Home />} />
       <Route path="/bridgeadmin_home" element={<Home />} />
