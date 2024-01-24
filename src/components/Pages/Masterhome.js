@@ -27,7 +27,7 @@ function Masterhome() {
       designation: event.target.elements.designation.value,
       companyName: event.target.elements.companyName.value,
       email: event.target.elements.email.value,
-      phoneNumber: event.target.elements.phoneNumber.value,
+      phoneNumber: event.target.elements.countryCode.value + event.target.elements.phoneNumber.value,
       role: event.target.elements.superadmin.value,
     };
 
@@ -94,8 +94,18 @@ function Masterhome() {
               </div>
             <br />
               <div className="form-container1">
-                <label className='lab' htmlFor="phoneNumber">Mobile Number:</label>
-                <input type="text" name="phoneNumber" />
+                <label className='lab' htmlFor="phoneNumber">Mobile Number: </label>
+                <div className="phone-input-container">
+                
+                <select name="countryCode" defaultValue="+1">
+                  <option value="+91">+91</option>
+                  <option value="+1">+1</option>
+                </select>
+                <input type="text" name="phoneNumber" maxLength="10"/>
+                
+                </div>
+                
+                
                 <br />
                 <label className='lab' htmlFor="Role">Role:</label>
                 <input type="text" defaultValue="SUPERADMIN" name="superadmin" readOnly />
