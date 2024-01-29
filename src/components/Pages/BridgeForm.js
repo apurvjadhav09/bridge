@@ -45,15 +45,47 @@ const BridgeForm = ({onSubmit }) => {
   };
 
   
-  const [adminEmail] = useState('');
-  const [adminName] = useState('');
-  const [adminPhone] = useState('');
-  const [ownerEmail] = useState('');
-  const [ownerName] = useState('');
-  const [ownerPhone] = useState('');
-  const [managerEmail] = useState('');
-  const [managerName] = useState('');
-  const [managerPhone] = useState('');
+  const [adminEmail, setAdminEmail] = useState('');
+  const [adminName, setAdminName] = useState('');
+  const [adminPhone, setAdminPhone] = useState('');
+  const [ownerEmail, setOwnerEmail] = useState('');
+  const [ownerName, setOwnerName] = useState('');
+  const [ownerPhone, setOwnerPhone] = useState('');
+  const [managerEmail, setManagerEmail] = useState('');
+  const [managerName, setManagerName] = useState('');
+  const [managerPhone, setManagerPhone] = useState('');
+
+  const [adminEmail2, setAdminEmail2] = useState('');
+  const [adminName2, setAdminName2] = useState('');
+  const [adminPhone2, setAdminPhone2] = useState('');
+  const [ownerEmail2, setOwnerEmail2] = useState('');
+  const [ownerName2, setOwnerName2] = useState('');
+  const [ownerPhone2, setOwnerPhone2] = useState('');
+  const [managerEmail2, setManagerEmail2] = useState('');
+  const [managerName2, setManagerName2] = useState('');
+  const [managerPhone2, setManagerPhone2] = useState('');
+
+  const [adminEmail3, setAdminEmail3] = useState('');
+  const [adminName3, setAdminName3] = useState('');
+  const [adminPhone3, setAdminPhone3] = useState('');
+  const [ownerEmail3, setOwnerEmail3] = useState('');
+  const [ownerName3, setOwnerName3] = useState('');
+  const [ownerPhone3, setOwnerPhone3] = useState('');
+  const [managerEmail3, setManagerEmail3] = useState('');
+  const [managerName3, setManagerName3] = useState('');
+  const [managerPhone3, setManagerPhone3] = useState('');
+
+  const [managerEmail4, setManagerEmail4] = useState('');
+  const [managerName4, setManagerName4] = useState('');
+  const [managerPhone4, setManagerPhone4] = useState('');
+
+  const [managerEmail5, setManagerEmail5] = useState('');
+  const [managerName5, setManagerName5] = useState('');
+  const [managerPhone5, setManagerPhone5] = useState('');
+
+  const [managerEmail6, setManagerEmail6] = useState('');
+  const [managerName6, setManagerName6] = useState('');
+  const [managerPhone6, setManagerPhone6] = useState('');
 
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showManagerForm, setShowManagerForm] = useState(false);
@@ -61,12 +93,18 @@ const BridgeForm = ({onSubmit }) => {
 
   const handleAddAdmin = () => {
     setShowAdminForm(!showAdminForm);
+    setShowManagerForm(false);
+    setShowOwnerForm(false);
   };
   const handleAddManager = () => {
     setShowManagerForm(!showManagerForm);
+    setShowAdminForm(false);
+    setShowOwnerForm(false);
   };
   const handleAddOwner = () => {
     setShowOwnerForm(!showOwnerForm);
+    setShowAdminForm(false);
+    setShowManagerForm(false);
   };
 
   const closeForm = () => {
@@ -80,11 +118,17 @@ const BridgeForm = ({onSubmit }) => {
     if(bridgeData.coordinates === '' || bridgeData.division === '' || bridgeData.name === '' || bridgeData.country === '' || bridgeData.state===''){
         alert('Please fill all the bridge relatied information!')
     }
+    else if(adminName === '' || adminEmail === '' || adminPhone === ''){
+        alert('Please add atleast one Admin!')
+    }
+    else if(managerName === '' || managerEmail === '' || managerPhone === ''){
+        alert('Please add atleast one Manager!')
+    }
+    else if(ownerName === '' || ownerEmail === '' || ownerPhone === ''){
+        alert('Please add atleast one Owner!')
+    }
     else{
         try {
-
-            
-
           const response = await axios.post('http://localhost:9090/', {
             bridgeData: bridgeData,
             adminEmail: adminEmail,
@@ -96,9 +140,41 @@ const BridgeForm = ({onSubmit }) => {
             ownerEmail: ownerEmail,
             ownerName: ownerName,
             ownerPhone: ownerPhone,
+
+            adminEmail2: adminEmail2,
+            adminName2: adminName2,
+            adminPhone2: adminPhone2,
+            managerEmail2: managerEmail2,
+            managerName2: managerName2,
+            managerPhone2: managerPhone2,
+            ownerEmail2: ownerEmail2,
+            ownerName2: ownerName2,
+            ownerPhone2: ownerPhone2,
+
+            adminEmail3: adminEmail3,
+            adminName3: adminName3,
+            adminPhone3: adminPhone3,
+            managerEmail3: managerEmail3,
+            managerName3: managerName3,
+            managerPhone3: managerPhone3,
+            ownerEmail3: ownerEmail3,
+            ownerName3: ownerName3,
+            ownerPhone3: ownerPhone3,
+
+            managerEmail4: managerEmail4,
+            managerName4: managerName4,
+            managerPhone4: managerPhone4,
+
+            managerEmail5: managerEmail5,
+            managerName5: managerName5,
+            managerPhone5: managerPhone5,
+            
+            managerEmail6: managerEmail6,
+            managerName6: managerName6,
+            managerPhone6: managerPhone6,
           });
           console.log('Backend response:', response.data);
-          navigate('./superuserhome');
+          navigate('../Home');
           if (onSubmit) {
             onSubmit();
           }
@@ -109,12 +185,62 @@ const BridgeForm = ({onSubmit }) => {
     }
 
 
-      const onCancel = () => {
-        
+    const resetForm = () => {
+        setBridgeData({
+          country: '',
+          state: '',
+          coordinates: '',
+          division: '',
+          name: '',
+        });
+    
+        setAdminEmail('');
+        setAdminName('');
+        setAdminPhone('');
+        setManagerName('');
+        setManagerEmail('');
+        setManagerPhone('');
+        setOwnerName('');
+        setOwnerEmail('');
+        setOwnerPhone('');
+
+        setAdminEmail2('');
+        setAdminName2('');
+        setAdminPhone2('');
+        setManagerName2('');
+        setManagerEmail2('');
+        setManagerPhone2('');
+        setOwnerName2('');
+        setOwnerEmail2('');
+        setOwnerPhone2('');
+
+        setAdminEmail3('');
+        setAdminName3('');
+        setAdminPhone3('');
+        setManagerName3('');
+        setManagerEmail3('');
+        setManagerPhone3('');
+        setOwnerName3('');
+        setOwnerEmail3('');
+        setOwnerPhone3('');
+    
+        setManagerName4('');
+        setManagerEmail4('');
+        setManagerPhone4('');
+
+        setManagerName5('');
+        setManagerEmail5('');
+        setManagerPhone5('');
+
+        setManagerName6('');
+        setManagerEmail6('');
+        setManagerPhone6('');
+
+        closeForm();
       };
-
-      const saveForm = () => {
-
+    
+      const onCancel = () => {
+        resetForm();
       };
 
 
@@ -126,7 +252,7 @@ const BridgeForm = ({onSubmit }) => {
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <div className="flex items-center justify-center">
-      <div className="w-1/3 bg-white p-8 rounded-xl">
+      <div className="sticky w-1/3 bg-white p-8 rounded-xl ">
         <h2 className="text-2xl font-bold mb-4">Add New Bridge</h2>
         <form onSubmit={submitForm}>
           <div className="mb-4">
@@ -172,170 +298,109 @@ const BridgeForm = ({onSubmit }) => {
         </form>
       </div>
 
-      {showAdminForm &&(
-            <div className="absolute mt-48 py-24 px-8 bg-gray-50">
-            <form>
-                    <div className='mt-4'>
-                        <label htmlFor="Admin">Admin 1:</label>
-                        <input id='adminName' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                        <input id='adminEmail' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
-                        <input id='adminPhone' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number' />
-                        <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                    </div>
-                    <br /><br />
-                    <div>
-                        <label htmlFor="Admin">Admin 2:</label>
-                        <input id='admin2Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                        <input id='admin2Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
-                        <input id='admin2Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number' />
-                        <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                    </div>
-                    <br /><br />
-                    <div>
-                        <label htmlFor="Admin">Admin 3:</label>
-                        <input id='admin3Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                        <input id='admin3Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
-                        <input id='admin3Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number' />
-                        <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                    </div>
-                    <br /><br /><br /><br />
-                    <div className='text-center'>
-                        <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onSubmit={onSubmit} onClick={saveForm}>Save</button>
-                        <button className="px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800" onClick={closeForm}>Cancel</button>
-                    </div>
-               
-             </form>
-         </div>
-        )}
 
-
-    {showManagerForm &&(
-             <div className="absolute mt-48 py-24 px-8 bg-gray-50">
-             <form>
-                     <div>
-                         <label>Manager 1:</label>
-                         <input id='managerName' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="text" placeholder='Name' />
-                         <input id='managerEmail' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="email" placeholder='email' />
-                         <input id='managerPhone' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="tel" placeholder='Mobile Number' />
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800 md:mx-2 px-2 py-2' type='submit'>Add</button>
-                     </div>
-                     <br /><br />
-                     <div>
-                         <label>Manager 2:</label>
-                         <input id='managerName2' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                         <input id='m2Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
-                         <input id='m2Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="tel" placeholder='Mobile Number' />
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div>
-                     <br /><br />
-                     <div>
-                        <label>Manager 3:</label>
-                         <input id='m3Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                         <input id='m3Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
-                         <input id='m3Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="tel" placeholder='Mobile Number' />
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div>
-                     <br /><br />
-                     <div>
-                        <label >Manager 4:</label>
-                         <input id='m4Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                         <input id='m4Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
-                         <input id='m4Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="tel" placeholder='Mobile Number' />
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div>
-                     <br /><br />
-                     <div>
-                        <label >Manager 5:</label>
-                         <input id='m5Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                         <input id='m5Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
-                         <input id='m5Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="tel" placeholder='Mobile Number'/>
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div>
-                     <br /><br />
-                     <div>
-                        <label >Manager 6:</label>
-                         <input id='m6Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
-                         <input id='m6Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
-                         <input id='m6Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="tel" placeholder='Mobile Number'/>
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div>
-                     <br /><br /><br /><br />
-                     <div className='text-center'>
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onClick={saveForm}>Save</button>
-                         <button className="px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800" onClick={closeForm}>Cancel</button>
-                     </div>
-              </form>
-          </div>
-        )}
-
-
-        {showOwnerForm &&(
-             <div className="absolute py-24 mt-48 px-8 bg-gray-50">
-             <form>
-                     <div className=''>
-                        <label >Owner 1:</label>
-                         <input id='o1Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                         <input id='o1Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
-                         <input id='o1Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number' />
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div>
-                     <br /><br />
-                     <div>
-                        <label >Owner 2:</label>
-                         <input id='o2Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
-                         <input id='o2Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
-                         <input id='o2Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div>
-                     <br /><br />
-                     <div>
-                        <label >Owner 3:</label>
-                         <input id='o3Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
-                         <input id='o3Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
-                         <input id='o3Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div>
-                     <br /><br /><br /><br />
-                     <div className='text-center'>
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onSubmit={onSubmit} onClick={saveForm}>Save</button>
-                         <button className="px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800" onClick={closeForm}>Cancel</button>
-                     </div>
-                
-              </form>
-          </div>
-        )}
 
 
 
       <div className='text-center w-2/3'>
-        <h3>Add Admin:</h3>
-            <input id='adminName' value={adminName} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
-            <input id='adminEmail' value={adminEmail} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
-            <input id='adminPhone' value={adminPhone} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        <div>
+            <h3 className=''>Add Admin(s):</h3>
+            <input id='adminName' value={adminName} onChange={(e) => setAdminName(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='adminEmail' value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='adminPhone' value={adminPhone} onChange={(e) => setAdminPhone(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
             <button className='px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddAdmin}>+</button>
+        </div>
+        {showAdminForm && ( 
+            <form action="">
+        <div className='mt-5'>
+            <input id='adminName' value={adminName2} onChange={(e) => setAdminName2(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='adminEmail' value={adminEmail2} onChange={(e) => setAdminEmail2(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='adminPhone' value={adminPhone2} onChange={(e) => setAdminPhone2(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        <div className='mt-5'>
+            <input id='adminName' value={adminName3} onChange={(e) => setAdminName3(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='adminEmail' value={adminEmail3} onChange={(e) => setAdminEmail3(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='adminPhone' value={adminPhone3} onChange={(e) => setAdminPhone3(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        </form>
+        )}
+
+
+
         <br /><br /><br />
-        <h3>Add Manager:</h3>
-            <input id='managerName' value={managerName} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
-            <input id='managerEmail' value={managerEmail} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
-            <input id='managerPhone' value={managerPhone} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+
+
+
+        <div>
+            <h3>Add Manager(s):</h3>
+            <input id='managerName' value={managerName} onChange={(e) => setManagerName(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='managerEmail' value={managerEmail} onChange={(e) => setManagerEmail(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='managerPhone' value={managerPhone} onChange={(e) => setManagerPhone(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
             <button className='px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager}>+</button>
+        </div>
+        {showManagerForm &&(
+        <form className='' action="">
+        <div className='mt-5'>
+            <input id='managerName' value={managerName2} onChange={(e) => setManagerName2(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='managerEmail' value={managerEmail2} onChange={(e) => setManagerEmail2(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='managerPhone' value={managerPhone2} onChange={(e) => setManagerPhone2(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        <div className='mt-5'>
+            <input id='managerName' value={managerName3} onChange={(e) => setManagerName3(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='managerEmail' value={managerEmail3} onChange={(e) => setManagerEmail3(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='managerPhone' value={managerPhone3} onChange={(e) => setManagerPhone3(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        <div className='mt-5'>
+            <input id='managerName' value={managerName4} onChange={(e) => setManagerName4(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='managerEmail' value={managerEmail4} onChange={(e) => setManagerEmail4(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='managerPhone' value={managerPhone4} onChange={(e) => setManagerPhone4(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        <div className='mt-5'>
+            <input id='managerName' value={managerName5} onChange={(e) => setManagerName5(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='managerEmail' value={managerEmail5} onChange={(e) => setManagerEmail5(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='managerPhone' value={managerPhone5} onChange={(e) => setManagerPhone5(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        <div className='mt-5'>
+            <input id='managerName' value={managerName6} onChange={(e) => setManagerName6(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='managerEmail' value={managerEmail6} onChange={(e) => setManagerEmail6(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='managerPhone' value={managerPhone6} onChange={(e) => setManagerPhone6(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        </form>
+        )}
+
+
         <br /><br /><br />
-        <h3>Add Owner:</h3>
-            <input id='ownerName' value={ownerName} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
-            <input id='ownerEmail' value={ownerEmail} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
-            <input id='ownerPhone' value={ownerPhone} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+
+
+
+        <div>
+            <h3>Add Owner(s):</h3>
+            <input id='ownerName' value={ownerName} onChange={(e) => setOwnerName(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='ownerEmail' value={ownerEmail} onChange={(e) => setOwnerEmail(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='ownerPhone' value={ownerPhone} onChange={(e) => setOwnerPhone(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
             <button className='px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddOwner}>+</button>
+        </div>
+        {showOwnerForm && (
+        <form action="">
+        <div className='mt-5'>
+            <input id='ownerName' value={ownerName2} onChange={(e) => setOwnerName2(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='ownerEmail' value={ownerEmail2} onChange={(e) => setOwnerEmail2(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='ownerPhone' value={ownerPhone2} onChange={(e) => setOwnerPhone2(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        
+        <div className='mt-5'>
+            <input id='ownerName' value={ownerName3} onChange={(e) => setOwnerName3(e.target.value)} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='ownerEmail' value={ownerEmail3} onChange={(e) => setOwnerEmail3(e.target.value)} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='ownerPhone' value={ownerPhone3} onChange={(e) => setOwnerPhone3(e.target.value)} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+        </div>
+        </form>
+        )}
       </div>
     </div>
-    <div className='text-center'>
+    <div className='text-center mt-24 my-16'>
         <button type="submit" onClick={submitForm} className="bg-blue-500 px-5 py-2 text-gray-100 rounded-sm hover:bg-blue-700">Submit</button>
         <button onClick={onCancel} className="bg-red-500 px-5 py-2 text-gray-100 rounded-sm hover:bg-red-700 ml-2">Cancel</button>
     </div>
-
-        
-
-
-        
     </>
   );
 };
