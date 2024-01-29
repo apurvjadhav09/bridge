@@ -44,16 +44,16 @@ const BridgeForm = ({onSubmit }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if(bridgeData.coordinates === '' || bridgeData.division === '' || bridgeData.name === '' || bridgeData.country === '' || bridgeData.state===''){
-        alert('Please fill all the bridge relatied information!')
-    }
-    else{
-        
-    }
-  };
-
+  
+  const [adminEmail] = useState('');
+  const [adminName] = useState('');
+  const [adminPhone] = useState('');
+  const [ownerEmail] = useState('');
+  const [ownerName] = useState('');
+  const [ownerPhone] = useState('');
+  const [managerEmail] = useState('');
+  const [managerName] = useState('');
+  const [managerPhone] = useState('');
 
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showManagerForm, setShowManagerForm] = useState(false);
@@ -75,75 +75,30 @@ const BridgeForm = ({onSubmit }) => {
     setShowOwnerForm(false);
   };
 
-  const submitForm = async() => {
+  const submitForm = async (e) => {
+    e.preventDefault();
+    if(bridgeData.coordinates === '' || bridgeData.division === '' || bridgeData.name === '' || bridgeData.country === '' || bridgeData.state===''){
+        alert('Please fill all the bridge relatied information!')
+    }
+    else{
         try {
-          const Details = {
-            bridgeData,
-            admin1: {
-              name: document.getElementById('admin1Name').value,
-              email: document.getElementById('admin1Email').value,
-              mobile: document.getElementById('admin1Mobile').value,
-            },
-            admin2: {
-              name: document.getElementById('admin2Name').value,
-              email: document.getElementById('admin2Email').value,
-              mobile: document.getElementById('admin2Mobile').value,
-            },
-            admin3: {
-              name: document.getElementById('admin3Name').value,
-              email: document.getElementById('admin3Email').value,
-              mobile: document.getElementById('admin3Mobile').value,
-            },
-            manager1: {
-              name: document.getElementById('m1Name').value,
-              email: document.getElementById('m1Email').value,
-              mobile: document.getElementById('m1Mobile').value,
-            },
-            manager2: {
-              name: document.getElementById('m2Name').value,
-              email: document.getElementById('m2Email').value,
-              mobile: document.getElementById('m2Mobile').value,
-            },
-            manager3: {
-              name: document.getElementById('m3Name').value,
-              email: document.getElementById('m3Email').value,
-              mobile: document.getElementById('m3Mobile').value,
-            },
-            manager4: {
-              name: document.getElementById('m4Name').value,
-              email: document.getElementById('m4Email').value,
-              mobile: document.getElementById('m4Mobile').value,
-            },
-            manager5: {
-              name: document.getElementById('m5Name').value,
-              email: document.getElementById('m5Email').value,
-              mobile: document.getElementById('m5Mobile').value,
-            },
-            manager6: {
-              name: document.getElementById('m6Name').value,
-              email: document.getElementById('m6Email').value,
-              mobile: document.getElementById('m6Mobile').value,
-            },
-            Owner1: {
-              name: document.getElementById('o1Name').value,
-              email: document.getElementById('o1Email').value,
-              mobile: document.getElementById('o1Mobile').value,
-            },
-            Owner2: {
-              name: document.getElementById('o2Name').value,
-              email: document.getElementById('o2Email').value,
-              mobile: document.getElementById('o2Mobile').value,
-            },
-            Owner3: {
-              name: document.getElementById('o3Name').value,
-              email: document.getElementById('o3Email').value,
-              mobile: document.getElementById('o3Mobile').value,
-            },
-          };
 
-          const response = await axios.post('http://localhost:9090/', Details);
+            
+
+          const response = await axios.post('http://localhost:9090/', {
+            bridgeData: bridgeData,
+            adminEmail: adminEmail,
+            adminName: adminName,
+            adminPhone: adminPhone,
+            managerEmail: managerEmail,
+            managerName: managerName,
+            managerPhone: managerPhone,
+            ownerEmail: ownerEmail,
+            ownerName: ownerName,
+            ownerPhone: ownerPhone,
+          });
           console.log('Backend response:', response.data);
-          navigate('./home');
+          navigate('./superuserhome');
           if (onSubmit) {
             onSubmit();
           }
@@ -151,10 +106,15 @@ const BridgeForm = ({onSubmit }) => {
           console.error('Error submitting form', error);
         }
       };
+    }
 
 
       const onCancel = () => {
         
+      };
+
+      const saveForm = () => {
+
       };
 
 
@@ -168,7 +128,7 @@ const BridgeForm = ({onSubmit }) => {
     <div className="flex items-center justify-center">
       <div className="w-1/3 bg-white p-8 rounded-xl">
         <h2 className="text-2xl font-bold mb-4">Add New Bridge</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
           <div className="mb-4">
             <label htmlFor="country" className="block text-gray-700">Country:</label>
             <select id="country" name="country" value={bridgeData.country} onChange={handleCountryChange} className="border border-gray-300 p-2 w-full rounded" >
@@ -217,13 +177,13 @@ const BridgeForm = ({onSubmit }) => {
             <form>
                     <div className='mt-4'>
                         <label htmlFor="Admin">Admin 1:</label>
-                        <input id='admin1Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
-                        <input id='admin1Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
-                        <input id='admin1Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number' />
+                        <input id='adminName' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
+                        <input id='adminEmail' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
+                        <input id='adminPhone' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number' />
                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
                     </div>
                     <br /><br />
-                    {/* <div>
+                    <div>
                         <label htmlFor="Admin">Admin 2:</label>
                         <input id='admin2Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
                         <input id='admin2Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
@@ -237,10 +197,10 @@ const BridgeForm = ({onSubmit }) => {
                         <input id='admin3Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
                         <input id='admin3Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number' />
                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                    </div> */}
+                    </div>
                     <br /><br /><br /><br />
                     <div className='text-center'>
-                        <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onSubmit={onSubmit} onClick={submitForm}>Submit</button>
+                        <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onSubmit={onSubmit} onClick={saveForm}>Save</button>
                         <button className="px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800" onClick={closeForm}>Cancel</button>
                     </div>
                
@@ -254,15 +214,15 @@ const BridgeForm = ({onSubmit }) => {
              <form>
                      <div>
                          <label>Manager 1:</label>
-                         <input id='m1Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="text" placeholder='Name' />
-                         <input id='m1Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="email" placeholder='email' />
-                         <input id='m1Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="tel" placeholder='Mobile Number' />
+                         <input id='managerName' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="text" placeholder='Name' />
+                         <input id='managerEmail' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="email" placeholder='email' />
+                         <input id='managerPhone' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none md:mx-4 px-5 py-2' type="tel" placeholder='Mobile Number' />
                          <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800 md:mx-2 px-2 py-2' type='submit'>Add</button>
                      </div>
                      <br /><br />
-                     {/* <div>
+                     <div>
                          <label>Manager 2:</label>
-                         <input id='m2Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
+                         <input id='managerName2' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name' />
                          <input id='m2Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email' />
                          <input id='m2Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="tel" placeholder='Mobile Number' />
                          <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
@@ -298,10 +258,10 @@ const BridgeForm = ({onSubmit }) => {
                          <input id='m6Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
                          <input id='m6Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="tel" placeholder='Mobile Number'/>
                          <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div> */}
+                     </div>
                      <br /><br /><br /><br />
                      <div className='text-center'>
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onClick={submitForm}>Submit</button>
+                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onClick={saveForm}>Save</button>
                          <button className="px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800" onClick={closeForm}>Cancel</button>
                      </div>
               </form>
@@ -320,7 +280,7 @@ const BridgeForm = ({onSubmit }) => {
                          <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
                      </div>
                      <br /><br />
-                     {/* <div>
+                     <div>
                         <label >Owner 2:</label>
                          <input id='o2Name' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
                          <input id='o2Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
@@ -334,10 +294,10 @@ const BridgeForm = ({onSubmit }) => {
                          <input id='o3Email' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
                          <input id='o3Mobile' className='bg-gray-200 mx-5 px-8 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
                          <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit'>Add</button>
-                     </div> */}
+                     </div>
                      <br /><br /><br /><br />
                      <div className='text-center'>
-                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onSubmit={onSubmit} onClick={submitForm}>Submit</button>
+                         <button className='px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800' type='submit' onSubmit={onSubmit} onClick={saveForm}>Save</button>
                          <button className="px-4 py-2 rounded-sm mx-4 bg-pink-600 text-white hover:bg-pink-800" onClick={closeForm}>Cancel</button>
                      </div>
                 
@@ -347,22 +307,28 @@ const BridgeForm = ({onSubmit }) => {
 
 
 
-      <div className='text-center w-1/2'>
-        <button onClick={handleAddAdmin} className='bg-blue-500 px-7 py-2 text-gray-100 hover:bg-blue-700'>
-            <p>Add Admin</p>
-        </button>
+      <div className='text-center w-2/3'>
+        <h3>Add Admin:</h3>
+            <input id='adminName' value={adminName} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='adminEmail' value={adminEmail} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='adminPhone' value={adminPhone} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+            <button className='px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddAdmin}>+</button>
         <br /><br /><br />
-        <button onClick={handleAddManager} className='bg-blue-500 px-5 py-2 text-gray-100 hover:bg-blue-700'>
-            <p>Add Manager</p>
-        </button>
+        <h3>Add Manager:</h3>
+            <input id='managerName' value={managerName} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='managerEmail' value={managerEmail} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='managerPhone' value={managerPhone} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+            <button className='px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager}>+</button>
         <br /><br /><br />
-        <button onClick={handleAddOwner} className='bg-blue-500 px-7 py-2 text-gray-100 hover:bg-blue-700'>
-            <p>Add Owner</p>
-        </button>
+        <h3>Add Owner:</h3>
+            <input id='ownerName' value={ownerName} className='bg-gray-200 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Name'/>
+            <input id='ownerEmail' value={ownerEmail} className='bg-gray-200 mx-2 px-8 py-3 rounded-sm outline-none' type="email" placeholder='email'/>
+            <input id='ownerPhone' value={ownerPhone} className='bg-gray-200 mx-2 px-2 py-3 rounded-sm outline-none' type="text" placeholder='Mobile Number'/>
+            <button className='px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddOwner}>+</button>
       </div>
     </div>
     <div className='text-center'>
-        <button type="submit" onClick={handleSubmit} className="bg-blue-500 px-5 py-2 text-gray-100 rounded-sm hover:bg-blue-700">Add</button>
+        <button type="submit" onClick={submitForm} className="bg-blue-500 px-5 py-2 text-gray-100 rounded-sm hover:bg-blue-700">Submit</button>
         <button onClick={onCancel} className="bg-red-500 px-5 py-2 text-gray-100 rounded-sm hover:bg-red-700 ml-2">Cancel</button>
     </div>
 
