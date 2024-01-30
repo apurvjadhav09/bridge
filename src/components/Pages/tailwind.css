@@ -7,3 +7,9 @@
     height: 100vh;
     margin-left: -0.5%;
 }
+.sensor{
+    background-image: url('../Assets/sensorimg.jpg');
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: 100vh;
+}

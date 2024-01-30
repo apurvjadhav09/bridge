@@ -10,6 +10,7 @@ import ResetPassword from './components/Pages/ResetPassword';
 import Bridgeadmin from './components/Pages/Bridgeadmin';
 import Home from './components/Pages/Home';
 import BridgeForm from './components/Pages/BridgeForm';
+import SensorForm from './components/Pages/SensorForm';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Pages/Login';
@@ -18,9 +19,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/home/bridgeform" element={<BridgeForm />} />
-      <Route path="/newuser/resetpassword" element={<ResetPassword />} />
       <Route path="/newuser/login" element={<Login />} />
+      <Route path="/home/bridgeform" element={<BridgeForm />} />
+      <Route path="/home/sensorform" element={<SensorForm/>} />
+      <Route path="/newuser/resetpassword" element={<ResetPassword />} />
       <Route path="/home" element={<Home />} />
       <Route path="/superadmin_home/dashboard" element={<Superuserhome />} />
       <Route path="/changepassword" element={<ChangePassword />} />
