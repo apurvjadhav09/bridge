@@ -72,6 +72,7 @@ const Addexcelfile = () => {
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SYIj1DQb5PRjszIaMquVdAyjUar5+76PVCmYl" crossorigin="anonymous"/>
 
       <div className='flex'>
 
@@ -82,23 +83,24 @@ const Addexcelfile = () => {
 
 
 
-        <div className='w-1/2 pl-20 py-6'>
+        <div className='w-1/2 pl-20 pb-6'>
             <div>
                 <h1 className='text-3xl font-semibold py-6'>Sample File</h1>
-                <p className='text-gray-800'>Use this sample Excel sheet as a guide to create your own. It provides an example structure and format, helping users to accurately set up their data entries.</p>
-                <button className="cursor-pointer bg-black text-white p-2 mt-6 rounded-sm hover:bg-pink-600" onClick={()=>{downloadFileAtURL(sample_csv)}}>Sample Download</button>
+                <p className='text-gray-800'>To further assist users, we offer a sample Excel file that functions as a reference template. Use this sample Excel sheet as a guide to 
+                create your own. It provides an example structure and format, helping users to accurately set up their data entries.</p>
+                <button className="cursor-pointer bg-black text-white p-2 mt-6 rounded hover:bg-pink-600" onClick={()=>{downloadFileAtURL(sample_csv)}}><i class="fas fa-download"></i>Sample Download</button>
             </div>
-            <br /><br /><br />
+            <br /><br /><hr /><br />
             <h1 className='text-3xl font-semibold py-6'>Select File</h1>
-            <p className='text-gray-800'>Uploading an Excel file simplifies data entry, especially for large datasets, ensuring accurate information integration. To assist users, a sample Excel file 
-            is provided as a reference template, guiding them on the correct format for entering data. This streamlined process enhances efficiency and reduces the risk of errors, promoting 
-            a user-friendly and reliable upload experience. <br /><br />Select your excel file first and then upload it.</p>
+            <p className='text-gray-800'>Empower your data management effortlessly with our intuitive platform. Begin by selecting your Excel file using the designated button, facilitating 
+            a seamless upload process. Once selected, securely upload and save your data with confidence by simply clicking the "Upload" button. <br /><br />Our robust security measures ensure 
+            the confidentiality and integrity of your information, providing you with a reliable and user-friendly experience in managing and preserving your valuable data.</p>
 
 
             <div className="flex py-6">
               <input id='fileinput' className='hidden' type="file" accept='.xlsx , .xls , .csv' onChange={handleFileUpload} />
-              <label htmlFor="fileinput" className="cursor-pointer bg-black text-white p-2 px-4 rounded-sm hover:bg-pink-600" >{selectedFile ? `${selectedFile.file.name}` : 'Select File'}</label>
-              <button className='bg-black justify-end text-white p-2 px-3 rounded-sm ml-12 hover:bg-pink-600' onClick={postDataToServer}>Upload File</button>
+              <label htmlFor="fileinput" className="cursor-pointer bg-black text-white p-2 px-4 rounded hover:bg-pink-600" >{selectedFile ? `${selectedFile.file.name}` : 'Select File'}</label>
+              <button className='bg-black justify-end text-white p-2 px-3 rounded ml-12 hover:bg-pink-600' onClick={postDataToServer}>Upload File</button>
             </div>
             
             
