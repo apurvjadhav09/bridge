@@ -6,13 +6,15 @@ import './tailwind.css';
 import logo2 from '../Assets/logo2.png';
 
 
+
+
 const BridgeForm = ({onSubmit }) => {
-  const [bridgeData, setBridgeData] = useState({
-    country: '',
-    state: '',
-    coordinates: '',
-    division: '',
-  });
+  
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [coordinates, setCoordinates] =useState('');
+  const [division, setDivision] = useState('');
+  
   const navigate = useNavigate();
   const countries = ['India', 'USA', 'Australia']; 
   const statesByCountry = {
@@ -21,31 +23,7 @@ const BridgeForm = ({onSubmit }) => {
     Australia: ['Australian Capital Territory', 'New South Wales', 'Northern Territory', 'Queensland', 'South Australia', 'Tasmania', 'Victoria', 'Western Australia'],
   }; 
 
-  const handleCountryChange = (e) => {
-    const selectedCountry = e.target.value;
-    setBridgeData({
-      ...bridgeData,
-      country: selectedCountry,
-      state: '',
-    });
-  };
-
-  const handleStateChange = (e) => {
-    setBridgeData({
-      ...bridgeData,
-      state: e.target.value,
-    });
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setBridgeData({
-      ...bridgeData,
-      [name]: value,
-    });
-  };
-
-
+  
 
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showAdminForm1, setShowAdminForm1] = useState(false);
@@ -58,7 +36,7 @@ const BridgeForm = ({onSubmit }) => {
   const [showOwnerForm1, setShowOwnerForm1] = useState(false);
 
 
-
+ 
 
   
   const [adminEmail, setAdminEmail] = useState('');
@@ -234,7 +212,7 @@ const BridgeForm = ({onSubmit }) => {
 
   const submitForm = async (e) => {
     e.preventDefault();
-    if(bridgeData.coordinates === '' || bridgeData.division === '' || bridgeName === '' || bridgeData.country === '' || bridgeData.state===''){
+    if(coordinates === '' || division === '' || bridgeName === '' || country === '' || state===''){
         alert('Please fill all the bridge relatied information!')
     }
     else if(adminName === '' || adminEmail === '' || adminPhone === ''){
@@ -249,7 +227,11 @@ const BridgeForm = ({onSubmit }) => {
     else{
         try {
           const response = await axios.post('http://localhost:9090/', {
-            bridgeData: bridgeData,
+            country:country,
+            state:state,
+            division:division,
+            coordinates:coordinates,
+            bridgeName:bridgeName,
             adminEmail: adminEmail,
             adminName: adminName,
             adminPhone: adminPhone,
@@ -292,9 +274,15 @@ const BridgeForm = ({onSubmit }) => {
             managerName6: managerName6,
             managerPhone6: managerPhone6,
           });
-
+          localStorage.setItem('country', country);
+          localStorage.setItem('state', state);
+          localStorage.setItem('division', division);
+          localStorage.setItem('coordinates', coordinates);
+          localStorage.setItem('ownerName', ownerName);
+          localStorage.setItem('adminName', adminName);
+          localStorage.setItem('managerName', managerName);
           console.log('Backend response:', response.data);
-          navigate('./SensorForm');
+          navigate('./sensorform');
           if (onSubmit) {
             onSubmit();
           }
@@ -306,12 +294,10 @@ const BridgeForm = ({onSubmit }) => {
 
 
     const resetForm = () => {
-        setBridgeData({
-          country: '',
-          state: '',
-          coordinates: '',
-          division: '',
-        });
+        setCountry('');
+        setState('');
+        setDivision('');
+        setCoordinates('');
         setBridgeName('');
     
         setAdminEmail('');
@@ -379,7 +365,7 @@ const BridgeForm = ({onSubmit }) => {
         <form onSubmit={submitForm}>
           <div className="mb-4">
             <label htmlFor="country" className="block text-gray-700">Country:</label>
-            <select id="country" name="country" value={bridgeData.country} onChange={handleCountryChange} className="border border-gray-300 p-2 w-full rounded" >
+            <select id="country" name="country" value={country} onChange={(e) => setCountry(e.target.value)} className="border border-gray-300 p-2 w-full rounded" >
                 <option value="" disabled>Select Country</option>
                 {countries.map((country, index) => (
                 <option key={index} value={country}>{country}</option>
@@ -390,9 +376,9 @@ const BridgeForm = ({onSubmit }) => {
             <label htmlFor="state" className="block text-gray-700">
               State:
             </label>
-            <select id="state" name="state" value={bridgeData.state} onChange={handleStateChange} className="border border-gray-300 p-2 w-full rounded">
+            <select id="state" name="state" value={state} onChange={(e) => setState(e.target.value)} className="border border-gray-300 p-2 w-full rounded">
                 <option value="" disabled>Select State</option>
-                {statesByCountry[bridgeData.country]?.map((state, index) => (
+                {statesByCountry[country]?.map((state, index) => (
                 <option key={index} value={state}>{state}</option>
               ))}
             </select>
@@ -402,13 +388,13 @@ const BridgeForm = ({onSubmit }) => {
               Bridge Coordinates:
             </label>
             <input
-              type="text" id="coordinates" name="coordinates" value={bridgeData.coordinates} onChange={handleInputChange} className="border border-gray-300 p-2 w-full rounded" required/>
+              type="text" id="coordinates" name="coordinates" value={coordinates} onChange={(e) => setCoordinates(e.target.value)} className="border border-gray-300 p-2 w-full rounded" required/>
           </div>
           <div className="mb-4">
             <label htmlFor="division" className="block text-gray-700">
               Division:
             </label>
-            <input type="text" id="division" name="division" value={bridgeData.division} onChange={handleInputChange} className="border border-gray-300 p-2 w-full rounded" />
+            <input type="text" id="division" name="division" value={division} onChange={(e) => setDivision(e.target.value)} className="border border-gray-300 p-2 w-full rounded" />
           </div>
           <div className="mb-4">
             <label htmlFor='bridgeName' className="block text-gray-700">
@@ -575,5 +561,6 @@ const BridgeForm = ({onSubmit }) => {
     </>
   );
 };
+
 
 export default BridgeForm;

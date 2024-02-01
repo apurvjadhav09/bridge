@@ -13,3 +13,10 @@
     height: 100vh;
     background-size: 100vh;
 }
+
+#excel{
+    background-image: url('../Assets/camera.jpg');
+    background-repeat: no-repeat;
+    height: 100vh;
+    background-size: 90vh;
+}
