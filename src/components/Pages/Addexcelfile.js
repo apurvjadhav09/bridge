@@ -33,8 +33,11 @@ const Addexcelfile = () => {
         }
         else{
             try{
-                const response = await axios.post('http://localhost:9090/',{
-                    data:data,
+                const formData = new FormData();
+                const response = await axios.post('http://localhost:9090/files/upload', formData,{
+                    headers:{
+                        'Content-Type': 'multipart/form-data',
+                    }
                 });
                 if(response.status >= 200 && response.status < 300){
                     console.log('Backend Response: ',response.data);
@@ -88,7 +91,7 @@ const Addexcelfile = () => {
                 <h1 className='text-3xl font-semibold py-6'>Sample File</h1>
                 <p className='text-gray-800'>To further assist users, we offer a sample Excel file that functions as a reference template. Use this sample Excel sheet as a guide to 
                 create your own. It provides an example structure and format, helping users to accurately set up their data entries.</p>
-                <button className="cursor-pointer bg-black text-white p-2 mt-6 rounded hover:bg-pink-600" onClick={()=>{downloadFileAtURL(sample_csv)}}><i class="fas fa-download"></i>Sample Download</button>
+                <button className="cursor-pointer bg-black text-white p-2 mt-6 rounded hover:bg-pink-600" onClick={()=>{downloadFileAtURL(sample_csv)}}>Sample Download</button>
             </div>
             <br /><br /><hr /><br />
             <h1 className='text-3xl font-semibold py-6'>Select File</h1>

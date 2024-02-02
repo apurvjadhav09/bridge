@@ -53,7 +53,7 @@ const Home = () => {
             {BackEndData.map((data) =>{
               return(
               <div key={data.id}>
-                <p className='cursor-pointer text-gray-600 hover:underline' onClick={RedirectDashboard}>aadouahdiuawdhuhdnoawdnoui{data.bridgeName}</p>
+                <p className='cursor-pointer text-gray-600 hover:underline' onClick={RedirectDashboard}>{data.bridgeName}</p>
                 <hr />
               </div>
             )

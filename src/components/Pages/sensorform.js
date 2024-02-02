@@ -51,7 +51,7 @@ const SensorForm = () => {
     }
     else{
       try{
-        const response = await axios.post('http://localhost:9090/', {
+        const response = await axios.post('http://localhost:9090/bridge/addSensorData', {
           nobridgespan:nobridgespan,
           noofgirders:noofgirders,
           sensortype:sensortype,
@@ -85,7 +85,7 @@ const SensorForm = () => {
     }
     else{
       try{
-        const response = await axios.post('http://localhost:9090/', {
+        const response = await axios.post('http://localhost:9090/bridge/addSensorData', {
           nobridgespan:nobridgespan,
           noofgirders:noofgirders,
           sensortype:sensortype,
@@ -155,7 +155,7 @@ const SensorForm = () => {
       </div>
       <div>
         <div className="mb-4 px-5">
-          <label htmlFor="sensorlocation" className="block text-gray-700">Owner Name:</label>
+          <label htmlFor="sensorlocation" className="block text-gray-700">Manager Name:</label>
           <input type="text" value={managerName} className="border border-gray-300 px-2 py-2" readOnly/>
         </div>
       </div>
