@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/home/bridgeform" element={<BridgeForm />} />
       <Route path="/home/bridgeform/sensorform" element={<SensorForm/>} />
       <Route path="/home/Addexcel" element={<Addexcelfile/>} />
-      <Route path="/home/superuserhome" element={<Superuserhome />} />
+      <Route path="/home/dashboard" element={<Superuserhome />} />
       <Route path="/masterhome" element={<Masterhome />} />
       <Route path="/bridgeadmin" element={<Bridgeadmin />} />
     </Routes>

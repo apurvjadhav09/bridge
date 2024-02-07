@@ -16,17 +16,19 @@ const Home = () => {
   };
 
   const [BackEndData, setBackEndData] = useState([]);
+  const [email] = useState('');
 
-  useEffect(() => {
-    axios.get("https://jsonplaceholder.typicode.com/users")
+  useEffect(async() => {
+    await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`)
     .then((response) => {
       console.log(response)
-      setBackEndData(response.data) 
+      setBackEndData(response.data)
+      localStorage.setItem('email', email);
     })
-  },[])
+  },)
 
   const RedirectDashboard = () => {
-    navigate('/home/superuserhome');
+    navigate('/home/dashboard');
   };
 
   return (

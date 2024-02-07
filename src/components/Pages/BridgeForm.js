@@ -226,7 +226,7 @@ const BridgeForm = ({onSubmit }) => {
     }
     else{
         try {
-          const response = await axios.post('http://localhost:9090/', {
+          const response = await axios.post('http://localhost:9090/bridge/register', {
             country:country,
             state:state,
             division:division,
