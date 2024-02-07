@@ -39,14 +39,21 @@ const Superuserhome = () => {
     const [chartData2, setChartData2] = useState({});
     const [chartData3, setChartData3] = useState({});
     const [chartData4, setChartData4] = useState({});
+    const [chartData5, setChartData5] = useState({});
+    const [chartData6, setChartData6] = useState({});
+    const [chartData7, setChartData7] = useState({});
 
 
     const [averageLoggerTemp, setAverageLoggerTemp] = useState(null);
     const [averageBatteryVoltage, setAverageBatteryVoltage] = useState(null);
-    //Sensors
+    //Sensor1
     const [averageSensor1Temp, setAverageSensor1Temp] = useState(null);
     const [averageSensor1Freq, setAverageSensor1Freq] = useState(null);
     const [averageSensor1Eng, setAverageSensor1Eng] = useState(null);
+    //Sensor2
+    const [averageSensor2Temp, setAverageSensor2Temp] = useState(null);
+    const [averageSensor2Freq, setAverageSensor2Freq] = useState(null);
+    const [averageSensor2Eng, setAverageSensor2Eng] = useState(null);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -56,13 +63,24 @@ const Superuserhome = () => {
         const decoder = new TextDecoder('utf-8');
         const csv = decoder.decode(result.value);
         const parsedData = Papa.parse(csv, { header: true });
-  
-        const labels = parsedData.data.map((row, index) => index % 24 === 0 ? row.DateTime : null).filter(Boolean);
-        const BatteryVoltage = parsedData.data.map((row, index) => index % 1 === 0 ? row.BatteryVoltage : null).filter(Boolean);
-        const LoggerTemp = parsedData.data.map((row, index) => index % 1 === 0 ? row.LoggerTemp : null).filter(Boolean);
-        const Sensor1Temp = parsedData.data.map((row, index) => index % 1 === 0 ? row.S01TEMP : null).filter(Boolean);
-        const Sensor1Freq = parsedData.data.map((row, index) => index % 1 === 0 ? row.S01hz : null).filter(Boolean);
-        const Sensor1Eng = parsedData.data.map((row, index) => index % 1 === 0 ? row.S01Eng : null).filter(Boolean);
+        
+        
+        //General Dashboard
+        const labels = parsedData.data.slice(0, 180).map(row => row.DateTime);
+
+        const BatteryVoltage = parsedData.data.slice(0, 180).map(row => row.BatteryVoltage);
+        const LoggerTemp = parsedData.data.slice(0, 180).map(row => row.LoggerTemp);
+        
+        // Sensor 1
+        const Sensor1Temp = parsedData.data.slice(0, 180).map(row => row.S01TEMP);
+        const Sensor1Freq = parsedData.data.slice(0, 180).map(row => row.S01hz);
+        const Sensor1Eng = parsedData.data.slice(0, 180).map(row => row.S01Eng);
+        
+        // Sensor 2
+        const Sensor2Temp = parsedData.data.slice(0, 180).map(row => row.S02TEMP);
+        const Sensor2Freq = parsedData.data.slice(0, 180).map(row => row.S02Hz);
+        const Sensor2Eng = parsedData.data.slice(0, 180).map(row => row.S02Eng);
+        
 
 
         //INDIVIDUAL NUMERICAL VALUES (General Dashboard)
@@ -75,7 +93,9 @@ const Superuserhome = () => {
         setAverageLoggerTemp(average1.toFixed(2));
     
 
-        //INDIVIDUAL NUMERICAL VALUES (General Dashboard)
+        //INDIVIDUAL NUMERICAL VALUES (Sensors Dashboard)
+
+        //Sensor 1
         const sum2 = Sensor1Temp.reduce((accumulator, currentValue) => accumulator + parseFloat(currentValue), 0);
         const average2 = sum2 / Sensor1Temp.length;
         setAverageSensor1Temp(average2.toFixed(2));
@@ -88,6 +108,19 @@ const Superuserhome = () => {
         const average4 = sum4 / Sensor1Eng.length.toFixed(2);
         setAverageSensor1Eng(average4.toFixed(2));
 
+        //Sensor 2
+        const sum5 = Sensor2Temp.reduce((accumulator, currentValue) => accumulator + parseFloat(currentValue), 0);
+        const average5 = sum5 / Sensor2Temp.length;
+        setAverageSensor2Temp(average5.toFixed(2));
+
+        const sum6 = Sensor2Freq.reduce((accumulator, currentValue) => accumulator + parseFloat(currentValue), 0);
+        const average6 = sum6 / Sensor2Freq.length.toFixed(2);
+        setAverageSensor2Freq(average6.toFixed(2));
+
+        const sum7 = Sensor2Eng.reduce((accumulator, currentValue) => accumulator + parseFloat(currentValue), 0);
+        const average7 = sum7 / Sensor2Eng.length.toFixed(2);
+        setAverageSensor2Eng(average7.toFixed(2));
+
 
         //Animation
         let count = 0;
@@ -96,7 +129,7 @@ const Superuserhome = () => {
         let count3 = 0;
         let count4 = 0;
         const animationInterval = setInterval(() => {
-            if (count < average || count1 < average1 || count2 < average2 || count3 < average3) {
+            if (count < average || count1 < average1 || count2 < average2 || count3 < average3 || count4 < average4) {
                 setAverageBatteryVoltage(count.toFixed(2));
                 setAverageLoggerTemp(count1.toFixed(2));
                 setAverageSensor1Temp(count2.toFixed(2));
@@ -125,7 +158,7 @@ const Superuserhome = () => {
             {
                 label: 'Date/Time vs Battery Voltage',
                 data: BatteryVoltage,
-                borderColor: 'black',
+                borderColor: 'blue',
                 borderWidth: 1,
                 pointBorderColor: 'black',
                 pointRadius: 1,
@@ -185,8 +218,53 @@ const Superuserhome = () => {
             labels: labels,
             datasets: [
                 {
-                    label: 'Date/Time vs Eng)',
+                    label: 'Date/Time vs Sensor 1 Eng',
                     data: Sensor1Eng,
+                    borderColor: 'green',
+                    borderWidth: 1,
+                    pointBorderColor: 'black',
+                    pointRadius: 1,
+                    pointHoverRadius: 1,
+                    tension: 0 
+                }
+            ]
+        });
+        setChartData5({
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Date/Time vs Sensor 2 Temp)',
+                    data: Sensor2Temp,
+                    borderColor: 'blue',
+                    borderWidth: 1,
+                    pointBorderColor: 'black',
+                    pointRadius: 1,
+                    pointHoverRadius: 1,
+                    tension: 0 
+                }
+            ]
+        });
+        setChartData6({
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Date/Time vs Sensor 2 Frequency (in Hz)',
+                    data: Sensor2Freq,
+                    borderColor: 'red',
+                    borderWidth: 1,
+                    pointBorderColor: 'black',
+                    pointRadius: 1,
+                    pointHoverRadius: 1,
+                    tension: 0 
+                }
+            ]
+        });
+        setChartData7({
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Date/Time vs Sensor 2 Eng',
+                    data: Sensor2Eng,
                     borderColor: 'green',
                     borderWidth: 1,
                     pointBorderColor: 'black',
@@ -356,18 +434,18 @@ const Superuserhome = () => {
 
             <div className='grid w-1/4'>
                 <div className="bg-gray-100 w-4/5 mx-6 mb-6 shadow-2xl rounded-xl"><br />
-                    <h2 className="text-lg font-semibold text-center text-gray-600">Avg Temperature</h2><br />
+                    <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 1 avg Temperature</h2><br />
                     <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor1Temp} </h1><br />
                   </div>
 
                   <div className="bg-gray-100 w-4/5 mx-6 shadow-2xl rounded-xl"><br />
-                    <h2 className="text-lg font-semibold text-center text-gray-600">Avg Logger Temp</h2><br />
+                    <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 1 avg Frequency</h2><br />
                     <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor1Freq}</h1><br />
                   </div>
             </div>
             <div className='grid w-1/4'>
                 <div className="bg-gray-100 w-4/5 mx-6 shadow-2xl mb-6 rounded-xl"><br />
-                    <h2 className="text-lg font-semibold text-center text-gray-600">Avg Eng</h2><br />
+                    <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 1 avg Eng</h2><br />
                     <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor1Eng} </h1><br />
                   </div>
 
@@ -379,10 +457,70 @@ const Superuserhome = () => {
         </div>
         <br />
         <hr />
-            </>
-      )}
+        
+        {/* Sensor 2 */}
+        <h1 className='w-11/12 ml-24 text-center p-6 pt-24 text-pink-600 text-5xl font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Sensor 2 Dashboard &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+        <div className='w-11/12 ml-24 p-6 pt-6 flex'>
+            <div className="bg-gray-100 w-1/2 mx-8 shadow-xl">
+                <br />
+                <h1 className='text-center font-bold'>Sensor 2 Temperature Monitoring</h1><br />
+                {chartData5.labels && chartData5.datasets && chartData5.labels.length > 0 && chartData5.datasets.length > 0 ? (
+                    <Line data={chartData5}/>
+                    ) : (
+                    <h1>Loading...</h1>
+                )}
+            </div>
 
-wdiuhdwaiadwbu
+            <div className="bg-gray-100 w-1/2 shadow-xl">
+                <br />
+                <h1 className='text-center font-bold'>Sensor 2 Frequency Monitoring</h1><br />
+                {chartData6.labels && chartData6.datasets && chartData6.labels.length > 0 && chartData6.datasets.length > 0 ? (
+                            <Line data={chartData6}/>
+                    ) : (
+                    <h1>Loading...</h1>
+                )}
+            </div>
+            </div>
+        <div className='w-11/12 ml-24 p-6 flex pt-14'>
+
+            <div className="bg-gray-100 w-1/2 mx-8 shadow-xl">
+                <br />
+                <h1 className='text-center font-bold'>Sensor 2 Eng Monitoring</h1><br />
+                {chartData7.labels && chartData7.datasets && chartData7.labels.length > 0 && chartData7.datasets.length > 0 ? (
+                            <Line data={chartData7}/>
+                    ) : (
+                    <h1>Loading...</h1>
+                )}
+            </div>
+
+            <div className='grid w-1/4'>
+                <div className="bg-gray-100 w-4/5 mx-6 mb-6 shadow-2xl rounded-xl"><br />
+                    <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 2 avg Temperature</h2><br />
+                    <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor2Temp} </h1><br />
+                  </div>
+
+                  <div className="bg-gray-100 w-4/5 mx-6 shadow-2xl rounded-xl"><br />
+                    <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 2 avg Eng</h2><br />
+                    <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor2Eng} </h1><br />
+                  </div>
+
+            </div>
+            <div className='grid w-1/4'>
+
+                <div className="bg-gray-100 w-4/5 mx-6 shadow-2xl mb-6 rounded-xl"><br />
+                    <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 2 avg Frequency</h2><br />
+                    <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor2Freq}</h1><br />
+                  </div>
+
+                  <div className="bg-pink-600 mx-6 w-4/5 text-white shadow-2xl cursor-pointer rounded-xl hover:bg-pink-800"><br />
+                    <h2 className="text-lg font-semibold text-center">Avg Logger Temp</h2><br />
+                    <FaArrowCircleRight className='' style={{width: '100%', alignItems: 'center'}} size={40} />
+                  </div>
+            </div>
+        </div>
+
+        </>
+      )}
 
     </>
   )

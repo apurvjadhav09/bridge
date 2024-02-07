@@ -18,14 +18,20 @@ const Home = () => {
   const [BackEndData, setBackEndData] = useState([]);
   const [email] = useState('');
 
-  useEffect(async() => {
-    await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`)
-    .then((response) => {
-      console.log(response)
-      setBackEndData(response.data)
-      localStorage.setItem('email', email);
-    })
-  },)
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`);
+        console.log(response);
+        setBackEndData(response.data);
+        localStorage.setItem('email', email);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    fetchData();
+  }, [email]);
 
   const RedirectDashboard = () => {
     navigate('/home/dashboard');
