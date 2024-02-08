@@ -7,9 +7,9 @@ import logo from '../Assets/logo.png';
 import logo2 from '../Assets/logo2.png';
 
 const ResetPassword = () => {
-    const [currentPassword, setcurrentPassword] = useState('');
+    
     const [newPassword, setnewPassword] = useState('');
-    const [ConfirmNewPassword, setConfirmNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
     const [token, setToken] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
@@ -24,25 +24,14 @@ const ResetPassword = () => {
       try {
         if (!token) {
           alert('Authorization token not found. Please open this page with the provided link on your email.');
-          setcurrentPassword('');
+          
           setnewPassword('');
           setConfirmNewPassword('');
           return;
         }
-        if (!currentPassword || !newPassword || !ConfirmNewPassword) {
-          alert('Please fill in all the fields');
-          return;
-        }
+        
     
-        if (currentPassword === newPassword) {
-          alert('New Password cannot be the same as the old one');
-          setcurrentPassword('');
-          setnewPassword('');
-          setConfirmNewPassword('');
-          return;
-        }
-    
-        if (newPassword !== ConfirmNewPassword) {
+        if (newPassword !== confirmNewPassword) {
           alert('Incorrect Confirmation');
           setConfirmNewPassword('');
           return;
@@ -50,18 +39,13 @@ const ResetPassword = () => {
     
         const response = await axios.post(`http://localhost:9090/newuser/resetpassword?token=${token}`, {
           newPassword: newPassword,
-          ConfirmNewPassword: ConfirmNewPassword,
+          confirmNewPassword: confirmNewPassword,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
         );
     
         if (response.status >= 200 && response.status < 300) {
           console.log('Password changed successfully');
-          navigate('../login');
+          navigate('/');
         } else {
           console.error('Failed to change password:', response.data);
           alert('Failed to change password. Please try again.' ,response.data);
@@ -71,7 +55,7 @@ const ResetPassword = () => {
         alert('An error occurred during password change. Please try again.');
       } finally {
         // Reset password fields regardless of the outcome
-        setcurrentPassword('');
+        
         setnewPassword('');
         setConfirmNewPassword('');
       }
@@ -104,7 +88,7 @@ const ResetPassword = () => {
               <input
                 type="password"
                 placeholder="Confirm Password"
-                value={ConfirmNewPassword}
+                value={confirmNewPassword}
                 onChange={(e) => setConfirmNewPassword(e.target.value)}
               />
             </div>
@@ -142,7 +126,7 @@ const ResetPassword = () => {
                 <input
                   type="password"
                   placeholder="Confirm Password"
-                  value={ConfirmNewPassword}
+                  value={confirmNewPassword}
                   onChange={(e) => setConfirmNewPassword(e.target.value)}
                 />
               </div>

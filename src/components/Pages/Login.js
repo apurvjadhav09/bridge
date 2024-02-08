@@ -24,6 +24,7 @@ const Login = () => {
           email: email,
           password: password,
         });
+        localStorage.setItem('email', email);
 
         if (response.status >= 200 && response.status < 300) {
           console.log('Login successful');

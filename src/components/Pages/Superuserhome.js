@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Papa from 'papaparse';
 import { Line } from 'react-chartjs-2';
 import SensorData from '../Assets/Data.csv';
@@ -280,26 +281,42 @@ const Superuserhome = () => {
     }, []);
 
 
-
+    const navigate = useNavigate();
+    const [isSelected, setIsSelected] = useState(true);
+    const [isSelected1, setIsSelected1] = useState(false);
 
 
     const [showUserDetails, setshowUserDetails] = useState(false);
-    const [showDashboard, setshowDashboard] = useState(false);
+    const [showDashboard, setshowDashboard] = useState(true);
     const [showSensorDashboard, setshowSensorDashboard] = useState(false);
+    const [showSHM, setshowSHM] = useState(true);
 
     const UserDetails = () => {
         setshowUserDetails(!showUserDetails);
     };
 
     const Dashboard = () => {
+        setIsSelected(!isSelected);
+        setIsSelected1(false);
         setshowDashboard(!showDashboard);
         setshowSensorDashboard(false);
     };
 
     const SensorDashboard = () => {
+        setIsSelected1(!isSelected1);
+        setIsSelected(false);
         setshowSensorDashboard(!showSensorDashboard);
         setshowDashboard(false);
     };
+    const SHM = () => {
+        setshowSHM(!showSHM);
+        setshowDashboard(false);
+        setshowSensorDashboard(false);
+    };
+    const RedirectHome = () => {
+        navigate('../home')
+    };
+
 
   return (
     <>
@@ -312,28 +329,29 @@ const Superuserhome = () => {
         <div className='w-full text-center pt-1'>
             <h1 className='text-2xl font-semibold'>Structural Health Monitoring Dashboard</h1>
         </div>
-        <div className='w-full text-right px-5'>
+        <div className='w-full text-right'>
             <button className='px-2'><MdSearch size={36} /></button>
             <button className='px-2'><MdNotifications size={36} /></button>
-            <button onClick={UserDetails} className='px-2'><MdPerson size={36} /></button>
+            <button onClick={UserDetails} className='px-2'><MdPerson onClick={UserDetails} size={36} /></button>
         </div>
       </div>
 
       <nav className='w-24 bg-gray-300 fixed mt-14'>
         <div className='text-center'>
-            <button className='w-full py-3 hover:bg-gray-400'><ul><MdHome style={{width: '100%', alignItems: 'center'}} size={40} />Home</ul></button>
+            <button className='w-full py-3 hover:bg-gray-400' onClick={RedirectHome}><ul><MdHome style={{width: '100%', alignItems: 'center'}} size={40} />Home</ul></button>
             <hr /><hr />
-            <button className='w-full py-3 hover:bg-gray-400' onClick={Dashboard}><ul><MdDashboard style={{width: '100%', alignItems: 'center'}} size={40} />Dashboard</ul></button>
+            <button className={`w-full py-3 ${isSelected ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={Dashboard}><ul><MdDashboard style={{width: '100%', alignItems: 'center'}} size={40} />Dashboard</ul></button>
             <hr /><hr />
-            <button className='w-full py-3 hover:bg-gray-400 ' onClick={SensorDashboard}><ul><MdSensors style={{width: '100%', alignItems: 'center'}} size={40} />Sensors</ul></button>
+            <button className={`w-full py-3 ${isSelected1 ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={SensorDashboard}><ul><MdSensors style={{width: '100%', alignItems: 'center'}} size={40} />Sensors</ul></button>
             <hr /><hr />
-            <button className='w-full py-3 hover:bg-gray-400'><ul><FaBridge style={{width: '100%', alignItems: 'center'}} size={40} />Bridges</ul></button>
+            <button className='w-full py-3 hover:bg-gray-400'><ul><FaBridge style={{width: '100%', alignItems: 'center'}} size={40} />Bridge</ul></button>
             <hr /><hr />
             <button className='w-full py-3 hover:bg-gray-400'><ul><MdDescription style={{width: '100%', alignItems: 'center'}} size={40} />Report</ul></button>
             <hr /><hr />
             <button className='w-full py-3 hover:bg-gray-400'><ul><MdSettings style={{width: '100%', alignItems: 'center'}} size={40}/>Settings</ul></button>
         </div>  
       </nav>
+
 
 
       {showUserDetails && (
@@ -349,7 +367,7 @@ const Superuserhome = () => {
 
       {showDashboard && (
         <>
-        <div className='w-11/12 ml-24 p-6 flex pt-24'>
+        <div className='w-11/12 ml-24 p-6 flex pt-24 bg-white'>
             <div className="bg-gray-100 w-1/2 mx-8 shadow-xl">
                 <h1 className='text-center font-bold'>Battery Voltage Monitoring</h1><br />
                 {chartData.labels && chartData.datasets && chartData.labels.length > 0 && chartData.datasets.length > 0 ? (
@@ -398,7 +416,7 @@ const Superuserhome = () => {
 
       {showSensorDashboard && (
         <>
-        <h1 className='w-11/12 ml-24 text-center p-6 pt-24 text-pink-600 text-5xl font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Sensor 1 Dashboard &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+        <h1 className='w-11/12 ml-24 text-center p-6 pt-24 text-pink-600 text-4xl font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Sensor 1 Dashboard &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
         <div className='w-11/12 ml-24 p-6 pt-6 flex'>
             <div className="bg-gray-100 w-1/2 mx-8 shadow-xl">
                 <br />
@@ -439,14 +457,15 @@ const Superuserhome = () => {
                   </div>
 
                   <div className="bg-gray-100 w-4/5 mx-6 shadow-2xl rounded-xl"><br />
-                    <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 1 avg Frequency</h2><br />
-                    <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor1Freq}</h1><br />
-                  </div>
-            </div>
-            <div className='grid w-1/4'>
-                <div className="bg-gray-100 w-4/5 mx-6 shadow-2xl mb-6 rounded-xl"><br />
                     <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 1 avg Eng</h2><br />
                     <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor1Eng} </h1><br />
+                  </div>
+
+            </div>
+            <div className='grid w-1/4'>
+            <div className="bg-gray-100 w-4/5 mx-6 shadow-2xl mb-6 rounded-xl"><br />
+                    <h2 className="text-lg font-semibold text-center text-gray-600">Sensor 1 avg Frequency</h2><br />
+                    <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor1Freq}</h1><br />
                   </div>
 
                   <div className="bg-pink-600 mx-6 w-4/5 text-white shadow-2xl cursor-pointer rounded-xl hover:bg-pink-800"><br />
@@ -459,7 +478,7 @@ const Superuserhome = () => {
         <hr />
         
         {/* Sensor 2 */}
-        <h1 className='w-11/12 ml-24 text-center p-6 pt-24 text-pink-600 text-5xl font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Sensor 2 Dashboard &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+        <h1 className='w-11/12 ml-24 text-center p-6 pt-24 text-pink-600 text-4xl font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Sensor 2 Dashboard &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
         <div className='w-11/12 ml-24 p-6 pt-6 flex'>
             <div className="bg-gray-100 w-1/2 mx-8 shadow-xl">
                 <br />

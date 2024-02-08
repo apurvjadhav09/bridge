@@ -102,8 +102,8 @@ const Addexcelfile = () => {
 
             <div className="flex py-6">
               <input id='fileinput' className='hidden' type="file" accept='.xlsx , .xls , .csv' onChange={handleFileUpload} />
-              <label htmlFor="fileinput" className="cursor-pointer bg-black text-white p-2 px-4 rounded hover:bg-pink-600" >{selectedFile ? `${selectedFile.file.name}` : 'Select File'}</label>
-              <button className='bg-black justify-end text-white p-2 px-3 rounded ml-12 hover:bg-pink-600' onClick={postDataToServer}>Upload File</button>
+              <label htmlFor="fileinput" className="cursor-pointer bg-black text-white p-2 px-8 rounded hover:bg-pink-600" >{selectedFile ? `${selectedFile.file.name}` : 'Choose File'}</label>
+              <button className='bg-green-600 justify-end text-white p-2 px-4 rounded ml-12 hover:bg-pink-600' onClick={postDataToServer}>Submit</button>
             </div>
             
             
