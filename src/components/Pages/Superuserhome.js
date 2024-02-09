@@ -289,7 +289,6 @@ const Superuserhome = () => {
     const [showUserDetails, setshowUserDetails] = useState(false);
     const [showDashboard, setshowDashboard] = useState(true);
     const [showSensorDashboard, setshowSensorDashboard] = useState(false);
-    const [showSHM, setshowSHM] = useState(true);
 
     const UserDetails = () => {
         setshowUserDetails(!showUserDetails);
@@ -308,11 +307,7 @@ const Superuserhome = () => {
         setshowSensorDashboard(!showSensorDashboard);
         setshowDashboard(false);
     };
-    const SHM = () => {
-        setshowSHM(!showSHM);
-        setshowDashboard(false);
-        setshowSensorDashboard(false);
-    };
+
     const RedirectHome = () => {
         navigate('../home')
     };

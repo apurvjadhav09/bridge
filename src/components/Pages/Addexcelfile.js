@@ -34,7 +34,8 @@ const Addexcelfile = () => {
         else{
             try{
                 const formData = new FormData();
-                const response = await axios.post('http://localhost:9090/files/upload', formData,{
+                  formData.append('file', selectedFile.file);
+                const response = await axios.post('https://shm-server.azurewebsites.net/files/upload', formData,{
                     headers:{
                         'Content-Type': 'multipart/form-data',
                     }
@@ -54,7 +55,7 @@ const Addexcelfile = () => {
         }
     };
 
-    const sample_csv = 'http://localhost:3000/sample.xlsx'
+    const sample_csv = 'https://shm-frontserver.azurewebsites.net/sample.xlsx'
 
     const downloadFileAtURL = (url) => {
         const fileName = url.split("/").pop();
@@ -75,7 +76,7 @@ const Addexcelfile = () => {
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SYIj1DQb5PRjszIaMquVdAyjUar5+76PVCmYl" crossorigin="anonymous"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SYIj1DQb5PRjszIaMquVdAyjUar5+76PVCmYl" crossOrigin="anonymous"/>
 
       <div className='flex'>
 

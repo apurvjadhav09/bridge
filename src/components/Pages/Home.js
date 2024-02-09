@@ -55,11 +55,9 @@ const Home = () => {
         <div className="w-1/2">
           <img src={bridge} alt="" />
         </div>
-        <div className='text-center justify-center w-1/2 pr-6'>
+        <div className='text-center w-1/2 pr-6'>
           <h1 className='text-4xl font-bold text-pink-600 my-12'>REGISTER</h1>
-          <div>
-          <button className='text-white flex ml-56 font-sm mb-6 text-l cursor-pointer bg-black px-3 py-2 rounded-sm hover:bg-pink-600' onClick={Drop}>Select a method to Enter Data &nbsp;&nbsp; <IoIosArrowDropdown style={{alignItems: 'center'}} size={24}/></button>
-          </div>
+          <h1 className='text-white font-sm mb-6 text-l cursor-pointer bg-black px-3 py-2 rounded-sm hover:bg-pink-600' onClick={Drop}>Select a method to Enter Data &nbsp;&nbsp; <IoIosArrowDropdown style={{alignItems: 'center' , display:'inline-flex'}} size={24}/></h1>
           {Dropdown && (
           <div className='grid justify-center'>
             <button onClick={addbridge} className='bg-pink-600 px-3 mx-5 mb-5 py-2 text-gray-100 rounded-sm hover:bg-black'>Add Manually</button>
@@ -85,6 +83,8 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+
     </>
   );
 };
