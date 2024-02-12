@@ -4,6 +4,7 @@ import axios from 'axios';
 import './tailwind.css';
 
 import logo2 from '../Assets/logo.png';
+import logo from '../Assets/logo2.png';
 
 
 
@@ -18,11 +19,25 @@ const SensorForm = () => {
   const [state, setState] = useState('');
   const [division, setDivision] = useState('');
   const [coordinates, setCoordinates] = useState('');
-  const [ownerName, setOwnerName] = useState('');
-  const [adminName, setAdminName] = useState('');
-  const [managerName, setManagerName] = useState('');
   const [bridgeLocation, setBridgeLocation] = useState('');
   const [bridgeName, setBridgeName] = useState('');
+
+  const [adminName, setAdminName] = useState('');
+  const [adminName2, setAdminName2] = useState('');
+  const [adminName3, setAdminName3] = useState('');
+
+  const [managerName, setManagerName] = useState('');
+  const [managerName2, setManagerName2] = useState('');
+  const [managerName3, setManagerName3] = useState('');
+  const [managerName4, setManagerName4] = useState('');
+  const [managerName5, setManagerName5] = useState('');
+  const [managerName6, setManagerName6] = useState('');
+
+  const [ownerName, setOwnerName] = useState('');
+  const [ownerName2, setOwnerName2] = useState('');
+  const [ownerName3, setOwnerName3] = useState('');
+  const bid = localStorage.getItem('bid');
+
 
 
   const Navigate = useNavigate();
@@ -32,32 +47,59 @@ const SensorForm = () => {
     const storedState = localStorage.getItem('state');
     const storedDivision = localStorage.getItem('division');
     const storedCoordinates = localStorage.getItem('coordinates');
-    const storedOwnerName = localStorage.getItem('ownerName');
-    const storedAdminName = localStorage.getItem('adminName');
-    const storedManagerName = localStorage.getItem('managerName');
     const location = localStorage.getItem('location')
-    const storedBridgeName = localStorage.getItem('bridgeName');
+    const storedbridgeName = localStorage.getItem('bridgeName');
+    
+    const storedOwnerName = localStorage.getItem('ownerName');
+    const storedOwnerName2 = localStorage.getItem('ownerName2');
+    const storedOwnerName3 = localStorage.getItem('ownerName3');
+
+    const storedManagerName = localStorage.getItem('managerName');
+    const storedManagerName2 = localStorage.getItem('managerName2');
+    const storedManagerName3 = localStorage.getItem('managerName3');
+    const storedManagerName4 = localStorage.getItem('managerName4');
+    const storedManagerName5 = localStorage.getItem('managerName5');
+    const storedManagerName6 = localStorage.getItem('managerName6');
+
+    const storedAdminName = localStorage.getItem('adminName');
+    const storedAdminName2 = localStorage.getItem('adminName2');
+    const storedAdminName3 = localStorage.getItem('adminName3');
+
+
   
     setCountry(storedCountry || '');
     setState(storedState || '');
     setDivision(storedDivision || '');
     setCoordinates(storedCoordinates || '');
-    setOwnerName(storedOwnerName || '');  
-    setAdminName(storedAdminName || '');
-    setManagerName(storedManagerName || '');
     setBridgeLocation(location || '');
-    setBridgeName(storedBridgeName || '');
+    setBridgeName(storedbridgeName || '');
+
+    setAdminName(storedAdminName || '');
+    setAdminName2(storedAdminName2 || '');
+    setAdminName3(storedAdminName3 || '');
+
+    setManagerName(storedManagerName || '');
+    setManagerName2(storedManagerName2 || '');
+    setManagerName3(storedManagerName3 || '');
+    setManagerName4(storedManagerName4 || '');
+    setManagerName5(storedManagerName5 || '');
+    setManagerName6(storedManagerName6 || '');
+
+    setOwnerName(storedOwnerName || '');  
+    setOwnerName2(storedOwnerName2 || '');  
+    setOwnerName3(storedOwnerName3 || '');  
+
   }, []);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(bridgesensorsrno === null || sensorlocation === null){
+    if(bridgesensorsrno === '' || sensorlocation === ''){
       alert('Please fill all the fiels!')
     }
     else{
       try{
-        const response = await axios.post('http://localhost:9090/bridge/addSensorData', {
+        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, {
           nobridgespan:nobridgespan,
           noofgirders:noofgirders,
           sensortype:sensortype,
@@ -91,7 +133,7 @@ const SensorForm = () => {
     }
     else{
       try{
-        const response = await axios.post('http://localhost:9090/bridge/addSensorData', {
+        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, {
           nobridgespan:nobridgespan,
           noofgirders:noofgirders,
           sensortype:sensortype,
@@ -122,26 +164,27 @@ const SensorForm = () => {
 
     <div className="flex">
       <div className="sensor w-1/2">
-        <img className='w-28 p-6' src={logo2} alt="" />
+        <img className='w-32 p-6' src={logo2} alt="" />
       </div>
 
 
       <div className="main w-1/2 pt-5 text-center">
-      <h1  className='text-center pb-10 font-semibold text-3xl text-pink-600'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Entered Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+        <img className='mx-72 mt-2 mb-14' src={logo} alt="" />
+      <h1  className='text-center pb-10 font-semibold text-3xl text-black'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Previously Entered Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
 
       <div className="inline-flex justify-center">
       <div>
         <div className="mb-4 px-2">
           <label htmlFor="sensorlocation" className="block text-gray-700">Country:</label>
-          <input type="text" value={country} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <input type="text" value={country} className="border border-gray-300 p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-2">
           <label htmlFor="sensorlocation" className="block text-gray-700">State:</label>
-          <input type="text" value={state} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <input type="text" value={state} className="border border-gray-300 p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-2">
           <label htmlFor="sensorlocation" className="block text-gray-700">Division:</label>
-          <input type="text" value={division} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <input type="text" value={division} className="border border-gray-300 p-1 w-full rounded" disabled/>
         </div>
       </div>
     
@@ -149,15 +192,15 @@ const SensorForm = () => {
         
         <div className="mb-4 px-5">
           <label htmlFor="sensorlocation" className="block text-gray-700">Coordinates:</label>
-          <input type="text" value={coordinates} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <input type="text" value={coordinates} className="border border-gray-300 p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-5">
           <label htmlFor="sensorlocation" className="block text-gray-700">Bridge Location:</label>
-          <input type="text" value={bridgeLocation} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <input type="text" value={bridgeLocation} className="border border-gray-300 p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-5">
           <label htmlFor="sensorlocation" className="block text-gray-700">Bridge Name:</label>
-          <input type="text" value={bridgeName} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <input type="text" value={bridgeName} className="border border-gray-300 p-1 w-full rounded" disabled/>
         </div>
         
         
@@ -167,34 +210,49 @@ const SensorForm = () => {
       </div>
       <div>
         <div className="mb-4 px-5">
-          <label htmlFor="sensorlocation" className="block text-gray-700">Manager Name:</label>
-          <input type="text" value={managerName} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <label htmlFor="sensorlocation" className="block text-gray-700">Bridge Admin(s):</label>
+          <select id="adminName" className="border border-gray-300 p-1 w-full rounded" readOnly>
+            <option value={adminName}>{adminName}</option>
+            <option value={adminName2}>{adminName2}</option>
+            <option value={adminName3}>{adminName3}</option>
+          </select>
         </div>
         <div className="mb-4 px-5">
-          <label htmlFor="sensorlocation" className="block text-gray-700">Admin Name:</label>
-          <input type="text" value={adminName} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <label htmlFor="sensorlocation" className="block text-gray-700">Bridge Manager(s):</label>
+          <select id="adminName" className="border border-gray-300 p-1 w-full rounded" readOnly>
+            <option value={managerName}>{managerName}</option>
+            <option value={managerName2}>{managerName2}</option>
+            <option value={managerName3}>{managerName3}</option>
+            <option value={managerName4}>{managerName4}</option>
+            <option value={managerName5}>{managerName5}</option>
+            <option value={managerName6}>{managerName6}</option>
+          </select>
         </div>
         <div className="mb-4 px-5">
-          <label htmlFor="sensorlocation" className="block text-gray-700">Owner Name:</label>
-          <input type="text" value={ownerName} className="border border-gray-300 p-1 w-full rounded" readOnly/>
+          <label htmlFor="sensorlocation" className="block text-gray-700 px-8">Bridge Owner(s):</label>
+          <select id="adminName" className="border border-gray-300 p-1 w-full rounded" readOnly>
+            <option value={ownerName}>{ownerName}</option>
+            <option value={ownerName2}>{ownerName2}</option>
+            <option value={ownerName3}>{ownerName3}</option>
+          </select>
         </div>
       </div>
       </div>
 
-      <h1 className='py-5 pt-14 text-center text-3xl text-pink-600 font-sans font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Add Sensor Information &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+      <h1 className='py-5 pt-14 text-center text-3xl text-black font-sans font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Add Sensor Information &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
       <div className="container mx-auto mt-2">
       <form>
         <div className='justify-center pt-8 mx-20 block'>
           <div className="mb-4 px-5">
             <label htmlFor="nobridgespan" className="block text-gray-700">Number of Bridge Spans:</label>
-            <select id="nobridgespan" name="nobridgespan" className="border border-gray-300 p-1 w-full rounded">
+            <select id="nobridgespan" name="nobridgespan" onChange={(e) => setnobridgespan(e.target.value)} className="border border-gray-300 p-1 w-full rounded">
               {[...Array(50).keys()].map((span) => (<option key={span + 1} value={span + 1}>{span + 1}</option>))}
             </select>
           </div>
 
           <div className="mb-4 px-5">
             <label htmlFor="noofgirders" className="block text-gray-700">Number of Girders:</label>
-            <select id="noofgirders" name="noofgirders" className="border border-gray-300 p-1 w-full rounded">
+            <select id="noofgirders" name="noofgirders" onChange={(e) => setnoofgirders(e.target.value)} className="border border-gray-300 p-1 w-full rounded">
               {[...Array(20).keys()].map((girder) => (<option key={girder + 1} value={girder + 1}>{girder + 1}</option>))}
             </select>
           </div>
@@ -202,7 +260,7 @@ const SensorForm = () => {
 
           <div className="mb-4 px-5">
             <label htmlFor="sensortype" className="block text-gray-700">Sensor Type:</label>
-            <select id="sensortype" name="sensortype" className="border border-gray-300 p-1 w-full rounded">
+            <select id="sensortype" onChange={(e) => setsensortype(e.target.value)} name="sensortype" value={sensortype} className="border border-gray-300 p-1 w-full rounded">
               <option value="Accelerometer">Accelerometer</option>
               <option value="Strain Gauge">Strain Gauge</option>
               <option value="Deflection Gauge">Deflection Gauge</option>
@@ -213,17 +271,16 @@ const SensorForm = () => {
         <div className='block justify-center mx-20 pb-8'>
           <div className="mb-4 px-5">
             <label htmlFor="bridgesensorsrno" className="block text-gray-700">Sensor Number:</label>
-            <input type="text" id="bridgesensorsrno" name="bridgesensorsrno" className="border border-gray-300 p-1 w-full rounded"/>
+            <input type="text" id="bridgesensorsrno" value={bridgesensorsrno} onChange={(e) => setbridgesensorsrno(e.target.value)} name="bridgesensorsrno" className="border border-gray-300 p-1 w-full rounded"/>
           </div>
 
           <div className="mb-4 px-5">
             <label htmlFor="sensorlocation" className="block text-gray-700">Sensor Location:</label>
-            <input type="text" id="sensorlocation" name="sensorlocation" className="border border-gray-300 p-1 w-full rounded"/>
+            <input type="text" id="sensorlocation" value={sensorlocation} onChange={(e) => setsensorlocation(e.target.value)} name="sensorlocation" className="border border-gray-300 p-1 w-full rounded"/>
           </div>
         </div>
 
-
-        <div className='mt-6 text-center'>
+        <div className='my-6 text-center'>
         <button className="bg-blue-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900" onClick={handleSubmit}>Submit</button>
         <button className="bg-pink-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-pink-900" onClick={handleAddSensor}>Add Another Sensor</button>
         <button className="bg-black px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-gray-900" onClick={handleCancel}>Cancel</button>

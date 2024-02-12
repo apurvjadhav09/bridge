@@ -24,10 +24,13 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const email=localStorage.getItem('email')
+       
         const response = await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`);
-        console.log(response);
         if (response.status === 200) {
+          console.log(response.data);
           setBackEndData(response.data);
+         
+        
          
         } else {
           console.error('Failed to fetch data:', response.statusText);
@@ -38,7 +41,7 @@ const Home = () => {
     };
   
     fetchData();
-  }, [ setBackEndData]);
+  }, []);
   
   const Drop = () => {
     setDropdown(!Dropdown);
@@ -71,15 +74,24 @@ const Home = () => {
             <hr /><hr />
             <br /><br />
             <ul>
-            {BackEndData.map((data) =>{
-              return(
-              <div key={data.id}>
-                <p className='cursor-pointer text-gray-600 hover:underline' onClick={RedirectDashboard}>{data.bridgeName}</p>
-                <hr />
-              </div>
-            )
-            })}
+           
+             {BackEndData.length > 0 ? (
+              <ul>
+              {BackEndData.map((data, index) => (
+                <div key={index}>
+                  <p className='cursor-pointer text-gray-600 hover:underline' onClick={RedirectDashboard}>
+                     {data.bridge.bridgeName}
+                  </p>
+                  <hr />
+                </div>
+              ))}
             </ul>
+            
+            ) : (
+              <p>No bridges found</p>
+            )}
+            </ul>
+       
           </div>
         </div>
       </div>

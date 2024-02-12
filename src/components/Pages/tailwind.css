@@ -1,3 +1,10 @@
+@media (max-width: 800px) {
+    * {
+      display: none;
+    }
+  }
+
+
 #kinda{
     background-image: linear-gradient(to right, #000000, #000000c9, #00000000), url('../Assets/sabg.jpg');
 }
@@ -10,9 +17,10 @@
 .sensor{
     background-image: url('../Assets/Bridge.png');
     background-repeat: no-repeat;
-    height: 140vh;
-    background-size: 130vh;
+    height: 150vh;
+    background-size: 140vh;
     margin-left: -0.5%;
+    background-position: right;
 }
 
 #excel{
@@ -24,7 +32,10 @@
 .bridgeform-bg{
     background-image: url('../Assets/Bridge.png');
     background-repeat: no-repeat;
-    height: 120vh;
-    background-size: 115vh;
+    height: 140vh;
+    background-size: 135vh;
     margin-left: -0.5%;
+    background-position: right center;
 }
+
+

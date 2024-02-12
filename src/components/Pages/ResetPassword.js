@@ -54,7 +54,6 @@ const ResetPassword = () => {
         console.error('An error occurred during password change:', error);  
         alert('An error occurred during password change. Please try again.');
       } finally {
-        // Reset password fields regardless of the outcome
         
         setnewPassword('');
         setConfirmNewPassword('');
