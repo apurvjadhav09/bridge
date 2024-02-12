@@ -8,10 +8,11 @@
     margin-left: -0.5%;
 }
 .sensor{
-    background-image: url('../Assets/sensorimg.jpg');
+    background-image: url('../Assets/Bridge.png');
     background-repeat: no-repeat;
-    height: 100vh;
-    background-size: 100vh;
+    height: 140vh;
+    background-size: 130vh;
+    margin-left: -0.5%;
 }
 
 #excel{

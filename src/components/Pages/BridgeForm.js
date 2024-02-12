@@ -295,6 +295,7 @@ const BridgeForm = ({onSubmit }) => {
           localStorage.setItem('division', division);
           localStorage.setItem('coordinates', coordinates);
           localStorage.setItem('location', bridgeLocation);
+          localStorage.setItem('name', bridgeName);
           localStorage.setItem('ownerName', ownerName);
           localStorage.setItem('adminName', adminName);
           localStorage.setItem('managerName', managerName);
@@ -394,8 +395,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='adminName' value={adminName} onChange={(e) => setAdminName(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 1)'/>
             <input id='adminEmail' value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='adminPhone' value={adminPhone} onChange={(e) => setAdminPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddAdmin}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-black text-white' onClick={handlePrevAdmin0}>Cancel</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddAdmin}>+</button>
+            <button className='mx-2 py-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevAdmin0}>Cancel</button>
         </div>
         {showAdminForm && ( 
             <form action="">
@@ -403,8 +404,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='adminName' value={adminName2} onChange={(e) => setAdminName2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 2)'/>
             <input id='adminEmail' value={adminEmail2} onChange={(e) => setAdminEmail2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='adminPhone' value={adminPhone2} onChange={(e) => setAdminPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddAdmin1}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevAdmin}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddAdmin1}>+</button>
+            <button className='p-2 mx-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevAdmin}>&larr;</button>
         </div>
         </form>
         )}
@@ -415,7 +416,7 @@ const BridgeForm = ({onSubmit }) => {
             <input id='adminName' value={adminName3} onChange={(e) => setAdminName3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 3)'/>
             <input id='adminEmail' value={adminEmail3} onChange={(e) => setAdminEmail3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='adminPhone' value={adminPhone3} onChange={(e) => setAdminPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevAdmin1}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevAdmin1}>&larr;</button>
         </div>
         </form>
         )}
@@ -431,8 +432,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='managerName' value={managerName} onChange={(e) => setManagerName(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 1)'/>
             <input id='managerEmail' value={managerEmail} onChange={(e) => setManagerEmail(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone' value={managerPhone} onChange={(e) => setManagerPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager0}>Cancel</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager}>+</button>
+            <button className='mx-2 py-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager0}>Cancel</button>
         </div>
         {showManagerForm &&(
         <form className='' action="">
@@ -440,8 +441,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='managerName' value={managerName2} onChange={(e) => setManagerName2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 2)'/>
             <input id='managerEmail' value={managerEmail2} onChange={(e) => setManagerEmail2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone' value={managerPhone2} onChange={(e) => setManagerPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager1}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager1}>+</button>
+            <button className='mx-2 p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager}>&larr;</button>
         </div>
         </form>
         )}
@@ -452,8 +453,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='managerName' value={managerName3} onChange={(e) => setManagerName3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 3)'/>
             <input id='managerEmail' value={managerEmail3} onChange={(e) => setManagerEmail3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone' value={managerPhone3} onChange={(e) => setManagerPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager2}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager1}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager2}>+</button>
+            <button className='mx-2 p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager1}>&larr;</button>
         </div>
         </form>
         )}
@@ -464,8 +465,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='managerName' value={managerName4} onChange={(e) => setManagerName4(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 4)'/>
             <input id='managerEmail' value={managerEmail4} onChange={(e) => setManagerEmail4(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone' value={managerPhone4} onChange={(e) => setManagerPhone4(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager3}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager2}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager3}>+</button>
+            <button className='mx-2 p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager2}>&larr;</button>
         </div>
         </form>
         )}
@@ -476,8 +477,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='managerName' value={managerName5} onChange={(e) => setManagerName5(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 5)'/>
             <input id='managerEmail' value={managerEmail5} onChange={(e) => setManagerEmail5(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone' value={managerPhone5} onChange={(e) => setManagerPhone5(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager4}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager3}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddManager4}>+</button>
+            <button className='mx-2 p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager3}>&larr;</button>
         </div>
         </form>
         )}
@@ -488,7 +489,7 @@ const BridgeForm = ({onSubmit }) => {
             <input id='managerName' value={managerName6} onChange={(e) => setManagerName6(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 6)'/>
             <input id='managerEmail' value={managerEmail6} onChange={(e) => setManagerEmail6(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone' value={managerPhone6} onChange={(e) => setManagerPhone6(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager4}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevManager4}>&larr;</button>
         </div>
         </form>
         )}
@@ -505,8 +506,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='ownerName' value={ownerName} onChange={(e) => setOwnerName(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 1)'/>
             <input id='ownerEmail' value={ownerEmail} onChange={(e) => setOwnerEmail(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='ownerPhone' value={ownerPhone} onChange={(e) => setOwnerPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddOwner}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevOwner0}>Cancel</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddOwner}>+</button>
+            <button className='mx-2 py-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevOwner0}>Cancel</button>
         </div>
         {showOwnerForm && (
         <form action="">
@@ -514,8 +515,8 @@ const BridgeForm = ({onSubmit }) => {
             <input id='ownerName' value={ownerName2} onChange={(e) => setOwnerName2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 2)'/>
             <input id='ownerEmail' value={ownerEmail2} onChange={(e) => setOwnerEmail2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='ownerPhone' value={ownerPhone2} onChange={(e) => setOwnerPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-4 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddOwner1}>+</button>
-            <button className='px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevOwner}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handleAddOwner1}>+</button>
+            <button className='mx-2 p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevOwner}>&larr;</button>
         </div>
         </form>
         )}
@@ -525,7 +526,7 @@ const BridgeForm = ({onSubmit }) => {
             <input id='ownerName' value={ownerName3} onChange={(e) => setOwnerName3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 3)'/>
             <input id='ownerEmail' value={ownerEmail3} onChange={(e) => setOwnerEmail3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='ownerPhone' value={ownerPhone3} onChange={(e) => setOwnerPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='mx-2 px-3 py-3 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevOwner1}>&larr;</button>
+            <button className='p-2 rounded-sm bg-pink-600 text-white hover:bg-pink-800' onClick={handlePrevOwner1}>&larr;</button>
         </div>
         </form>
         )}
