@@ -35,7 +35,7 @@ const SensorForm = () => {
     const storedOwnerName = localStorage.getItem('ownerName');
     const storedAdminName = localStorage.getItem('adminName');
     const storedManagerName = localStorage.getItem('managerName');
-    const storedBridgeLocation = localStorage.getItem('bridgeLocation')
+    const location = localStorage.getItem('location')
     const storedBridgeName = localStorage.getItem('bridgeName');
   
     setCountry(storedCountry || '');
@@ -45,7 +45,7 @@ const SensorForm = () => {
     setOwnerName(storedOwnerName || '');  
     setAdminName(storedAdminName || '');
     setManagerName(storedManagerName || '');
-    setBridgeLocation(storedBridgeLocation || '');
+    setBridgeLocation(location || '');
     setBridgeName(storedBridgeName || '');
   }, []);
 
@@ -156,7 +156,7 @@ const SensorForm = () => {
           <input type="text" value={bridgeLocation} className="border border-gray-300 p-1 w-full rounded" readOnly/>
         </div>
         <div className="mb-4 px-5">
-          <label htmlFor="sensorlocation" className="block text-gray-700">Bridge Location:</label>
+          <label htmlFor="sensorlocation" className="block text-gray-700">Bridge Name:</label>
           <input type="text" value={bridgeName} className="border border-gray-300 p-1 w-full rounded" readOnly/>
         </div>
         

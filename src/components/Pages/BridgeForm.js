@@ -16,7 +16,7 @@ const BridgeForm = ({onSubmit }) => {
   const [coordinates, setCoordinates] =useState('');
   const [division, setDivision] = useState('');
   const [bridgeName, setBridgeName] = useState('');
-  const [bridgeLocation, setBridgeLocation] = useState('');
+  const [location, setlocation] = useState('');
 
   
   const navigate = useNavigate();
@@ -216,7 +216,7 @@ const BridgeForm = ({onSubmit }) => {
 
 
   const UserForm = () => {
-    if(coordinates === '' || division === '' || bridgeName === '' || country === '' || state==='' || bridgeLocation===''){
+    if(coordinates === '' || division === '' || bridgeName === '' || country === '' || state==='' || location===''){
       alert('Please Fill all the Bridge Related Data');
     }
     else{
@@ -231,7 +231,7 @@ const BridgeForm = ({onSubmit }) => {
     setDivision('');
     setCoordinates('');
     setBridgeName('');
-    setBridgeLocation('');
+    setlocation('');
   };
   
 
@@ -246,7 +246,7 @@ const BridgeForm = ({onSubmit }) => {
             division:division,
             coordinates:coordinates,
             bridgeName:bridgeName,
-            bridgeLocation:bridgeLocation,
+            location:location,
 
             adminEmail: adminEmail,
             adminName: adminName,
@@ -294,13 +294,13 @@ const BridgeForm = ({onSubmit }) => {
           localStorage.setItem('state', state);
           localStorage.setItem('division', division);
           localStorage.setItem('coordinates', coordinates);
-          localStorage.setItem('location', bridgeLocation);
+          localStorage.setItem('location', location);
           localStorage.setItem('name', bridgeName);
           localStorage.setItem('ownerName', ownerName);
           localStorage.setItem('adminName', adminName);
           localStorage.setItem('managerName', managerName);
           console.log('Backend response:', response.data);
-          navigate('/sensorform');
+          navigate('/home/bridgeform/sensorform');
           if (onSubmit) {
             onSubmit();
           }
@@ -385,7 +385,7 @@ const BridgeForm = ({onSubmit }) => {
 
 
           {showUserForm && ( 
-      <div className='absolute text-left left-1/2 w-1/2 max-h-screen'>
+      <div className='absolute text-left left-1/2 w-1/2'>
         <div className='text-center mt-6'>
           <img className='px-72 mt-10 mb-16' src={logo} alt="" />
           <h1 className='mt-12 mb-12 text-3xl font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Add User Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
@@ -588,7 +588,7 @@ const BridgeForm = ({onSubmit }) => {
             <label htmlFor='bridgeName' className="block text-gray-700">
               Bridge Location:
             </label>
-            <input type="text" id="location" placeholder='Enter Location' name="location" value={bridgeLocation} onChange={(e) => setBridgeLocation(e.target.value)} className="border border-gray-300 p-2 w-full rounded" />
+            <input type="text" id="location" placeholder='Enter Location' name="location" value={location} onChange={(e) => setlocation(e.target.value)} className="border border-gray-300 p-2 w-full rounded" />
           </div>
           <div className="mb-6">
             <label htmlFor='bridgeName' className="block text-gray-700">
