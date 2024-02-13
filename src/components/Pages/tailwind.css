@@ -22,6 +22,13 @@
     margin-left: -0.5%;
     background-position: right;
 }
+.home{
+    background-image: url('../Assets/Bridge.png');
+    background-repeat: no-repeat;
+    background-size: 100vh;
+    height: 100vh;
+    margin-left: -0.5%;
+}
 
 #excel{
     background-image: url('../Assets/camera.jpg');

@@ -121,8 +121,8 @@ const BridgeForm = ({onSubmit }) => {
 
 
   const UserForm = () => {
-    if(coordinates === '' || division === '' || bridgeName === '' || country === '' || state==='' || location===''){
-      alert('Please Fill all the Bridge Related Data');
+    if(country === '' || state === '' || coordinates === '' || division === '' || location === '' || bridgeName === ''){
+      alert('Please Fill all bridge related data!')
     }
     else{
       setShowUserForm(!showUserForm);
@@ -130,7 +130,7 @@ const BridgeForm = ({onSubmit }) => {
     }
   };
 
-  const UserCancel = () => {
+  const CancelBridgeForm = () => {
     setCountry('');
     setState('');
     setDivision('');
@@ -138,20 +138,23 @@ const BridgeForm = ({onSubmit }) => {
     setBridgeName('');
     setlocation('');
   };
-  
+
+  const Cancel = () => {
+    CancelBridgeForm();
+  };
 
 
 
   const submitForm = async (e) => {
     e.preventDefault();
     if(adminName ==='' || adminEmail === '' || adminPhone === ''){
-      alert('Please add atleast One Admin!')
+      alert('Please add atleast One Admin!');
     }
     else if(managerName === '' || managerEmail === '' || managerPhone === ''){
-      alert('Please add atleast One Manager!')
+      alert('Please add atleast One Manager!');
     }
     else if(ownerName === '' || ownerEmail === '' || ownerPhone === ''){
-      alert('Please add atleast One Owner!')
+      alert('Please add atleast One Owner!');
     }
     else{
         try {
@@ -305,6 +308,8 @@ const BridgeForm = ({onSubmit }) => {
 
 
 
+
+
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -432,7 +437,7 @@ const BridgeForm = ({onSubmit }) => {
 
     {showBridgeForm && ( 
       <div className="w-1/2 px-2 bg-white rounded-xl">
-        <form onSubmit={submitForm}>
+        <form>
           <div className='px-72 mt-10 mb-16'>
           <img  src={logo} alt="" />
           </div>
@@ -490,7 +495,7 @@ const BridgeForm = ({onSubmit }) => {
       </div>
           <div className='flex align-center justify-center text-center mt-12'>
             <button type="submit" onClick={UserForm} className="bg-blue-600 px-6 mx-2 py-2 text-gray-100 rounded-sm hover:bg-pink-600">Next</button>
-            <button onClick={UserCancel} className="bg-black px-5 py-2 text-gray-100 rounded-sm hover:bg-indigo-900 ml-2 hover:bg-pink-600">Cancel</button>
+            <button onClick={Cancel} className="bg-black px-5 py-2 text-gray-100 rounded-sm hover:bg-indigo-900 ml-2 hover:bg-pink-600">Cancel</button>
           </div>
           
         </form>
