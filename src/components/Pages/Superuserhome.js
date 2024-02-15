@@ -294,9 +294,8 @@ const Superuserhome = () => {
     const [showModify, setshowModify] = useState(false);
 
 //MODIFY SECTION
-    const [country] = useState('');
-    const id = useState('');
-    const bridgeName = useState('');
+const [id,setId]=useState('');
+const bridgeName = localStorage.getItem('bridgeName');
   
     const countries = ['India', 'USA', 'Australia']; 
     const statesByCountry = {
@@ -306,24 +305,27 @@ const Superuserhome = () => {
     }; 
 
 
+    console.log(bridgeName);
     useEffect(() => {
         const findBridgeID = async () => {
-            try{
-                const response = await axios.get(`http://localhost:9090/bridgeid?bridgeName=${bridgeName}`)
-                if(response.status === 200){
-                    console.log(response.data)
+        
+                try {
+                    const response = await axios.get(`http://localhost:9090/bridge/bridgeid?bridgeName=${bridgeName}`)
+                    if (response.status === 200) {
+                        console.log(response.data)
+                        setId(response.data)
+                    } else {
+                        console.error('Failed to fetch data:', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
                 }
-                else{
-                    console.error('Failed to fetch data:', response.statusText);
-                }
-            }
-            catch(error){
-                console.error('Error:', error);
-            }
+            
         };
-
+    
         findBridgeID();
-      }, [bridgeName]);
+    }, [bridgeName]);
+
     
       const [userData, setUserData] = useState({
         country: '',
@@ -379,6 +381,9 @@ const Superuserhome = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                if (!id) {
+                    return;
+                }
               const response = await axios.get(`http://localhost:9090/bridge/getbridge/${id}`);
               if (response.status === 200) {
                 console.log(response.data);
@@ -408,6 +413,16 @@ const Superuserhome = () => {
       }, [id]);
 
       const updateData = async (dataToUpdate) => {
+        if(userData.adminName === userData.adminEmail === userData.adminPhone === ''){
+            alert('Please Add Atleast One Admin!')
+        }
+        else if(userData.managerName === userData.managerEmail === userData.managerPhone === ''){
+            alert('Please Add Atleast One Manager!');
+        }
+        else if(userData.ownerName === userData.ownerEmail === userData.ownerPhone === ''){
+            alert('Please Add Atleast One Owner!');
+        }
+        else{
         try {
             const dataToUpdate = {
                 country: userData.country,
@@ -459,14 +474,14 @@ const Superuserhome = () => {
                 managerName6: userData.managerName6,
                 managerPhone6: userData.managerPhone6,
             };
-
-          const response = await axios.put('http://localhost:9090/bridge/updatebridge/1', dataToUpdate);
-          console.log('Data updated successfully:', response.data);
-          return response.data; // Optionally return any data received from the server
-        } catch (error) {
-          console.error('Error updating data:', error);
-          throw error; // Optionally rethrow the error to handle it in the calling code
+            const response = await axios.put('http://localhost:9090/bridge/updatebridge/1', dataToUpdate);
+            console.log('Data updated successfully:', response.data);
+            return response.data; // Optionally return any data received from the server
+            } catch (error) {
+            console.error('Error updating data:', error);
+            throw error; // Optionally rethrow the error to handle it in the calling code
         }
+    }
       };
 
 
@@ -737,14 +752,15 @@ const Superuserhome = () => {
 {showModify && (
         <>
         <div className='w-11/12 ml-24 p-6 pt-24 bg-white'>
-        <h1 className='text-center text-4xl font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; User Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+        <h1 className='text-center text-4xl font-semibold pb-12'>Bridge Details</h1>
         <form>
+        <h1 className='text-center text-3xl w-1/2 font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Bridge Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
           <div className="flex w-1/2">
             <div className='w-1/2 mx-5'>
               <div className="mb-6">
             <label htmlFor="country" className="block text-gray-700">Country:</label>
             <select id="country" name="country" value={userData.country} onChange={(e) => setUserData(prevData => ({...prevData, country: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" >
-                <option value="" disabled>Select Country</option>
+                <option value="country" disabled>Select Country</option>
                 {countries.map((country, index) => (
                 <option key={index} value={country}>{country}</option>
               ))}
@@ -755,8 +771,8 @@ const Superuserhome = () => {
               State:
             </label>
             <select id="state" name="state" value={userData.state} onChange={(e) => setUserData(prevData => ({...prevData, state: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
-                <option value="" disabled>Select State</option>
-                {statesByCountry[country]?.map((state, index) => (
+                <option value="state" disabled>Select State</option>
+                {statesByCountry[userData.country]?.map((state, index) => (
                 <option key={index} value={state}>{state}</option>
               ))}
             </select>
@@ -792,6 +808,7 @@ const Superuserhome = () => {
         </div>
         </form>
         <div className='mid relative z-0 ml-6 text-left left-1/2 w-1/2'>
+        <h1 className='text-center text-3xl font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; User Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
         <div>
             <h3 className=''>Added Admin(s):</h3>
             <input id='adminName' value={userData.adminName} onChange={(e) => setUserData(prevData => ({...prevData, adminName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 1)'/>
@@ -854,7 +871,7 @@ const Superuserhome = () => {
             <input id='managerPhone6' value={userData.managerPhone6} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone6: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
         </div>
         </form>
-        
+
         <br /><br /><br />
 
         <div>
@@ -863,7 +880,7 @@ const Superuserhome = () => {
             <input id='ownerEmail' value={userData.ownerEmail} onChange={(e) => setUserData(prevData => ({...prevData, ownerEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='ownerPhone' value={userData.ownerPhone} onChange={(e) => setUserData(prevData => ({...prevData, ownerPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
         </div>
-    
+
         <form action="submit">
         <div className='mt-5'>
             <input id='ownerName2' value={userData.ownerName2} onChange={(e) => setUserData(prevData => ({...prevData, ownerName2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 2)'/>
@@ -882,7 +899,7 @@ const Superuserhome = () => {
         <button className='p-2 text-white px-4 rounded-sm bg-pink-600 hover:bg-pink-900' onClick={updateData}>Save</button>
       </div>
         </div>
-        </>
+        </> 
       )}
 
     </>
