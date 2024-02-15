@@ -35,7 +35,7 @@ const Addexcelfile = () => {
             try{
                 const formData = new FormData();
                   formData.append('file', selectedFile.file);
-                const response = await axios.post('https://shm-server.azurewebsites.net/files/upload', formData,{
+                const response = await axios.post('http://localhost:9090/files/upload', formData,{
                     headers:{
                         'Content-Type': 'multipart/form-data',
                     }

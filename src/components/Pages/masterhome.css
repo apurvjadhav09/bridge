@@ -73,7 +73,7 @@
     display: flex;
     background-image: linear-gradient(to left, #0000001f, #000000), url("../Assets/sabg.jpg");
     background-repeat: no-repeat;
-    height: 120vh;
+    min-height: 100vh;
 }
 .masterhome-text{
     flex-basis: 100%;

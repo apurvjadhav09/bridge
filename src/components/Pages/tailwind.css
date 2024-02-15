@@ -25,9 +25,10 @@
 .home{
     background-image: url('../Assets/Bridge.png');
     background-repeat: no-repeat;
-    background-size: 100vh;
-    height: 100vh;
+    background-size: 120vh;
+    height: 120vh;
     margin-left: -0.5%;
+    background-position: right;
 }
 
 #excel{
@@ -42,7 +43,10 @@
     height: 140vh;
     background-size: 135vh;
     margin-left: -0.5%;
-    background-position: right center;
+    background-position: right;
+}
+.mid{
+    margin-top: -20%
 }
 
 

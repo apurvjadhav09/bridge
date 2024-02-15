@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import './masterhome.css';
 import axios from 'axios';
 
 import logo from '../Assets/logo.png';
-// import logo2 from '../Assets/logo2.png';
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 function Masterhome() {
   const [showForm, setShowForm] = useState(false);
-  // const navigate = useNavigate();
+  const [showUpdateBridge, setshowUpdateBridge] = useState(false);
+
+  const updateBridge = () => {
+    setshowUpdateBridge(!showUpdateBridge);
+  };
+
+  const backHome = () => {
+    setshowUpdateBridge(false);
+  };
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -38,19 +45,15 @@ function Masterhome() {
       const response = await axios.post('http://localhost:9090/masterhome/register', formData);
       console.log('Form submitted successfully', response.data);
       alert('Form submitted successfully');
-      // Optionally, you can navigate to another page or perform additional actions
-      // navigate('/success-page');
     } catch (error) {
       console.error('Error submitting form', error);
-      // Handle error as needed
     }
-
-    // Close the form after submission
     setShowForm(false);
   };
 
   return (
     <>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
       <div className="masterhome">
         <div className="masterhome-text">
           <h1>MASTER-ADMIN DASHBOARD</h1>
@@ -58,20 +61,12 @@ function Masterhome() {
           <br />
           <br />
           <div className="btncenter">
-            <button className="btn" onClick={toggleForm}>
-              Add Super-User &#x2192;
-            </button>
-            <button className="btn" onClick={toggleForm}>
-              Button 1
-            </button>
-            <button className="btn" onClick={toggleForm}>
-              Button 2
-            </button>
-            <button className="btn" onClick={toggleForm}>
-              Button 3
-            </button>
+            <button className="btn" onClick={toggleForm}>Add Super-User &#x2192;</button>
+            <button className='btn' onClick={updateBridge}>Update Bridge Data</button>
           </div>
         </div>
+
+
         {showForm && (
           <div className="form-container">
             <form onSubmit={submitForm}>
@@ -102,10 +97,7 @@ function Masterhome() {
                   <option value="+1">+1</option>
                 </select>
                 <input type="text" name="phoneNumber" maxLength="10"/>
-                
                 </div>
-                
-                
                 <br />
                 <label className='lab' htmlFor="Role">Role:</label>
                 <input type="text" defaultValue="SUPERADMIN" name="superadmin" readOnly />
@@ -117,6 +109,13 @@ function Masterhome() {
                 Cancel
               </button>
             </form>
+          </div>
+        )}
+
+        { showUpdateBridge && (
+          <div className='absolute w-1/2 bg-white min-h-screen'>
+            <button className='inline-flex underline mt-4' onClick={backHome}><IoArrowBackCircleSharp size={32}/>Home</button>
+            blabla
           </div>
         )}
         <div className="masterhome-image">

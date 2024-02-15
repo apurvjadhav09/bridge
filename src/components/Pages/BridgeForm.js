@@ -7,6 +7,8 @@ import logo2 from '../Assets/logo.png';
 import logo from '../Assets/logo2.png';
 
 import { MdOutlineAddCircleOutline, MdOutlineRemoveCircleOutline } from "react-icons/md";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
+
 
 
 const BridgeForm = ({onSubmit }) => {
@@ -301,10 +303,9 @@ const BridgeForm = ({onSubmit }) => {
         setShowUserForm(false);
       };
 
-
-
-
-
+      const backHome = () => {
+        navigate('/home')
+      }
 
 
 
@@ -437,6 +438,7 @@ const BridgeForm = ({onSubmit }) => {
 
     {showBridgeForm && ( 
       <div className="w-1/2 px-2 bg-white rounded-xl">
+            <button className='inline-flex underline mt-4' onClick={backHome}><IoArrowBackCircleSharp size={32}/>Home</button>
         <form>
           <div className='px-72 mt-10 mb-16'>
           <img  src={logo} alt="" />

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Papa from 'papaparse';
 import { Line } from 'react-chartjs-2';
 import SensorData from '../Assets/Data.csv';
@@ -16,7 +17,7 @@ import {
 } from 'chart.js';
 
 import { FaBridge } from "react-icons/fa6";
-import { FaArrowCircleRight } from "react-icons/fa";
+import { FaArrowCircleRight, FaEdit } from "react-icons/fa";
 import {MdHome, MdSettings, MdPerson, MdSearch, MdNotifications, MdDashboard, MdSensors, MdDescription, MdLogout, MdEdit } from 'react-icons/md'
 
 import logo2 from '../Assets/logo2.png';
@@ -284,11 +285,169 @@ const Superuserhome = () => {
     const navigate = useNavigate();
     const [isSelected, setIsSelected] = useState(true);
     const [isSelected1, setIsSelected1] = useState(false);
+    const [isSelected4, setIsSelected4] = useState(false);
 
 
     const [showUserDetails, setshowUserDetails] = useState(false);
     const [showDashboard, setshowDashboard] = useState(true);
     const [showSensorDashboard, setshowSensorDashboard] = useState(false);
+    const [showModify, setshowModify] = useState(false);
+
+//MODIFY SECTION
+    const [country] = useState('');
+    const [bridgeName] = localStorage.setItem('bridgeName');
+  
+  
+    const countries = ['India', 'USA', 'Australia']; 
+    const statesByCountry = {
+      India: ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'],
+      USA: ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
+      Australia: ['Australian Capital Territory', 'New South Wales', 'Northern Territory', 'Queensland', 'South Australia', 'Tasmania', 'Victoria', 'Western Australia'],
+    }; 
+
+    const [userData, setUserData] = useState({
+        country: '',
+        state: '',
+        coordinates: '',
+        division: '',
+        location: '',
+        bridgeName: '',
+
+        adminEmail: '',
+        adminName: '',
+        adminPhone: '',
+        managerEmail: '',
+        managerName: '',
+        managerPhone: '',
+        ownerEmail: '',
+        ownerName: '',
+        ownerPhone: '',
+
+        adminEmail2: '',
+        adminName2: '',
+        adminPhone2: '',
+        managerEmail2: '',
+        managerName2: '',
+        managerPhone2: '',
+        ownerEmail2: '',
+        ownerName2: '',
+        ownerPhone2: '',
+
+        adminEmail3: '',
+        adminName3: '',
+        adminPhone3: '',
+        managerEmail3: '',
+        managerName3: '',
+        managerPhone3: '',
+        ownerEmail3: '',
+        ownerName3: '',
+        ownerPhone3: '',
+
+        managerEmail4: '',
+        managerName4: '',
+        managerPhone4: '',
+
+        managerEmail5: '',
+        managerName5: '',
+        managerPhone5: '',
+        
+        managerEmail6: '',
+        managerName6: '',
+        managerPhone6: '',
+    });
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+              const response = await axios.get(`http://localhost:9090/bridge/bridgeid?bridgeName=${bridgeName}`);
+              if (response.status === 200) {
+                console.log(response.data);
+                const { country, state, coordinates, division, location, bridgeName, 
+                    adminName, adminEmail, adminPhone, adminName2, adminEmail2, adminPhone2, 
+                    adminName3, adminEmail3, adminPhone3, managerName, managerEmail, managerPhone,
+                    managerName2, managerEmail2, managerPhone2, managerName3, managerEmail3, managerPhone3,
+                    managerName4, managerEmail4, managerPhone4, managerName5, managerEmail5, managerPhone5,
+                    managerName6, managerEmail6, managerPhone6, ownerName, ownerEmail, ownerPhone, ownerName2, 
+                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3 } = response.data;
+                setUserData({country, state, coordinates, division, location, bridgeName, 
+                    adminName, adminEmail, adminPhone, adminName2, adminEmail2, adminPhone2, 
+                    adminName3, adminEmail3, adminPhone3, managerName, managerEmail, managerPhone,
+                    managerName2, managerEmail2, managerPhone2, managerName3, managerEmail3, managerPhone3,
+                    managerName4, managerEmail4, managerPhone4, managerName5, managerEmail5, managerPhone5,
+                    managerName6, managerEmail6, managerPhone6, ownerName, ownerEmail, ownerPhone, ownerName2, 
+                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3});
+              } else {
+                console.error('Failed to fetch data:', response.statusText);
+              }
+            } catch (error) {
+              console.error('Error:', error);
+            }
+          };
+
+        fetchData();
+      }, [bridgeName]);
+
+      const updateData = async (dataToUpdate) => {
+        try {
+            const dataToUpdate = {
+                country: userData.country,
+                state: userData.state,
+                coordinates: userData.coordinates,
+                division: userData.division,
+                location: userData.location,
+                bridgeName: userData.bridgeName,
+
+                adminEmail: userData.adminEmail,
+                adminName: userData.adminName,
+                adminPhone: userData.adminPhone,
+                managerEmail: userData.managerEmail,
+                managerName: userData.managerName,
+                managerPhone: userData.managerPhone,
+                ownerEmail: userData.ownerEmail,
+                ownerName: userData.ownerName,
+                ownerPhone: userData.ownerPhone,
+
+                adminEmail2: userData.adminEmail2,
+                adminName2: userData.adminName2,
+                adminPhone2: userData.adminPhone2,
+                managerEmail2: userData.managerEmail2,
+                managerName2: userData.managerName2,
+                managerPhone2: userData.managerPhone2,
+                ownerEmail2: userData.ownerEmail2,
+                ownerName2: userData.ownerName2,
+                ownerPhone2: userData.ownerPhone2,
+
+                adminEmail3: userData.adminEmail3,
+                adminName3: userData.adminName3,
+                adminPhone3: userData.adminPhone3,
+                managerEmail3: userData.managerEmail3,
+                managerName3: userData.managerName3,
+                managerPhone3: userData.managerPhone3,
+                ownerEmail3: userData.ownerEmail3,
+                ownerName3: userData.ownerName3,
+                ownerPhone3: userData.ownerPhone3,
+
+                managerEmail4: userData.managerEmail4,
+                managerName4: userData.managerName4,
+                managerPhone4: userData.managerPhone4,
+
+                managerEmail5: userData.managerEmail5,
+                managerName5: userData.managerName5,
+                managerPhone5: userData.managerPhone5,
+                
+                managerEmail6: userData.managerEmail6,
+                managerName6: userData.managerName6,
+                managerPhone6: userData.managerPhone6,
+            };
+
+          const response = await axios.put('http://localhost:9090/bridge/updatebridge/1', dataToUpdate);
+          console.log('Data updated successfully:', response.data);
+          return response.data; // Optionally return any data received from the server
+        } catch (error) {
+          console.error('Error updating data:', error);
+          throw error; // Optionally rethrow the error to handle it in the calling code
+        }
+      };
+
 
     const UserDetails = () => {
         setshowUserDetails(!showUserDetails);
@@ -297,27 +456,42 @@ const Superuserhome = () => {
     const Dashboard = () => {
         setIsSelected(!isSelected);
         setIsSelected1(false);
+        setIsSelected4(false);
         setshowDashboard(!showDashboard);
         setshowSensorDashboard(false);
+        setshowModify(false);
     };
 
     const SensorDashboard = () => {
         setIsSelected1(!isSelected1);
         setIsSelected(false);
+        setIsSelected4(false);
         setshowSensorDashboard(!showSensorDashboard);
         setshowDashboard(false);
-    };
+        setshowModify(false);    };
 
     const RedirectHome = () => {
         navigate('../home')
     };
 
 
+    const Modify = () => {
+        setshowSensorDashboard(false);
+        setshowDashboard(false);
+        setIsSelected1(false);
+        setIsSelected(false);
+        setshowModify(!showModify);
+        setIsSelected4(!isSelected4);
+    };
+
+
+
+
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
-      <div className="flex fixed w-full justify-center bg-gray-100 py-2 shadow-xl">
+      <div className="flex fixed z-10 w-full justify-center bg-gray-100 py-2 shadow-xl">
         <div className='w-full'>   
            <img className='h-10 pt-2 cursor-pointer px-5'  src={logo2} alt=""/>
         </div>
@@ -342,6 +516,8 @@ const Superuserhome = () => {
             <button className='w-full py-3 hover:bg-gray-400'><ul><FaBridge style={{width: '100%', alignItems: 'center'}} size={40} />Bridge</ul></button>
             <hr /><hr />
             <button className='w-full py-3 hover:bg-gray-400'><ul><MdDescription style={{width: '100%', alignItems: 'center'}} size={40} />Report</ul></button>
+            <hr /><hr />
+            <button className={`w-full py-3 ${isSelected4 ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={Modify}><ul><FaEdit style={{width: '100%', alignItems: 'center'}} size={40} />Modify</ul></button>
             <hr /><hr />
             <button className='w-full py-3 hover:bg-gray-400'><ul><MdSettings style={{width: '100%', alignItems: 'center'}} size={40}/>Settings</ul></button>
         </div>  
@@ -535,9 +711,161 @@ const Superuserhome = () => {
 
         </>
       )}
+      
+
+{showModify && (
+        <>
+        <div className='w-11/12 ml-24 p-6 pt-24 bg-white'>
+        <h1 className='text-center text-4xl font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; User Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+        <form>
+          <div className="flex w-1/2">
+            <div className='w-1/2 mx-5'>
+              <div className="mb-6">
+            <label htmlFor="country" className="block text-gray-700">Country:</label>
+            <select id="country" name="country" value={userData.country} onChange={(e) => setUserData(prevData => ({...prevData, country: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" >
+                <option value="" disabled>Select Country</option>
+                {countries.map((country, index) => (
+                <option key={index} value={country}>{country}</option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-6">
+            <label htmlFor="state" className="block text-gray-700">
+              State:
+            </label>
+            <select id="state" name="state" value={userData.state} onChange={(e) => setUserData(prevData => ({...prevData, state: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
+                <option value="" disabled>Select State</option>
+                {statesByCountry[country]?.map((state, index) => (
+                <option key={index} value={state}>{state}</option>
+              ))}
+            </select>
+          </div>
+          <div className="mb-6">
+            <label htmlFor="coordinates" className="block text-gray-700">
+              Bridge Coordinates:
+            </label>
+            <input
+              type="text" id="coordinates" placeholder='Enter Coordinates' name="coordinates" value={userData.coordinates} onChange={(e) => setUserData(prevData => ({...prevData, coordinates: e.target.value}))} className="border border-gray-300 p-2 w-full rounded"/>
+          </div>
+            </div>
+            <div className='w-1/2 mx-5'>
+            <div className="mb-6">
+            <label htmlFor="division" className="block text-gray-700">
+              Division:
+            </label>
+            <input type="text" id="division" placeholder='Enter Division' name="division" value={userData.division} onChange={(e) => setUserData(prevData => ({...prevData, division: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
+          </div>
+          <div className="mb-6">
+            <label htmlFor='bridgeName' className="block text-gray-700">
+              Bridge Location:
+            </label>
+            <input type="text" id="location" placeholder='Enter Location' name="location" value={userData.location} onChange={(e) => setUserData(prevData => ({...prevData, location: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
+          </div>
+          <div className="mb-6">
+            <label htmlFor='bridgeName' className="block text-gray-700">
+              Bridge Name:
+            </label>
+            <input type="text" id="name" placeholder='Enter Name' name="name" value={userData.bridgeName} onChange={(e) => setUserData(prevData => ({...prevData, bridgeName: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
+          </div>
+        </div>
+        </div>
+        </form>
+        <div className='mid relative z-0 ml-6 text-left left-1/2 w-1/2'>
+        <div>
+            <h3 className=''>Added Admin(s):</h3>
+            <input id='adminName' value={userData.adminName} onChange={(e) => setUserData(prevData => ({...prevData, adminName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 1)'/>
+            <input id='adminEmail' value={userData.adminEmail} onChange={(e) => setUserData(prevData => ({...prevData, adminEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='adminPhone' value={userData.adminPhone} onChange={(e) => setUserData(prevData => ({...prevData, adminPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+       
+        <form action="submit">
+        <div className='mt-5'>
+            <input id='adminName2' value={userData.adminName2} onChange={(e) => setUserData(prevData => ({...prevData, adminName2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 2)'/>
+            <input id='adminEmail2' value={userData.adminEmail2} onChange={(e) => setUserData(prevData => ({...prevData, adminEmail2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='adminPhone2' value={userData.adminPhone2} onChange={(e) => setUserData(prevData => ({...prevData, adminPhone2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+
+        <div className='mt-5'>
+            <input id='adminName3' value={userData.adminName3} onChange={(e) => setUserData(prevData => ({...prevData, adminName3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 3)'/>
+            <input id='adminEmail3' value={userData.adminEmail3} onChange={(e) => setUserData(prevData => ({...prevData, adminEmail3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='adminPhone3' value={userData.adminPhone3} onChange={(e) => setUserData(prevData => ({...prevData, adminPhone3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+        </form>
+
+        <br /><br /><br />
+
+        <div>
+            <h3>Added Manager(s):</h3>
+            <input id='managerName' value={userData.managerName} onChange={(e) => setUserData(prevData => ({...prevData, managerName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 1)'/>
+            <input id='managerEmail' value={userData.managerEmail} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='managerPhone' value={userData.managerPhone} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+
+        <form action="submit">
+        <div className='mt-5'>
+            <input id='managerName2' value={userData.managerName2} onChange={(e) => setUserData(prevData => ({...prevData, managerName2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 2)'/>
+            <input id='managerEmail2' value={userData.managerEmail2} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='managerPhone2' value={userData.managerPhone2} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+
+
+        <div className='mt-5'>
+            <input id='managerName3' value={userData.managerName3} onChange={(e) => setUserData(prevData => ({...prevData, managerName3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 3)'/>
+            <input id='managerEmail3' value={userData.managerEmail3} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='managerPhone3' value={userData.managerPhone3} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+
+        <div className='mt-5'>
+            <input id='managerName4' value={userData.managerName4} onChange={(e) => setUserData(prevData => ({...prevData, managerName4: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 4)'/>
+            <input id='managerEmail4' value={userData.managerEmail4} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail4: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='managerPhone4' value={userData.managerPhone4} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone4: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+
+        <div className='mt-5'>
+            <input id='managerName5' value={userData.managerName5} onChange={(e) => setUserData(prevData => ({...prevData, managerName5: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 5)'/>
+            <input id='managerEmail5' value={userData.managerEmail5} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail5: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='managerPhone5' value={userData.managerPhone5} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone5: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+
+        <div className='mt-5'>
+            <input id='managerName6' value={userData.managerName6} onChange={(e) => setUserData(prevData => ({...prevData, managerName6: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 6)'/>
+            <input id='managerEmail6' value={userData.managerEmail6} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail6: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='managerPhone6' value={userData.managerPhone6} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone6: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+        </form>
+        
+        <br /><br /><br />
+
+        <div>
+            <h3>Added Owner(s):</h3>
+            <input id='ownerName' value={userData.ownerName} onChange={(e) => setUserData(prevData => ({...prevData, ownerName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 1)'/>
+            <input id='ownerEmail' value={userData.ownerEmail} onChange={(e) => setUserData(prevData => ({...prevData, ownerEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='ownerPhone' value={userData.ownerPhone} onChange={(e) => setUserData(prevData => ({...prevData, ownerPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+    
+        <form action="submit">
+        <div className='mt-5'>
+            <input id='ownerName2' value={userData.ownerName2} onChange={(e) => setUserData(prevData => ({...prevData, ownerName2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 2)'/>
+            <input id='ownerEmail2' value={userData.ownerEmail2} onChange={(e) => setUserData(prevData => ({...prevData, ownerEmail2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='ownerPhone2' value={userData.ownerPhone2} onChange={(e) => setUserData(prevData => ({...prevData, ownerPhone2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+
+        <div className='mt-5'>
+            <input id='ownerName3' value={userData.ownerName3} onChange={(e) => setUserData(prevData => ({...prevData, ownerName3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 3)'/>
+            <input id='ownerEmail3' value={userData.ownerEmail3} onChange={(e) => setUserData(prevData => ({...prevData, ownerEmail3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
+            <input id='ownerPhone3' value={userData.ownerPhone3} onChange={(e) => setUserData(prevData => ({...prevData, ownerPhone3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+        </div>
+        </form>
+      </div>
+      <div className='text-center pt-6'>
+        <button className='p-2 text-white px-4 rounded-sm bg-pink-600 hover:bg-pink-900' onClick={updateData}>Save</button>
+      </div>
+        </div>
+        </>
+      )}
 
     </>
   )
 };
 
-export default Superuserhome
+export default Superuserhome;

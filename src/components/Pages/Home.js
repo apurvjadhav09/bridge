@@ -64,7 +64,7 @@ const Home = () => {
         try{
             const formData = new FormData();
               formData.append('file', selectedFile.file);
-            const response = await axios.post('https://shm-server.azurewebsites.net/files/upload', formData,{
+            const response = await axios.post('http://localhost:9090/files/upload', formData,{
                 headers:{
                     'Content-Type': 'multipart/form-data',
                 }
@@ -151,13 +151,13 @@ const downloadFileAtURL = (url) => {
         )}
 
         {showHome && (
-        <div className='text-center w-1/2 pr-6'>
+        <div className='text-center w-1/2 px-4'>
         <h1 className='text-3xl font-bold text-black my-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; REGISTER &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
-        <h1 className='text-white mx-56 font-sm mb-6 text-l cursor-pointer bg-black px-3 py-2 rounded-sm hover:bg-pink-600' onClick={Drop}>Select a method to Enter Data &nbsp;&nbsp; <IoIosArrowDropdown style={{alignItems: 'center' , display:'inline-flex'}} size={24}/></h1>
+        <h1 className='text-white mx-56 font-sm mb-6 text-l cursor-pointer bg-black px-3 py-2 rounded-sm hover:bg-pink-600' onClick={Drop}>Select a method to Enter Data &nbsp; <IoIosArrowDropdown style={{alignItems: 'center' , display:'inline-flex'}} size={24}/></h1>
         {Dropdown && (
-        <div className='grid justify-center'>
-          <button onClick={addbridge} className='bg-pink-600 px-3 mx-5 mb-5 py-2 text-gray-100 rounded-sm hover:bg-black'>Add Manually</button>
-          <button onClick={addcsv} className='bg-pink-600 px-4 py-2 mx-5 text-gray-100 rounded-sm hover:bg-black'>Upload Excel</button>
+        <div className='grid justify-center w-full'>
+          <button onClick={addbridge} className='bg-pink-600 px-3 w-full mb-5 py-2 text-gray-100 rounded-sm hover:bg-black'>Add Manually</button>
+          <button onClick={addcsv} className='bg-pink-600 px-4 py-2 w-full text-gray-100 rounded-sm hover:bg-black'>Upload Excel</button>
         </div>
         )}
 
@@ -172,9 +172,7 @@ const downloadFileAtURL = (url) => {
             <ul>
             {BackEndData.map((data, index) => (
               <div key={index}>
-                <p className='cursor-pointer text-gray-600 hover:underline' onClick={RedirectDashboard}>
-                   {data.bridge.bridgeName}
-                </p>
+                <p className='cursor-pointer text-lg text-gray-700 hover:underline' onClick={RedirectDashboard}>{data.bridge.bridgeName}</p>
                 <hr />
               </div>
             ))}
