@@ -295,8 +295,8 @@ const Superuserhome = () => {
 
 //MODIFY SECTION
     const [country] = useState('');
-    const [bridgeName] = localStorage.setItem('bridgeName');
-  
+    const id = useState('');
+    const bridgeName = useState('');
   
     const countries = ['India', 'USA', 'Australia']; 
     const statesByCountry = {
@@ -305,7 +305,27 @@ const Superuserhome = () => {
       Australia: ['Australian Capital Territory', 'New South Wales', 'Northern Territory', 'Queensland', 'South Australia', 'Tasmania', 'Victoria', 'Western Australia'],
     }; 
 
-    const [userData, setUserData] = useState({
+
+    useEffect(() => {
+        const findBridgeID = async () => {
+            try{
+                const response = await axios.get(`http://localhost:9090/bridgeid?bridgeName=${bridgeName}`)
+                if(response.status === 200){
+                    console.log(response.data)
+                }
+                else{
+                    console.error('Failed to fetch data:', response.statusText);
+                }
+            }
+            catch(error){
+                console.error('Error:', error);
+            }
+        };
+
+        findBridgeID();
+      }, [bridgeName]);
+    
+      const [userData, setUserData] = useState({
         country: '',
         state: '',
         coordinates: '',
@@ -355,10 +375,11 @@ const Superuserhome = () => {
         managerName6: '',
         managerPhone6: '',
     });
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-              const response = await axios.get(`http://localhost:9090/bridge/bridgeid?bridgeName=${bridgeName}`);
+              const response = await axios.get(`http://localhost:9090/bridge/getbridge/${id}`);
               if (response.status === 200) {
                 console.log(response.data);
                 const { country, state, coordinates, division, location, bridgeName, 
@@ -384,7 +405,7 @@ const Superuserhome = () => {
           };
 
         fetchData();
-      }, [bridgeName]);
+      }, [id]);
 
       const updateData = async (dataToUpdate) => {
         try {
