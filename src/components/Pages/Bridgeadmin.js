@@ -20,7 +20,6 @@ function Bridgeadmin() {
                 <h1 className="text-4xl">Admin Dashboard</h1><br />
                 <p className="w-2/3">The Admin Dashboard serves as the central hub for overseeing and managing critical roles within the bridge 
                 infrastructure ecosystem.</p>
-                
                 <button>Click to Register</button>
             </div>
             <div>

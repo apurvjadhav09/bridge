@@ -19,6 +19,8 @@ const BridgeForm = ({onSubmit }) => {
   const [division, setDivision] = useState('');
   const [bridgeName, setBridgeName] = useState('');
   const [location, setlocation] = useState('');
+  const [nobridgespan, setnobridgespan] = useState('1');
+  const [noofgirders, setnoofgirders] = useState('1');
 
   
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ const BridgeForm = ({onSubmit }) => {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showManagerForm, setShowManagerForm] = useState(false);
   const [showOwnerForm, setShowOwnerForm] = useState(false); 
+
 
   
   const [adminEmail, setAdminEmail] = useState('');
@@ -123,7 +126,7 @@ const BridgeForm = ({onSubmit }) => {
 
 
   const UserForm = () => {
-    if(country === '' || state === '' || coordinates === '' || division === '' || location === '' || bridgeName === ''){
+    if(country === '' || state === '' || nobridgespan==='' || noofgirders==='' || coordinates === '' || division === '' || location === '' || bridgeName === ''){
       alert('Please Fill all bridge related data!')
     }
     else{
@@ -135,6 +138,8 @@ const BridgeForm = ({onSubmit }) => {
   const CancelBridgeForm = () => {
     setCountry('');
     setState('');
+    setnobridgespan('');
+    setnoofgirders('');
     setDivision('');
     setCoordinates('');
     setBridgeName('');
@@ -163,6 +168,8 @@ const BridgeForm = ({onSubmit }) => {
           const response = await axios.post('http://localhost:9090/bridge/register', {
             country:country,
             state:state,
+            nobridgespan:nobridgespan,
+            noofgirders:noofgirders,
             division:division,
             coordinates:coordinates,
             bridgeName:bridgeName,
@@ -215,6 +222,8 @@ const BridgeForm = ({onSubmit }) => {
           localStorage.setItem('bid',bridgeId);
           localStorage.setItem('country', country);
           localStorage.setItem('state', state);
+          localStorage.setItem('noofgirders', noofgirders);
+          localStorage.setItem('nobridgespan', nobridgespan);
           localStorage.setItem('division', division);
           localStorage.setItem('coordinates', coordinates);
           localStorage.setItem('location', location);
@@ -456,9 +465,7 @@ const BridgeForm = ({onSubmit }) => {
             </select>
           </div>
           <div className="mb-6">
-            <label htmlFor="state" className="block text-gray-700">
-              State:
-            </label>
+            <label htmlFor="state" className="block text-gray-700">State:</label>
             <select id="state" name="state" value={state} onChange={(e) => setState(e.target.value)} className="border border-gray-300 p-2 w-full rounded">
                 <option value="" disabled>Select State</option>
                 {statesByCountry[country]?.map((state, index) => (
@@ -467,14 +474,23 @@ const BridgeForm = ({onSubmit }) => {
             </select>
           </div>
           <div className="mb-6">
-            <label htmlFor="coordinates" className="block text-gray-700">
-              Bridge Coordinates:
-            </label>
-            <input
-              type="text" id="coordinates" placeholder='Enter Coordinates' name="coordinates" value={coordinates} onChange={(e) => setCoordinates(e.target.value)} className="border border-gray-300 p-2 w-full rounded"/>
+            <label htmlFor="nobridgespan" className="block text-gray-700">Number of Bridge Spans:</label>
+            <select id="nobridgespan" name="nobridgespan" onChange={(e) => setnobridgespan(e.target.value)} className="border border-gray-300 p-2 w-full rounded">
+              {[...Array(50).keys()].map((span) => (<option key={span + 1} value={span + 1}>{span + 1}</option>))}
+            </select>
           </div>
-            </div>
+          <div className="mb-6">
+            <label htmlFor="noofgirders" className="block text-gray-700">Number of Girders:</label>
+            <select id="noofgirders" name="noofgirders" onChange={(e) => setnoofgirders(e.target.value)} className="border border-gray-300 p-2 w-full rounded">
+              {[...Array(20).keys()].map((girder) => (<option key={girder + 1} value={girder + 1}>{girder + 1}</option>))}
+            </select>
+          </div>
+        </div>
             <div className='w-1/2 mx-5'>
+            <div className="mb-6">
+            <label htmlFor="coordinates" className="block text-gray-700">Bridge Coordinates:</label>
+            <input type="text" id="coordinates" placeholder='Enter Coordinates' name="coordinates" value={coordinates} onChange={(e) => setCoordinates(e.target.value)} className="border border-gray-300 p-2 w-full rounded"/>
+            </div>
             <div className="mb-6">
             <label htmlFor="division" className="block text-gray-700">
               Division:

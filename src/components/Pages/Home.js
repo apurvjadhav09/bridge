@@ -28,10 +28,7 @@ const Home = () => {
         const response = await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`);
         if (response.status === 200) {
           console.log(response.data);
-          setBackEndData(response.data);
-         
-        
-         
+          setBackEndData(response.data);         
         } else {
           console.error('Failed to fetch data:', response.statusText);
         }
@@ -80,7 +77,7 @@ const Home = () => {
               <ul>
               {BackEndData.map((data, index) => (
                 <div key={index}>
-                  <p className='cursor-pointer text-gray-600 hover:underline' onClick={() => RedirectDashboard(data.bridge.bridgeName)}>
+                  <p className='flex cursor-pointer justify-center text-gray-600 hover:underline' onClick={() => RedirectDashboard(data.bridge.bridgeName)}>
                      {data.bridge.bridgeName}
                   </p>
                   <hr />
@@ -89,7 +86,7 @@ const Home = () => {
             </ul>
             
             ) : (
-              <p>No bridges found</p>
+              <p className='flex justify-center'>No bridges found</p>
             )}
             </ul>
        

@@ -18,7 +18,7 @@ import {
 
 import { FaBridge } from "react-icons/fa6";
 import { FaArrowCircleRight, FaEdit } from "react-icons/fa";
-import {MdHome, MdSettings, MdPerson, MdSearch, MdNotifications, MdDashboard, MdSensors, MdDescription, MdLogout, MdEdit } from 'react-icons/md'
+import {MdHome, MdSettings, MdPerson, MdSearch, MdNotifications, MdDashboard, MdSensors, MdDescription, MdLogout, MdEdit, MdOutlineRemoveCircleOutline } from 'react-icons/md'
 
 import logo2 from '../Assets/logo2.png';
 
@@ -376,6 +376,7 @@ const bridgeName = localStorage.getItem('bridgeName');
         managerEmail6: '',
         managerName6: '',
         managerPhone6: '',
+
     });
 
     useEffect(() => {
@@ -393,14 +394,17 @@ const bridgeName = localStorage.getItem('bridgeName');
                     managerName2, managerEmail2, managerPhone2, managerName3, managerEmail3, managerPhone3,
                     managerName4, managerEmail4, managerPhone4, managerName5, managerEmail5, managerPhone5,
                     managerName6, managerEmail6, managerPhone6, ownerName, ownerEmail, ownerPhone, ownerName2, 
-                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3 } = response.data;
+                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders, 
+                    sensortype, bridgesensorsrno, sensorlocation } = response.data;
+
                 setUserData({country, state, coordinates, division, location, bridgeName, 
                     adminName, adminEmail, adminPhone, adminName2, adminEmail2, adminPhone2, 
                     adminName3, adminEmail3, adminPhone3, managerName, managerEmail, managerPhone,
                     managerName2, managerEmail2, managerPhone2, managerName3, managerEmail3, managerPhone3,
                     managerName4, managerEmail4, managerPhone4, managerName5, managerEmail5, managerPhone5,
                     managerName6, managerEmail6, managerPhone6, ownerName, ownerEmail, ownerPhone, ownerName2, 
-                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3});
+                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders, 
+                    sensortype, bridgesensorsrno, sensorlocation});
               } else {
                 console.error('Failed to fetch data:', response.statusText);
               }
@@ -411,6 +415,7 @@ const bridgeName = localStorage.getItem('bridgeName');
 
         fetchData();
       }, [id]);
+
 
       const updateData = async (dataToUpdate) => {
         if(userData.adminName === userData.adminEmail === userData.adminPhone === ''){
@@ -474,14 +479,75 @@ const bridgeName = localStorage.getItem('bridgeName');
                 managerName6: userData.managerName6,
                 managerPhone6: userData.managerPhone6,
             };
-            const response = await axios.put('http://localhost:9090/bridge/updatebridge/1', dataToUpdate);
-            console.log('Data updated successfully:', response.data);
-            return response.data; // Optionally return any data received from the server
-            } catch (error) {
+            const response = await axios.put(`http://localhost:9090/bridge/updatebridge/${id}`, dataToUpdate);
+            if(response.status >= 200 && response.status < 300){
+                alert('Data Updated Successfully!')
+                console.log('Data updated successfully:', response.data);
+                return response.data;
+            }
+            } 
+            catch (error) {
             console.error('Error updating data:', error);
             throw error; // Optionally rethrow the error to handle it in the calling code
         }
     }
+      };
+
+
+
+      //SensorData
+      const [sensorData, setsensorData] = useState({
+        noofgirders: '',
+        nobridgespan:'',
+        sensortype:'',
+        bridgesensorsrno:'',
+        sensorlocation:'',
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (!id) {
+                    return;
+                }
+              const response = await axios.get(`http://localhost:9090/bridge/getbridge/${id}`);
+              if (response.status === 200) {
+                console.log(response.data);
+                const { noofgirders, nobridgespan, sensortype, bridgesensorsrno, sensorlocation } = response.data;
+
+                setsensorData({ noofgirders, nobridgespan, sensortype, bridgesensorsrno, sensorlocation });
+              } else {
+                console.error('Failed to fetch data:', response.statusText);
+              }
+            } catch (error) {
+              console.error('Error:', error);
+            }
+          };
+
+        fetchData();
+      }, [id]);
+
+
+      const updateSensorData = async (SensordataToUpdate) => {
+        try {
+            const SensordataToUpdate = {
+                noofgirders: sensorData.noofgirders,
+                nobridgespan: sensorData.nobridgespan,
+                sensortype: sensorData.sensortype,
+                sensorlocation: sensorData.sensorlocation,
+                bridgesensorsrno: sensorData.bridgesensorsrno,
+            };
+            const response = await axios.put(`http://localhost:9090/bridge/updatesensor/${id}`, SensordataToUpdate);
+            if(response.status >= 200 && response.status < 300){
+                alert('Data Updated Successfully!')
+                console.log('Data updated successfully:', response.data);
+                return response.data;
+            }
+            } 
+            catch (error) {
+            console.error('Error updating data:', error);
+            throw error; // Optionally rethrow the error to handle it in the calling code
+        }
       };
 
 
@@ -496,6 +562,9 @@ const bridgeName = localStorage.getItem('bridgeName');
         setshowDashboard(!showDashboard);
         setshowSensorDashboard(false);
         setshowModify(false);
+        setshowSensorDetails(false);
+        setshowBridgeDetails(false);
+        setshowUser(false);
     };
 
     const SensorDashboard = () => {
@@ -504,7 +573,11 @@ const bridgeName = localStorage.getItem('bridgeName');
         setIsSelected4(false);
         setshowSensorDashboard(!showSensorDashboard);
         setshowDashboard(false);
-        setshowModify(false);    };
+        setshowModify(false);
+        setshowBridgeDetails(false);
+        setshowSensorDetails(false);
+        setshowUser(false);    
+    };
 
     const RedirectHome = () => {
         navigate('../home')
@@ -516,10 +589,33 @@ const bridgeName = localStorage.getItem('bridgeName');
         setshowDashboard(false);
         setIsSelected1(false);
         setIsSelected(false);
+        setshowSensorDetails(false);
+        setshowUser(false);    
         setshowModify(!showModify);
         setIsSelected4(!isSelected4);
     };
 
+    const [showBridgeDetails, setshowBridgeDetails] = useState(true);
+    const [showSensorDetails, setshowSensorDetails] = useState(true);
+    const [showUser, setshowUser] = useState(true);
+
+    const showBridgeInfo = () => {
+        setshowBridgeDetails(true);
+        setshowSensorDetails(false);
+        setshowUser(false);
+    };
+
+    const showSensorInfo = () => {
+        setshowSensorDetails(true);
+        setshowBridgeDetails(false);
+        setshowUser(false);
+    };
+
+    const showUserInfo = () => {
+        setshowUser(true);
+        setshowSensorDetails(false);
+        setshowBridgeDetails(false);
+    }
 
 
 
@@ -553,7 +649,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             <hr /><hr />
             <button className='w-full py-3 hover:bg-gray-400'><ul><MdDescription style={{width: '100%', alignItems: 'center'}} size={40} />Report</ul></button>
             <hr /><hr />
-            <button className={`w-full py-3 ${isSelected4 ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={Modify}><ul><FaEdit style={{width: '100%', alignItems: 'center'}} size={40} />Modify</ul></button>
+            <button className={`w-full py-3 ${isSelected4 ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={Modify}><ul><FaEdit style={{width: '100%', alignItems: 'center'}} size={40} />Edit</ul></button>
             <hr /><hr />
             <button className='w-full py-3 hover:bg-gray-400'><ul><MdSettings style={{width: '100%', alignItems: 'center'}} size={40}/>Settings</ul></button>
         </div>  
@@ -750,83 +846,134 @@ const bridgeName = localStorage.getItem('bridgeName');
       
 
 {showModify && (
-        <>
+    <>
+    <div className='w-11/12 ml-24 pt-14 bg-white'>
+    <nav className='flex fixed justify-center bg-pink-100 w-full z-10'>
+        <ul className= 'px-12 py-4 cursor-pointer hover:bg-pink-300' onClick={showBridgeInfo}>Bridge Information</ul>
+        <ul className='px-12 py-4 cursor-pointer hover:bg-pink-300' onClick={showSensorInfo}>Sensor Information</ul>
+        <ul className='px-12 py-4 cursor-pointer hover:bg-pink-300' onClick={showUserInfo}>User Information</ul>
+    </nav>
+    </div>
+    </>
+)}
+
+{showBridgeDetails && (
+    <>
         <div className='w-11/12 ml-24 p-6 pt-24 bg-white'>
-        <h1 className='text-center text-4xl font-semibold pb-12'>Bridge Details</h1>
         <form>
-        <h1 className='text-center text-3xl w-1/2 font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Bridge Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
-          <div className="flex w-1/2">
+        <h1 className='text-center text-3xl w-full font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Bridge Information &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+          <div className="flex w-full px-6 justify-center">
             <div className='w-1/2 mx-5'>
-              <div className="mb-6">
-            <label htmlFor="country" className="block text-gray-700">Country:</label>
-            <select id="country" name="country" value={userData.country} onChange={(e) => setUserData(prevData => ({...prevData, country: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" >
-                <option value="country" disabled>Select Country</option>
-                {countries.map((country, index) => (
-                <option key={index} value={country}>{country}</option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-6">
-            <label htmlFor="state" className="block text-gray-700">
-              State:
-            </label>
-            <select id="state" name="state" value={userData.state} onChange={(e) => setUserData(prevData => ({...prevData, state: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
-                <option value="state" disabled>Select State</option>
-                {statesByCountry[userData.country]?.map((state, index) => (
-                <option key={index} value={state}>{state}</option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-6">
-            <label htmlFor="coordinates" className="block text-gray-700">
-              Bridge Coordinates:
-            </label>
-            <input
-              type="text" id="coordinates" placeholder='Enter Coordinates' name="coordinates" value={userData.coordinates} onChange={(e) => setUserData(prevData => ({...prevData, coordinates: e.target.value}))} className="border border-gray-300 p-2 w-full rounded"/>
-          </div>
+                <div className="mb-6">
+                    <label htmlFor="country" className="block text-gray-700">Country:</label>
+                    <select id="country" name="country" value={userData.country} onChange={(e) => setUserData(prevData => ({...prevData, country: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" >
+                        <option value="country" disabled>Select Country</option>
+                        {countries.map((country, index) => (
+                        <option key={index} value={country}>{country}</option>
+                    ))}
+                </select>
+                </div>
+                <div className="mb-6">
+                    <label htmlFor="state" className="block text-gray-700">State:</label>
+                    <select id="state" name="state" value={userData.state} onChange={(e) => setUserData(prevData => ({...prevData, state: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
+                    <option value="state" disabled>Select State</option>
+                    {statesByCountry[userData.country]?.map((state, index) => (
+                        <option key={index} value={state}>{state}</option>
+                    ))}
+                    </select>
+                </div>
+                <div className="mb-6">
+                    <label htmlFor="nobridgespan" className="block text-gray-700">Number of Bridge Spans:</label>
+                    <select id="nobridgespan" name="nobridgespan" onChange={(e) => setsensorData(prevData => ({...prevData, nobridgespan: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
+                    {[...Array(50).keys()].map((span) => (<option key={span + 1} value={span + 1}>{span + 1}</option>))}
+                    </select>
+                </div>
+                <div className="mb-6">
+                    <label htmlFor="noofgirders" className="block text-gray-700">Number of Girders:</label>
+                    <select id="noofgirders" name="noofgirders" onChange={(e) => setsensorData(prevData => ({...prevData, noofgirders: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
+                    {[...Array(20).keys()].map((girder) => (<option key={girder + 1} value={girder + 1}>{girder + 1}</option>))}
+                    </select>
+                </div>
             </div>
-            <div className='w-1/2 mx-5'>
-            <div className="mb-6">
-            <label htmlFor="division" className="block text-gray-700">
-              Division:
-            </label>
-            <input type="text" id="division" placeholder='Enter Division' name="division" value={userData.division} onChange={(e) => setUserData(prevData => ({...prevData, division: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
-          </div>
-          <div className="mb-6">
-            <label htmlFor='bridgeName' className="block text-gray-700">
-              Bridge Location:
-            </label>
-            <input type="text" id="location" placeholder='Enter Location' name="location" value={userData.location} onChange={(e) => setUserData(prevData => ({...prevData, location: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
-          </div>
-          <div className="mb-6">
-            <label htmlFor='bridgeName' className="block text-gray-700">
-              Bridge Name:
-            </label>
-            <input type="text" id="name" placeholder='Enter Name' name="name" value={userData.bridgeName} onChange={(e) => setUserData(prevData => ({...prevData, bridgeName: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
-          </div>
-        </div>
+            <div className="w-1/2 px-6 justify-center">
+                <div className="mb-6">
+                    <label htmlFor="division" className="block text-gray-700">Division:</label>
+                    <input type="text" id="division" placeholder='Enter Division' name="division" value={userData.division} onChange={(e) => setUserData(prevData => ({...prevData, division: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
+                </div>
+                <div className="mb-6">
+                    <label htmlFor='bridgeName' className="block text-gray-700">Bridge Location:</label>
+                    <input type="text" id="location" placeholder='Enter Location' name="location" value={userData.location} onChange={(e) => setUserData(prevData => ({...prevData, location: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
+                </div>
+                <div className="mb-6">
+                    <label htmlFor="coordinates" className="block text-gray-700">Bridge Coordinates:</label>
+                    <input type="text" id="coordinates" placeholder='Enter Coordinates' name="coordinates" value={userData.coordinates} onChange={(e) => setUserData(prevData => ({...prevData, coordinates: e.target.value}))} className="border border-gray-300 p-2 w-full rounded"/>
+                </div>
+                <div className="mb-6">
+                    <label htmlFor='bridgeName' className="block text-gray-700">Bridge Name:</label>
+                    <input type="text" id="name" placeholder='Enter Name' name="name" value={userData.bridgeName} onChange={(e) => setUserData(prevData => ({...prevData, bridgeName: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
+                </div>
+            </div>
         </div>
         </form>
-        <div className='mid relative z-0 ml-6 text-left left-1/2 w-1/2'>
-        <h1 className='text-center text-3xl font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; User Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
-        <div>
+        <div className='text-center'>
+            <button className='mt-12 p-2 bg-pink-600 text-white px-6 rounded-sm' onClick={() => {updateData();updateSensorData();}}>Save</button>
+        </div> 
+        </div>
+    </>
+)}
+
+{showSensorDetails && (
+    <>
+        <div className='w-11/12 ml-24 p-6 pt-24 bg-white'>
+        <h1 className='text-center text-3xl w-full font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Sensor Information &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+          <div className="mb-6 px-96 w-full">
+            <label htmlFor="sensortype" className="block text-gray-700">Sensor Type:</label>
+            <select id="sensortype" onChange={(e) => setsensorData(prevData => ({...prevData, sensortype: e.target.value}))} name="sensortype" value={sensorData.sensortype} className="border border-gray-300 p-2 w-full rounded">
+              <option value="Accelerometer">Accelerometer</option>
+              <option value="Strain Gauge">Strain Gauge</option>
+              <option value="Deflection Gauge">Deflection Gauge</option>
+              <option value="Camera">Camera</option>
+            </select>
+          </div>
+          <div className="mb-6 px-96 w-full">
+            <label htmlFor='bridgesensorsrno' className="block text-gray-700">Sensor Number:  </label>
+            <input type="text" id="bridgesensorsrno"  placeholder='Enter Sensor Number' name="bridgesensorsrno" value={sensorData.bridgesensorsrno} onChange={(e) => setsensorData(prevData => ({...prevData, bridgesensorsrno: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
+          </div>
+          <div className="mb-6 px-96 w-full">
+            <label htmlFor='sensorlocation' className="block text-gray-700">Bridge Location:</label>
+            <input type="address" id="location"  placeholder='Enter Location' name="location" value={sensorData.sensorlocation} onChange={(e) => setsensorData(prevData => ({...prevData, sensorlocation: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
+          </div>
+          <div className='text-center'>
+            <button className='mt-12 p-2 bg-pink-600 text-white px-6 rounded-sm' onClick={updateSensorData}>Save</button>
+        </div> 
+        </div>
+    </>
+)}
+
+{showUser && ( 
+    <>
+        <div className='w-11/12 ml-24 p-6 pt-24 bg-white'>
+        <h1 className='text-center text-3xl w-full font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; User Information &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
+        <div className='text-center'>
+        <div className=''>
             <h3 className=''>Added Admin(s):</h3>
             <input id='adminName' value={userData.adminName} onChange={(e) => setUserData(prevData => ({...prevData, adminName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 1)'/>
             <input id='adminEmail' value={userData.adminEmail} onChange={(e) => setUserData(prevData => ({...prevData, adminEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='adminPhone' value={userData.adminPhone} onChange={(e) => setUserData(prevData => ({...prevData, adminPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
-       
         <form action="submit">
         <div className='mt-5'>
             <input id='adminName2' value={userData.adminName2} onChange={(e) => setUserData(prevData => ({...prevData, adminName2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 2)'/>
             <input id='adminEmail2' value={userData.adminEmail2} onChange={(e) => setUserData(prevData => ({...prevData, adminEmail2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='adminPhone2' value={userData.adminPhone2} onChange={(e) => setUserData(prevData => ({...prevData, adminPhone2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
-
         <div className='mt-5'>
             <input id='adminName3' value={userData.adminName3} onChange={(e) => setUserData(prevData => ({...prevData, adminName3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 3)'/>
             <input id='adminEmail3' value={userData.adminEmail3} onChange={(e) => setUserData(prevData => ({...prevData, adminEmail3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='adminPhone3' value={userData.adminPhone3} onChange={(e) => setUserData(prevData => ({...prevData, adminPhone3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
         </form>
 
@@ -837,6 +984,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input id='managerName' value={userData.managerName} onChange={(e) => setUserData(prevData => ({...prevData, managerName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 1)'/>
             <input id='managerEmail' value={userData.managerEmail} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone' value={userData.managerPhone} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
 
         <form action="submit">
@@ -844,6 +992,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input id='managerName2' value={userData.managerName2} onChange={(e) => setUserData(prevData => ({...prevData, managerName2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 2)'/>
             <input id='managerEmail2' value={userData.managerEmail2} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone2' value={userData.managerPhone2} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
 
 
@@ -851,24 +1000,28 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input id='managerName3' value={userData.managerName3} onChange={(e) => setUserData(prevData => ({...prevData, managerName3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 3)'/>
             <input id='managerEmail3' value={userData.managerEmail3} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone3' value={userData.managerPhone3} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
 
         <div className='mt-5'>
             <input id='managerName4' value={userData.managerName4} onChange={(e) => setUserData(prevData => ({...prevData, managerName4: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 4)'/>
             <input id='managerEmail4' value={userData.managerEmail4} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail4: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone4' value={userData.managerPhone4} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone4: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
 
         <div className='mt-5'>
             <input id='managerName5' value={userData.managerName5} onChange={(e) => setUserData(prevData => ({...prevData, managerName5: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 5)'/>
             <input id='managerEmail5' value={userData.managerEmail5} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail5: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone5' value={userData.managerPhone5} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone5: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
 
         <div className='mt-5'>
             <input id='managerName6' value={userData.managerName6} onChange={(e) => setUserData(prevData => ({...prevData, managerName6: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 6)'/>
             <input id='managerEmail6' value={userData.managerEmail6} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail6: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone6' value={userData.managerPhone6} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone6: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
         </form>
 
@@ -879,6 +1032,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input id='ownerName' value={userData.ownerName} onChange={(e) => setUserData(prevData => ({...prevData, ownerName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 1)'/>
             <input id='ownerEmail' value={userData.ownerEmail} onChange={(e) => setUserData(prevData => ({...prevData, ownerEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='ownerPhone' value={userData.ownerPhone} onChange={(e) => setUserData(prevData => ({...prevData, ownerPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
 
         <form action="submit">
@@ -886,24 +1040,25 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input id='ownerName2' value={userData.ownerName2} onChange={(e) => setUserData(prevData => ({...prevData, ownerName2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 2)'/>
             <input id='ownerEmail2' value={userData.ownerEmail2} onChange={(e) => setUserData(prevData => ({...prevData, ownerEmail2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='ownerPhone2' value={userData.ownerPhone2} onChange={(e) => setUserData(prevData => ({...prevData, ownerPhone2: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
 
         <div className='mt-5'>
             <input id='ownerName3' value={userData.ownerName3} onChange={(e) => setUserData(prevData => ({...prevData, ownerName3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 3)'/>
             <input id='ownerEmail3' value={userData.ownerEmail3} onChange={(e) => setUserData(prevData => ({...prevData, ownerEmail3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='ownerPhone3' value={userData.ownerPhone3} onChange={(e) => setUserData(prevData => ({...prevData, ownerPhone3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
         </form>
-      </div>
-      <div className='text-center pt-6'>
-        <button className='p-2 text-white px-4 rounded-sm bg-pink-600 hover:bg-pink-900' onClick={updateData}>Save</button>
-      </div>
         </div>
-        </> 
-      )}
-
+        <div className='text-center'>
+            <button className='mt-12 p-2 bg-pink-600 text-white px-6 rounded-sm' onClick={updateData}>Save</button>
+        </div> 
+        </div>
     </>
+)}
+</>
+
   )
 };
-
 export default Superuserhome;
