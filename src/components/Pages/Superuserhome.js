@@ -633,7 +633,7 @@ const bridgeName = localStorage.getItem('bridgeName');
 
 
     const DelBridge = async() => {
-        const response = await axios.delete(`http://localhost:9090/deletebridge/bridge/${id}`)
+        const response = await axios.delete(`http://localhost:9090/bridge/deletebridge/${id}`)
         if (response.status === 200) {
             console.log(response.data);
         } 
@@ -939,7 +939,7 @@ const bridgeName = localStorage.getItem('bridgeName');
         </div>
         </form>
         <div className='text-center'>
-            <button className='mt-12 p-2 bg-pink-600 text-white px-6 mx-4 rounded-sm' onClick={() => {updateData();updateSensorData();}}>Save</button>
+            <button className='mt-12 p-2 bg-pink-600 text-white px-6 mx-4 rounded-sm' onClick={updateData}>Save</button>
             <button className='mt-12 p-2 bg-black text-white px-4 mx-4 rounded-sm' onClick={DelBridge}>Delete Bridge</button>
         </div> 
         </div>
