@@ -377,6 +377,8 @@ const bridgeName = localStorage.getItem('bridgeName');
         managerName6: '',
         managerPhone6: '',
 
+        noofgirders: '',
+        nobridgespan:'',
     });
 
     useEffect(() => {
@@ -395,7 +397,7 @@ const bridgeName = localStorage.getItem('bridgeName');
                     managerName4, managerEmail4, managerPhone4, managerName5, managerEmail5, managerPhone5,
                     managerName6, managerEmail6, managerPhone6, ownerName, ownerEmail, ownerPhone, ownerName2, 
                     ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders, 
-                    sensortype, bridgesensorsrno, sensorlocation } = response.data;
+                    sensortype, bridgesensorsrno, sensorlocation, } = response.data;
 
                 setUserData({country, state, coordinates, division, location, bridgeName, 
                     adminName, adminEmail, adminPhone, adminName2, adminEmail2, adminPhone2, 
@@ -418,7 +420,10 @@ const bridgeName = localStorage.getItem('bridgeName');
 
 
       const updateData = async (dataToUpdate) => {
-        if(userData.adminName === userData.adminEmail === userData.adminPhone === ''){
+        if(userData.country ===  userData.state === ''){
+            alert('Please Select a Country & State')
+        }
+        else if(userData.adminName === userData.adminEmail === userData.adminPhone === ''){
             alert('Please Add Atleast One Admin!')
         }
         else if(userData.managerName === userData.managerEmail === userData.managerPhone === ''){
@@ -478,6 +483,9 @@ const bridgeName = localStorage.getItem('bridgeName');
                 managerEmail6: userData.managerEmail6,
                 managerName6: userData.managerName6,
                 managerPhone6: userData.managerPhone6,
+
+                nobridgespan:userData.nobridgespan,
+                noofgirders:userData.noofgirders,
             };
             const response = await axios.put(`http://localhost:9090/bridge/updatebridge/${id}`, dataToUpdate);
             if(response.status >= 200 && response.status < 300){
@@ -497,8 +505,6 @@ const bridgeName = localStorage.getItem('bridgeName');
 
       //SensorData
       const [sensorData, setsensorData] = useState({
-        noofgirders: '',
-        nobridgespan:'',
         sensortype:'',
         bridgesensorsrno:'',
         sensorlocation:'',
@@ -513,15 +519,15 @@ const bridgeName = localStorage.getItem('bridgeName');
               const response = await axios.get(`http://localhost:9090/bridge/getbridge/${id}`);
               if (response.status === 200) {
                 console.log(response.data);
-                const { noofgirders, nobridgespan, sensortype, bridgesensorsrno, sensorlocation } = response.data;
+                const { sensortype, bridgesensorsrno, sensorlocation } = response.data;
 
-                setsensorData({ noofgirders, nobridgespan, sensortype, bridgesensorsrno, sensorlocation });
+                setsensorData({ sensortype, bridgesensorsrno, sensorlocation });
               } else {
                 console.error('Failed to fetch data:', response.statusText);
               }
             } catch (error) {
               console.error('Error:', error);
-            }
+            }   
           };
 
         fetchData();
@@ -531,8 +537,6 @@ const bridgeName = localStorage.getItem('bridgeName');
       const updateSensorData = async (SensordataToUpdate) => {
         try {
             const SensordataToUpdate = {
-                noofgirders: sensorData.noofgirders,
-                nobridgespan: sensorData.nobridgespan,
                 sensortype: sensorData.sensortype,
                 sensorlocation: sensorData.sensorlocation,
                 bridgesensorsrno: sensorData.bridgesensorsrno,
@@ -548,6 +552,16 @@ const bridgeName = localStorage.getItem('bridgeName');
             console.error('Error updating data:', error);
             throw error; // Optionally rethrow the error to handle it in the calling code
         }
+      };
+
+      const RemoveAdmin = () => {
+
+      };
+      const RemoveAdmin2 = () => {
+
+      };
+      const RemoveAdmin3 = () => {
+
       };
 
 
@@ -618,6 +632,15 @@ const bridgeName = localStorage.getItem('bridgeName');
     }
 
 
+    const DelBridge = async() => {
+        const response = await axios.delete(`http://localhost:9090/deletebridge/bridge/${id}`)
+        if (response.status === 200) {
+            console.log(response.data);
+        } 
+        else {
+            console.error('Failed to fetch data:', response.statusText);
+        }
+    };
 
   return (
     <>
@@ -884,13 +907,13 @@ const bridgeName = localStorage.getItem('bridgeName');
                 </div>
                 <div className="mb-6">
                     <label htmlFor="nobridgespan" className="block text-gray-700">Number of Bridge Spans:</label>
-                    <select id="nobridgespan" name="nobridgespan" onChange={(e) => setsensorData(prevData => ({...prevData, nobridgespan: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
+                    <select id="nobridgespan" name="nobridgespan" onChange={(e) => setUserData(prevData => ({...prevData, nobridgespan: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
                     {[...Array(50).keys()].map((span) => (<option key={span + 1} value={span + 1}>{span + 1}</option>))}
                     </select>
                 </div>
                 <div className="mb-6">
                     <label htmlFor="noofgirders" className="block text-gray-700">Number of Girders:</label>
-                    <select id="noofgirders" name="noofgirders" onChange={(e) => setsensorData(prevData => ({...prevData, noofgirders: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
+                    <select id="noofgirders" name="noofgirders" onChange={(e) => setUserData(prevData => ({...prevData, noofgirders: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
                     {[...Array(20).keys()].map((girder) => (<option key={girder + 1} value={girder + 1}>{girder + 1}</option>))}
                     </select>
                 </div>
@@ -916,7 +939,8 @@ const bridgeName = localStorage.getItem('bridgeName');
         </div>
         </form>
         <div className='text-center'>
-            <button className='mt-12 p-2 bg-pink-600 text-white px-6 rounded-sm' onClick={() => {updateData();updateSensorData();}}>Save</button>
+            <button className='mt-12 p-2 bg-pink-600 text-white px-6 mx-4 rounded-sm' onClick={() => {updateData();updateSensorData();}}>Save</button>
+            <button className='mt-12 p-2 bg-black text-white px-4 mx-4 rounded-sm' onClick={DelBridge}>Delete Bridge</button>
         </div> 
         </div>
     </>
@@ -960,7 +984,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input id='adminName' value={userData.adminName} onChange={(e) => setUserData(prevData => ({...prevData, adminName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 1)'/>
             <input id='adminEmail' value={userData.adminEmail} onChange={(e) => setUserData(prevData => ({...prevData, adminEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='adminPhone' value={userData.adminPhone} onChange={(e) => setUserData(prevData => ({...prevData, adminPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
+            <button className='pl-2 text-black' onClick={RemoveAdmin}><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
         <form action="submit">
         <div className='mt-5'>
@@ -973,7 +997,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input id='adminName3' value={userData.adminName3} onChange={(e) => setUserData(prevData => ({...prevData, adminName3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 3)'/>
             <input id='adminEmail3' value={userData.adminEmail3} onChange={(e) => setUserData(prevData => ({...prevData, adminEmail3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='adminPhone3' value={userData.adminPhone3} onChange={(e) => setUserData(prevData => ({...prevData, adminPhone3: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
+            <button className='pl-2 text-black' onClick={RemoveAdmin2}><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
         </form>
 
@@ -984,7 +1008,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input id='managerName' value={userData.managerName} onChange={(e) => setUserData(prevData => ({...prevData, managerName: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 1)'/>
             <input id='managerEmail' value={userData.managerEmail} onChange={(e) => setUserData(prevData => ({...prevData, managerEmail: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="email" placeholder='email'/>
             <input id='managerPhone' value={userData.managerPhone} onChange={(e) => setUserData(prevData => ({...prevData, managerPhone: e.target.value}))} className="border border-gray-300 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
-            <button className='pl-2 text-black'><MdOutlineRemoveCircleOutline size={22}/></button>
+            <button className='pl-2 text-black' onClick={RemoveAdmin3}><MdOutlineRemoveCircleOutline size={22}/></button>
         </div>
 
         <form action="submit">
