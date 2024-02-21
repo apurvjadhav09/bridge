@@ -88,22 +88,18 @@ const Addexcelfile = () => {
 
         <div className='w-1/2 pl-20 pb-6'>
             <div>
-                <h1 className='text-3xl font-semibold py-6'>Sample File</h1>
-                <p className='text-gray-800'>To further assist users, we offer a sample Excel file that functions as a reference template. Use this sample Excel sheet as a guide to 
-                create your own. It provides an example structure and format, helping users to accurately set up their data entries.</p>
-                <button className="cursor-pointer bg-black text-white p-2 mt-6 rounded hover:bg-pink-600" onClick={()=>{downloadFileAtURL(sample_csv)}}>Sample Download</button>
+                <h1 className='text-3xl font-semibold py-6'>Sample File</h1><br />
+                <p className='text-gray-800'>Download this sample excel file for additional reference. <br />Create your own excel file by referring to the format of the sample file.</p><br />
+                <button className="cursor-pointer bg-pink-600 text-white p-2 mt-6 rounded-sm hover:bg-pink-900" onClick={()=>{downloadFileAtURL(sample_csv)}}>Sample Download</button>
             </div>
             <br /><br /><hr /><br />
-            <h1 className='text-3xl font-semibold py-6'>Select File</h1>
-            <p className='text-gray-800'>Empower your data management effortlessly with our intuitive platform. Begin by selecting your Excel file using the designated button, facilitating 
-            a seamless upload process. Once selected, securely upload and save your data with confidence by simply clicking the "Upload" button. <br /><br />Our robust security measures ensure 
-            the confidentiality and integrity of your information, providing you with a reliable and user-friendly experience in managing and preserving your valuable data.</p>
-
-
+            <h1 className='text-3xl font-semibold py-6'>Select File</h1><br />
+            <p className='text-gray-800'>Choose your excel file with reference to our sample excel file and upload it. <br />Make sure that the format matches that of our provided sample file.</p>
+            <br />
             <div className="flex py-6">
               <input id='fileinput' className='hidden' type="file" accept='.xlsx , .xls , .csv' onChange={handleFileUpload} />
-              <label htmlFor="fileinput" className="cursor-pointer bg-black text-white p-2 px-8 rounded hover:bg-pink-600" >{selectedFile ? `${selectedFile.file.name}` : 'Choose File'}</label>
-              <button className='bg-green-600 justify-end text-white p-2 px-4 rounded ml-12 hover:bg-pink-600' onClick={postDataToServer}>Submit</button>
+              <label htmlFor="fileinput" className="cursor-pointer bg-blue-600 text-white p-2 px-8 rounded-sm hover:bg-blue-900" >{selectedFile ? `${selectedFile.file.name}` : 'Choose File'}</label>
+              <button className='bg-green-600 justify-end text-white p-2 px-4 rounded-sm ml-12 hover:bg-green-900' onClick={postDataToServer}>Submit</button>
             </div>
             
             

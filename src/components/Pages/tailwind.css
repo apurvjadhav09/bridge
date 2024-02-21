@@ -32,10 +32,11 @@
 }
 
 #excel{
-    background-image: url('../Assets/camera.jpg');
+    background-image: url('../Assets/Bridge.png');
     background-repeat: no-repeat;
     height: 100vh;
-    background-size: 90vh;
+    background-size: 100vh;
+    background-position: center;
 }
 .bridgeform-bg{
     background-image: url('../Assets/Bridge.png');
