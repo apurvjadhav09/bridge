@@ -311,7 +311,7 @@ const bridgeName = localStorage.getItem('bridgeName');
         
                 try {
                     const response = await axios.get(`http://localhost:9090/bridge/bridgeid?bridgeName=${bridgeName}`)
-                    if (response.status === 200) {
+                    if (response.status >= 200 && response.status < 300) {
                         console.log(response.data)
                         setId(response.data)
                     } else {
@@ -388,7 +388,7 @@ const bridgeName = localStorage.getItem('bridgeName');
                     return;
                 }
               const response = await axios.get(`http://localhost:9090/bridge/getbridge/${id}`);
-              if (response.status === 200) {
+              if (response.status >= 200 && response.status < 300) {
                 console.log(response.data);
                 const { country, state, coordinates, division, location, bridgeName, 
                     adminName, adminEmail, adminPhone, adminName2, adminEmail2, adminPhone2, 
@@ -396,8 +396,7 @@ const bridgeName = localStorage.getItem('bridgeName');
                     managerName2, managerEmail2, managerPhone2, managerName3, managerEmail3, managerPhone3,
                     managerName4, managerEmail4, managerPhone4, managerName5, managerEmail5, managerPhone5,
                     managerName6, managerEmail6, managerPhone6, ownerName, ownerEmail, ownerPhone, ownerName2, 
-                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders, 
-                    sensortype, bridgesensorsrno, sensorlocation, } = response.data;
+                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders} = response.data;
 
                 setUserData({country, state, coordinates, division, location, bridgeName, 
                     adminName, adminEmail, adminPhone, adminName2, adminEmail2, adminPhone2, 
@@ -405,8 +404,7 @@ const bridgeName = localStorage.getItem('bridgeName');
                     managerName2, managerEmail2, managerPhone2, managerName3, managerEmail3, managerPhone3,
                     managerName4, managerEmail4, managerPhone4, managerName5, managerEmail5, managerPhone5,
                     managerName6, managerEmail6, managerPhone6, ownerName, ownerEmail, ownerPhone, ownerName2, 
-                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders, 
-                    sensortype, bridgesensorsrno, sensorlocation});
+                    ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders});
               } else {
                 console.error('Failed to fetch data:', response.statusText);
               }
@@ -496,7 +494,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             } 
             catch (error) {
             console.error('Error updating data:', error);
-            throw error; // Optionally rethrow the error to handle it in the calling code
+            throw error;
         }
     }
       };
@@ -516,8 +514,8 @@ const bridgeName = localStorage.getItem('bridgeName');
                 if (!id) {
                     return;
                 }
-              const response = await axios.get(`http://localhost:9090/bridge/getbridge/${id}`);
-              if (response.status === 200) {
+              const response = await axios.get(`http://localhost:9090/bridge/getsensor/${id}`);
+              if (response.status >= 200 && response.status < 300) {
                 console.log(response.data);
                 const { sensortype, bridgesensorsrno, sensorlocation } = response.data;
 
@@ -555,7 +553,7 @@ const bridgeName = localStorage.getItem('bridgeName');
       };
 
       const RemoveAdmin = () => {
-
+        
       };
       const RemoveAdmin2 = () => {
 
@@ -609,9 +607,9 @@ const bridgeName = localStorage.getItem('bridgeName');
         setIsSelected4(!isSelected4);
     };
 
-    const [showBridgeDetails, setshowBridgeDetails] = useState(true);
-    const [showSensorDetails, setshowSensorDetails] = useState(true);
-    const [showUser, setshowUser] = useState(true);
+    const [showBridgeDetails, setshowBridgeDetails] = useState(false);
+    const [showSensorDetails, setshowSensorDetails] = useState(false);
+    const [showUser, setshowUser] = useState(false);
 
     const showBridgeInfo = () => {
         setshowBridgeDetails(true);
@@ -631,11 +629,23 @@ const bridgeName = localStorage.getItem('bridgeName');
         setshowBridgeDetails(false);
     }
 
+    const Logout = async() => {
+        const response = await axios.delete(`http://localhost:9090/logout`)
+        if (response.status >= 200 && response.status < 300) {
+            console.log(response.data);
+            navigate('/');
+        } 
+        else {
+            console.error('Failed to fetch data:', response.statusText);
+        }
+    };
 
     const DelBridge = async() => {
         const response = await axios.delete(`http://localhost:9090/bridge/deletebridge/${id}`)
-        if (response.status === 200) {
+        if (response.status >= 200 && response.status < 300) {
             console.log(response.data);
+            navigate('/home');
+
         } 
         else {
             console.error('Failed to fetch data:', response.statusText);
@@ -684,7 +694,7 @@ const bridgeName = localStorage.getItem('bridgeName');
         <div className="w-1/12 absolute top-14 right-2 bg-white border shadow-md">
           <div className='p-2 text-center'>Name</div>
           <div className='flex cursor-pointer hover:bg-gray-200 p-2'><MdEdit size={24} style={{paddingTop: '3px'}}/>Edit Info</div>
-          <div className='flex cursor-pointer hover:bg-gray-200 p-2'><MdLogout size={24} style={{paddingTop: '3px'}}/>Log-out</div>
+          <div className='flex cursor-pointer hover:bg-gray-200 p-2' onClick={Logout}><MdLogout size={24} style={{paddingTop: '3px'}}/>Log-out</div>
         </div>
       )}
 
@@ -794,7 +804,7 @@ const bridgeName = localStorage.getItem('bridgeName');
                     <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor1Freq}</h1><br />
                   </div>
 
-                  <div className="bg-pink-600 mx-6 w-4/5 text-white shadow-2xl cursor-pointer rounded-xl hover:bg-pink-800"><br />
+                  <div className="bg-pink-600 mx-6 w-4/5 text-white pb-10 shadow-2xl cursor-pointer rounded-xl hover:bg-pink-800"><br />
                     <h2 className="text-lg font-semibold text-center">Avg Logger Temp</h2><br />
                     <FaArrowCircleRight className='' style={{width: '100%', alignItems: 'center'}} size={40} />
                   </div>
@@ -857,7 +867,7 @@ const bridgeName = localStorage.getItem('bridgeName');
                     <h1 className='text-center font-bold text-6xl text-gray-800'>{averageSensor2Freq}</h1><br />
                   </div>
 
-                  <div className="bg-pink-600 mx-6 w-4/5 text-white shadow-2xl cursor-pointer rounded-xl hover:bg-pink-800"><br />
+                  <div className="bg-pink-600 mx-6 w-4/5 text-white pb-10 shadow-2xl cursor-pointer rounded-xl hover:bg-pink-800"><br />
                     <h2 className="text-lg font-semibold text-center">Avg Logger Temp</h2><br />
                     <FaArrowCircleRight className='' style={{width: '100%', alignItems: 'center'}} size={40} />
                   </div>
@@ -907,13 +917,13 @@ const bridgeName = localStorage.getItem('bridgeName');
                 </div>
                 <div className="mb-6">
                     <label htmlFor="nobridgespan" className="block text-gray-700">Number of Bridge Spans:</label>
-                    <select id="nobridgespan" name="nobridgespan" onChange={(e) => setUserData(prevData => ({...prevData, nobridgespan: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
+                    <select id="nobridgespan" name="nobridgespan" value={userData.nobridgespan} onChange={(e) => setUserData(prevData => ({...prevData, nobridgespan: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
                     {[...Array(50).keys()].map((span) => (<option key={span + 1} value={span + 1}>{span + 1}</option>))}
                     </select>
                 </div>
                 <div className="mb-6">
                     <label htmlFor="noofgirders" className="block text-gray-700">Number of Girders:</label>
-                    <select id="noofgirders" name="noofgirders" onChange={(e) => setUserData(prevData => ({...prevData, noofgirders: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
+                    <select id="noofgirders" name="noofgirders" value={userData.nobridgespan} onChange={(e) => setUserData(prevData => ({...prevData, noofgirders: e.target.value}))} className="border border-gray-300 p-2 w-full rounded">
                     {[...Array(20).keys()].map((girder) => (<option key={girder + 1} value={girder + 1}>{girder + 1}</option>))}
                     </select>
                 </div>
@@ -964,7 +974,7 @@ const bridgeName = localStorage.getItem('bridgeName');
             <input type="text" id="bridgesensorsrno"  placeholder='Enter Sensor Number' name="bridgesensorsrno" value={sensorData.bridgesensorsrno} onChange={(e) => setsensorData(prevData => ({...prevData, bridgesensorsrno: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
           </div>
           <div className="mb-6 px-96 w-full">
-            <label htmlFor='sensorlocation' className="block text-gray-700">Bridge Location:</label>
+            <label htmlFor='sensorlocation' className="block text-gray-700">Sensor Location:</label>
             <input type="address" id="location"  placeholder='Enter Location' name="location" value={sensorData.sensorlocation} onChange={(e) => setsensorData(prevData => ({...prevData, sensorlocation: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
           </div>
           <div className='text-center'>
