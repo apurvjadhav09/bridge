@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Login.css';
 import { useNavigate } from 'react-router-dom';
+import './tailwind.css';
+
+import { FaUser, FaLock } from "react-icons/fa";
 
 import logo from '../Assets/logo.png';
 import logo2 from '../Assets/logo2.png';
-import user_icon from '../Assets/person.png';
-import password_icon from '../Assets/password.png';
 
 const Login = () => {
   const [email, setemail] = useState('');
@@ -40,98 +40,47 @@ const Login = () => {
         }
       } catch (error) {
         console.error('Error during login:', error);
-        alert('An error occurred during login.');
+        alert('Incorrect login credentials!');
       }
     }
   };  
   
   return (
     <>
-    <section className='dekstop'>
-      <div className="Landing">
-        <div className="background">
-          <img src={logo} alt="" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+
+      <div className="w-full flex">
+        <div className="background w-1/2">
+          <img className='w-32 p-6' src={logo} alt="" />
         </div>
-        <div className="container">
-          <div className="header">
-            <img src={logo2} alt="" />
-            <div className="text">
-              <h1>Login</h1>
-            </div>
-            <div className="underline"></div>
+        <div className="w-1/2 text-center justify-center">
+          <div className="text-center justify-center px-72 mx-4 pt-8 pb-12">
+            <img className='text-center justify-center' src={logo2} alt="" />
           </div>
-          <div className="inputs">
-            <div className="input">
-              <img src={user_icon} alt="" />
-              <input
-                type="email"
-                placeholder="User ID"
-                value={email}
-                onChange={(e) => setemail(e.target.value)}
-              />
+          <div className="text">
+              <h1 className='text-2xl pb-24 font-semibold text-indigo-900'>Login</h1>
             </div>
-            <div className="input">
-              <img src={password_icon} alt="" />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+          <div className="">
+            <div className="pb-6 flex justify-center">
+              <FaUser style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
+              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="email" placeholder="Enter Email" value={email} onChange={(e) => setemail(e.target.value)}/>
+            </div>
+            <div className="pb-2 flex justify-center">
+              <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
+              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
             </div>
           </div>
-          <div className="submit-container">
-            <div className="submit" onClick={handleLogin}>
-              Login
+          <div className="pt-16">
+            <div className="">
+              <button onClick={handleLogin} className='p-2 mb-2 bg-blue-600 hover:bg-blue-900 text-white rounded-sm px-8'>Login</button>
+              <p className='underline text-m text-blue-800'><a href="./forgotpassword">Forgot Password?</a></p>
             </div>
           </div>
         </div>
       </div>
-      </section>
 
 
-      <section className='responsive'>
-      <div className="Landing1">
-        <div className="background1">
-          <img src={logo} alt="" />
-        </div>
-        <div className="container1">
-          <div className="header1">
-            <img src={logo2} alt="" />
-            <div className="text1">
-              <h1>Login</h1>
-            </div>
-            <div className="underline1"></div>
-          </div>
-          <div className="inputs1">
-            <div className="input1">
-              <img src={user_icon} alt="" />
-              <input
-                type="email"
-                placeholder="User ID"
-                value={email}
-                onChange={(e) => setemail(e.target.value)}
-              />
-            </div>
-            <div className="input1">
-              <img src={password_icon} alt="" />
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="submit-container1">
-            <div className="submit1" onClick={handleLogin}>
-              Login
-            </div>
-          </div>
-        </div>
-      </div>
-      </section>
-    </>
+  </>
   );
 };
 

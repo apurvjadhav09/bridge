@@ -332,7 +332,8 @@ const BridgeForm = ({onSubmit }) => {
 
 
           {showUserForm && ( 
-      <div className='absolute px-5 text-left left-1/2 w-1/2'>
+      <div className='absolute text-left left-1/2 w-1/2'>
+          <button type="submit" onClick={PrevFrom} className="inline-flex underline mt-4"><IoArrowBackCircleSharp size={32}/>Back</button>
         <div className='text-center mt-6'>
           <img className='px-72 mt-10 mb-16' src={logo} alt="" />
           <h1 className='mt-12 mb-12 text-3xl font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Add User Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
@@ -438,7 +439,6 @@ const BridgeForm = ({onSubmit }) => {
         
         <div className='text-center mt-16 mb-6'>
           <button type="submit" onClick={submitForm} className="bg-blue-600 px-5 py-2 text-gray-100 mx-2 rounded-sm hover:bg-indigo-900">Submit</button>
-          <button type="submit" onClick={PrevFrom} className="bg-pink-600 px-5 py-2 text-gray-100 mx-2 rounded-sm hover:bg-pink-900">Previous</button>
           <button button onClick={onCancel} className="bg-black px-5 py-2 text-gray-100 rounded-sm mx-2 hover:bg-red-800">Cancel</button>
         </div>
       </div>

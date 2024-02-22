@@ -23,6 +23,9 @@
     display: flex;
     margin-right: 80px;
 }
+.forgotpw{
+    text-align: end;
+}
 .logih{
     text-decoration: none;
     color: #ffffff;

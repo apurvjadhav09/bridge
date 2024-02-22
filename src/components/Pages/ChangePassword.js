@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Login.css';
+// import './Login.css';
 import { useNavigate } from 'react-router-dom';
 
 import logo from '../Assets/logo.png';
-import logo2 from '../Assets/logo2.png';
 
 const ChangePassword = () => {
   const [currentPassword, setcurrentPassword] = useState('');
@@ -76,7 +75,7 @@ const ChangePassword = () => {
         </div>
         <div className="container">
           <div className="header1">
-            <img src={logo2} alt="" />
+            <img src={logo} alt="" />
             <div className="text1">
               <h1>Change Password</h1>
             </div>
@@ -122,7 +121,7 @@ const ChangePassword = () => {
           </div>
           <div className="container1">
             <div className="header1">
-              <img src={logo2} alt="" />
+              <img src={logo} alt="" />
               <div className="text1">
                 <h1>Change Password</h1>
               </div>

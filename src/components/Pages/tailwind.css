@@ -49,5 +49,21 @@
 .mid{
     margin-top: -115.5vh;
 }
+#forgotpw{
+    background-image: url('../Assets/Bridge.png');
+    background-repeat: no-repeat;
+    background-size: 110vh;
+    height: 100vh;
+    margin-left: -0.5%;
+    background-position: right;
+}
+.background{
+    background-image: url('../Assets/Bridge.png');
+    background-repeat: no-repeat;
+    background-size: 110vh;
+    height: 100vh;
+    margin-left: -0.5%;
+    background-position: right;
+}
 
 

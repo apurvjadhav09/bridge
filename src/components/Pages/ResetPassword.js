@@ -1,7 +1,8 @@
 import React, { useEffect, useState} from 'react';
 import axios from 'axios';
-import './Login.css';
 import { useNavigate, useLocation } from 'react-router-dom';
+
+import { FaUser, FaLock } from "react-icons/fa";
 
 import logo from '../Assets/logo.png';
 import logo2 from '../Assets/logo2.png';
@@ -62,82 +63,35 @@ const ResetPassword = () => {
 
   return (
     <>
-      <div className="Landing">
-        <div className="background">
-          <img src={logo} alt="" />
+     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+      <div className="flex">
+        <div className="background w-1/2">
+          <img className='p-6 w-32' src={logo} alt="" />
         </div>
-        <div className="container">
-          <div className="header1">
-            <img src={logo2} alt="" />
-            <div className="text1">
-              <h1>Reset Password</h1>
-            </div>
-            <div className="underline"></div>
-          </div>
-          <div className="inputs">
-            <div className="input">
-              <input
-                type="password"
-                placeholder="Enter New Password"
-                value={newPassword}
-                onChange={(e) => setnewPassword(e.target.value)}
-              />
-            </div>
-            <div className="input">
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmNewPassword}
-                onChange={(e) => setConfirmNewPassword(e.target.value)}
-              />
+        <div className="w-1/2">
+          <div className="">
+            <img className='px-80 pt-8 pb-16' src={logo2} alt="" />
+            <div className="">
+              <h1 className='text-2xl font-semibold pb-24 text-center text-indigo-900'>Reset Password</h1>
             </div>
           </div>
-          <div className="submit-container">
-            <div className="submit1" onClick={handleConfirm}>
-              Confirm
+          <div className="pb-16">
+            <div className="flex justify-center pb-6">
+              <FaUser style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
+              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="password" placeholder="Enter New Password" value={newPassword} onChange={(e) => setnewPassword(e.target.value)}/>
+            </div>
+            <div className="flex justify-center">
+              <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
+              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="password" placeholder="Confirm Password" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)}/>
+            </div>
+          </div>
+          <div className="">
+            <div className="text-center">
+              <button className='p-2 bg-blue-600 hover:bg-blue-900 px-5 text-white rounded-sm' onClick={handleConfirm}>Confirm</button>
             </div>
           </div>
         </div>
       </div>
-      <section className="responsive1">
-        <div className="Landing1">
-          <div className="background1">
-            <img src={logo} alt="" />
-          </div>
-          <div className="container1">
-            <div className="header1">
-              <img src={logo2} alt="" />
-              <div className="text1">
-                <h1>Reset Password</h1>
-              </div>
-              <div className="underline1"></div>
-            </div>
-            <div className="inputs1">
-              <div className="input1">
-                <input
-                  type="password"
-                  placeholder="Enter New Password"
-                  value={newPassword}
-                  onChange={(e) => setnewPassword(e.target.value)}
-                />
-              </div>
-              <div className="input1">
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  value={confirmNewPassword}
-                  onChange={(e) => setConfirmNewPassword(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="submit-container1">
-              <div className="submit1" onClick={handleConfirm}>
-                Confirm
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   )
 }

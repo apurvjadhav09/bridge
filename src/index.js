@@ -1,7 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Login from './components/Pages/Login';
 import reportWebVitals from './reportWebVitals';
 import ChangePassword from './components/Pages/ChangePassword';
 import Masterhome from './components/Pages/Masterhome';
@@ -11,15 +13,16 @@ import Bridgeadmin from './components/Pages/Bridgeadmin';
 import Home from './components/Pages/Home';
 import BridgeForm from './components/Pages/BridgeForm';
 import SensorForm from './components/Pages/sensorform';
-import Addexcelfile from './components/Pages/Addexcelfile';
+import Addexcelfile from './components/Pages/Addexcelfile'
+import Forgotpw from './components/Pages/Forgotpw';;
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './components/Pages/Login';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
     <Routes>
       <Route path="/" element={<App />} />
+      <Route path="/forgotpassword" element={<Forgotpw />} />
       <Route path="/newuser/resetpassword" element={<ResetPassword />} />
       <Route path="/newuser/login" element={<Login />} />
       <Route path="/changepassword" element={<ChangePassword />} />
