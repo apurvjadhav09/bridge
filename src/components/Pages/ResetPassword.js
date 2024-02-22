@@ -38,7 +38,7 @@ const ResetPassword = () => {
           return;
         }
     
-        const response = await axios.post(`http://localhost:9090/newuser/resetpassword?token=${token}`, {
+        const response = await axios.post(`https://shm-server.azurewebsites.net/newuser/resetpassword?token=${token}`, {
           newPassword: newPassword,
           confirmNewPassword: confirmNewPassword,
         },
