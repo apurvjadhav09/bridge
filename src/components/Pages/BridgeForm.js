@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './tailwind.css';
 
+import loadingIcon from '../Assets/loading.gif';
+
 import logo2 from '../Assets/logo.png';
 import logo from '../Assets/logo2.png';
 
@@ -22,6 +24,7 @@ const BridgeForm = ({onSubmit }) => {
   const [nobridgespan, setnobridgespan] = useState('1');
   const [noofgirders, setnoofgirders] = useState('1');
 
+  const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
   const countries = ['India', 'USA', 'Australia']; 
@@ -165,6 +168,7 @@ const BridgeForm = ({onSubmit }) => {
     }
     else{
         try {
+          setLoading(true);
           const response = await axios.post('http://localhost:9090/bridge/register', {
             country:country,
             state:state,
@@ -251,6 +255,8 @@ const BridgeForm = ({onSubmit }) => {
           }
         } catch (error) {
           console.error('Error submitting form', error);
+        } finally {
+          setLoading(false);
         }
       };
   };
@@ -438,7 +444,11 @@ const BridgeForm = ({onSubmit }) => {
         )}
         
         <div className='text-center mt-16 mb-6'>
+        {loading ? (
+                <img className='absolute w-8 inset-0 top-1/2 blur' src={loadingIcon} alt="Loading" />
+              ) : (
           <button type="submit" onClick={submitForm} className="bg-blue-600 px-5 py-2 text-gray-100 mx-2 rounded-sm hover:bg-indigo-900">Submit</button>
+          )}
           <button button onClick={onCancel} className="bg-black px-5 py-2 text-gray-100 rounded-sm mx-2 hover:bg-red-800">Cancel</button>
         </div>
       </div>

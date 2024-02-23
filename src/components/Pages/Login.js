@@ -44,6 +44,13 @@ const Login = () => {
       }
     }
   };  
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin();
+    }
+  };
+
   
   return (
     <>
@@ -67,7 +74,7 @@ const Login = () => {
             </div>
             <div className="pb-2 flex justify-center">
               <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
             </div>
           </div>
           <div className="pt-16">

@@ -57,6 +57,13 @@ function Forgotpw() {
           }
     };
 
+    const handleKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        handleSubmit();
+      }
+    };
+  
+
     return (
         <>
             <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -65,7 +72,7 @@ function Forgotpw() {
                     <img className='p-6 w-32' src={logo} alt="" />
                 </div>
                 <div className='w-1/2'>
-                    <img className='pt-8 px-80' src={logo2} alt="" />
+                    <img className='pt-8 px-72' src={logo2} alt="" />
                     <h1 className='text-center pb-8 text-indigo-900 pt-8 text-2xl font-semibold'>Forgot Password?</h1>
                     <p className='px-16 pb-16 text-center'>Please provide your email address, and we'll promptly send you a secure link to reset your password via email.</p>
                     <div className='flex justify-center'>
@@ -74,7 +81,7 @@ function Forgotpw() {
                     </div>
                     <div className='flex justify-center pt-6'>
                         <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22}/>
-                        <input className="border border-gray-500 p-3 ml-3 pr-12 pl-3 mr-2 rounded" type="text" placeholder="Enter Captcha" value={userInput} onChange={(e) => setUserInput(e.target.value)} />
+                        <input className="border border-gray-500 p-3 ml-3 pr-12 pl-3 mr-2 rounded" type="text" placeholder="Enter Captcha" value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyDown={handleKeyDown}/>
                     </div>
                     <p className='text-center mt-12 font-semibold'>Captcha</p>
                     <p className='text-center mb-6 bg-gray-800 text-white mx-72 p-4 rounded text-2xl'><strong>{randomCharacters}</strong></p>
