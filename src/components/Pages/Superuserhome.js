@@ -502,6 +502,8 @@ const bridgeName = localStorage.getItem('bridgeName');
 
 
       //SensorData
+      const [sensorDataList, setSensorDataList] = useState([]);
+
       const [sensorData, setsensorData] = useState({
         sensortype:'',
         bridgesensorsrno:'',
@@ -517,6 +519,7 @@ const bridgeName = localStorage.getItem('bridgeName');
               const response = await axios.get(`http://localhost:9090/bridge/getsensor/${id}`);
               if (response.status >= 200 && response.status < 300) {
                 console.log(response.data);
+                setSensorDataList(response.data);
                 const { sensortype, bridgesensorsrno, sensorlocation } = response.data;
 
                 setsensorData({ sensortype, bridgesensorsrno, sensorlocation });
@@ -965,26 +968,35 @@ const bridgeName = localStorage.getItem('bridgeName');
     <>
         <div className='w-11/12 ml-24 p-6 pt-24 bg-white'>
         <h1 className='text-center text-3xl w-full font-semibold pb-12'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Sensor Information &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
-          <div className="mb-6 px-96 w-full">
-            <label htmlFor="sensortype" className="block text-gray-700">Sensor Type:</label>
-            <select id="sensortype" onChange={(e) => setsensorData(prevData => ({...prevData, sensortype: e.target.value}))} name="sensortype" value={sensorData.sensortype} className="border border-gray-300 p-2 w-full rounded">
-              <option value="Accelerometer">Accelerometer</option>
-              <option value="Strain Gauge">Strain Gauge</option>
-              <option value="Deflection Gauge">Deflection Gauge</option>
-              <option value="Camera">Camera</option>
-            </select>
-          </div>
-          <div className="mb-6 px-96 w-full">
-            <label htmlFor='bridgesensorsrno' className="block text-gray-700">Sensor Number:  </label>
-            <input type="text" id="bridgesensorsrno"  placeholder='Enter Sensor Number' name="bridgesensorsrno" value={sensorData.bridgesensorsrno} onChange={(e) => setsensorData(prevData => ({...prevData, bridgesensorsrno: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
-          </div>
-          <div className="mb-6 px-96 w-full">
-            <label htmlFor='sensorlocation' className="block text-gray-700">Sensor Location:</label>
-            <input type="address" id="location"  placeholder='Enter Location' name="location" value={sensorData.sensorlocation} onChange={(e) => setsensorData(prevData => ({...prevData, sensorlocation: e.target.value}))} className="border border-gray-300 p-2 w-full rounded" />
-          </div>
-          <div className='text-center'>
-            <button className='mt-12 p-2 bg-pink-600 text-white px-6 rounded-sm' onClick={updateSensorData}>Save</button>
-        </div> 
+        {sensorDataList.length === 0 ? (
+  <div className="text-center text-gray-700">No sensors found</div>
+) : (
+  sensorDataList.map((sensorData, index) => (
+    <div key={index} className='w-11/12 ml-24 p-6 pt-24 bg-white'>
+      <h1 className='text-center text-3xl w-full font-semibold pb-12'>Sensor Information - {sensorData.id}</h1>
+      <div className="mb-6 px-96 w-full">
+        <label htmlFor="sensortype" className="block text-gray-700">Sensor Type:</label>
+        <select id="sensortype" name="sensortype" value={sensorData.sensortype} onChange={(e) => {/* Handle change */}} className="border border-gray-300 p-2 w-full rounded">
+          <option value="Accelerometer">Accelerometer</option>
+          <option value="Strain Gauge">Strain Gauge</option>
+          <option value="Deflection Gauge">Deflection Gauge</option>
+          <option value="Camera">Camera</option>
+        </select>
+      </div>
+      <div className="mb-6 px-96 w-full">
+        <label htmlFor='bridgesensorsrno' className="block text-gray-700">Sensor Number:  </label>
+        <input type="text" id="bridgesensorsrno" placeholder='Enter Sensor Number' name="bridgesensorsrno" value={sensorData.bridgesensorsrno} onChange={(e) => {/* Handle change */}} className="border border-gray-300 p-2 w-full rounded" />
+      </div>
+      <div className="mb-6 px-96 w-full">
+        <label htmlFor='sensorlocation' className="block text-gray-700">Sensor Location:</label>
+        <input type="address" id="location" placeholder='Enter Location' name="location" value={sensorData.sensorlocation} onChange={(e) => {/* Handle change */}} className="border border-gray-300 p-2 w-full rounded" />
+      </div>
+      <div className='text-center'>
+        <button className='mt-12 p-2 bg-pink-600 text-white px-6 rounded-sm' onClick={() => updateSensorData(sensorData.id, sensorData)}>Save</button>
+      </div> 
+    </div>
+  ))
+)}
         </div>
     </>
 )}
