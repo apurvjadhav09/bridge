@@ -77,11 +77,11 @@ function Forgotpw() {
                     <p className='px-16 pb-16 text-center'>Please provide your email address, and we'll promptly send you a secure link to reset your password via email.</p>
                     <div className='flex justify-center'>
                         <FaUser style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-                        <input className="border border-gray-500 p-3 ml-3 pr-12 pl-3 mr-2 rounded" type="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input className="border border-gray-500 p-3 ml-3 w-1/3 pl-3 mr-2 rounded" type="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <div className='flex justify-center pt-6'>
                         <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22}/>
-                        <input className="border border-gray-500 p-3 ml-3 pr-12 pl-3 mr-2 rounded" type="text" placeholder="Enter Captcha" value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyDown={handleKeyDown}/>
+                        <input className="border border-gray-500 p-3 ml-3 w-1/3 pl-3 mr-2 rounded" type="text" placeholder="Enter Captcha" value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyDown={handleKeyDown}/>
                     </div>
                     <p className='text-center mt-12 font-semibold'>Captcha</p>
                     <p className='text-center mb-6 bg-gray-800 text-white mx-72 p-4 rounded text-2xl'><strong>{randomCharacters}</strong></p>

@@ -14,7 +14,9 @@ import Home from './components/Pages/Home';
 import BridgeForm from './components/Pages/BridgeForm';
 import SensorForm from './components/Pages/sensorform';
 import Addexcelfile from './components/Pages/Addexcelfile'
-import Forgotpw from './components/Pages/Forgotpw';;
+import Forgotpw from './components/Pages/Forgotpw';
+import Bridges from './components/Pages/Bridges';
+
 
 
 
@@ -33,6 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/home/dashboard" element={<Superuserhome />} />
       <Route path="/masterhome" element={<Masterhome />} />
       <Route path="/bridgeadmin" element={<Bridgeadmin />} />
+      <Route path="/bridges" element={<Bridges />} />
     </Routes>
   </Router>,
 );

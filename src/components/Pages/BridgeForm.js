@@ -331,14 +331,14 @@ const BridgeForm = ({onSubmit }) => {
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
  
     <div className="flex w-full">
-      <div className='bridgeform-bg w-1/2'>
+      <div className='bridgeform-bg w-2/5'>
         <img className='p-6 w-32' src={logo2} alt="" />
       </div>
 
 
 
           {showUserForm && ( 
-      <div className='absolute text-left left-1/2 w-1/2'>
+      <div id='userform' className='absolute left-1/2 text-left w-1/2'>
           <button type="submit" onClick={PrevFrom} className="inline-flex underline mt-4"><IoArrowBackCircleSharp size={32}/>Back</button>
         <div className='text-center mt-6'>
           <img className='px-72 mt-10 mb-16' src={logo} alt="" />
@@ -456,7 +456,7 @@ const BridgeForm = ({onSubmit }) => {
 
 
     {showBridgeForm && ( 
-      <div className="w-1/2 px-2 bg-white rounded-xl">
+      <div className="w-3/5 px-2 bg-white rounded-xl">
             <button className='inline-flex underline mt-4' onClick={backHome}><IoArrowBackCircleSharp size={32}/>Home</button>
         <form>
           <div className='px-72 mt-10 mb-16'>

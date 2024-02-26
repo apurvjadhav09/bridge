@@ -619,14 +619,29 @@ const bridgeName = localStorage.getItem('bridgeName');
         setshowBridgeDetails(false);
     }
 
-    const Logout = async() => {
-        const response = await axios.delete(`http://localhost:9090/logout`)
-        if (response.status >= 200 && response.status < 300) {
-            console.log(response.data);
-            navigate('/');
-        } 
-        else {
-            console.error('Failed to fetch data:', response.statusText);
+    const Logout = async () => {
+    
+        try {
+            const token = localStorage.getItem('authToken'); // Corrected key
+            console.log(token);
+    
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${token}` // Correct interpolation
+                }
+            };
+    
+            const response = await axios.post('http://localhost:9090/logout', {}, config);
+    
+            if (response.status === 200) {
+                console.log(response.data);
+                localStorage.removeItem('authToken');
+                navigate('/');
+            } else {
+                console.error('Failed to fetch data:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Failed to fetch data:', error.message);
         }
     };
 
@@ -681,7 +696,7 @@ const bridgeName = localStorage.getItem('bridgeName');
 
 
       {showUserDetails && (
-        <div className="w-1/12 absolute top-14 right-2 bg-white border shadow-md">
+        <div className="w-1/12 z-10 fixed top-14 right-2 bg-gray-100 border shadow-md">
           <div className='p-2 text-center'>Name</div>
           <div className='flex cursor-pointer hover:bg-gray-200 p-2'><MdEdit size={24} style={{paddingTop: '3px'}}/>Edit Info</div>
           <div className='flex cursor-pointer hover:bg-gray-200 p-2' onClick={Logout}><MdLogout size={24} style={{paddingTop: '3px'}}/>Log-out</div>

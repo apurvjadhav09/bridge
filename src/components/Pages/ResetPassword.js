@@ -87,11 +87,11 @@ const ResetPassword = () => {
           <div className="pb-16">
             <div className="flex justify-center pb-6">
               <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="password" placeholder="Enter New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+              <input className="border border-gray-500 p-3 ml-3 w-1/3 pl-3 mr-2 rounded" type="password" placeholder="Enter New Password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
             </div>
             <div className="flex justify-center">
               <LuRepeat style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="password" placeholder="Confirm Password" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} onKeyDown={handleKeyDown} />
+              <input className="border border-gray-500 p-3 ml-3 w-1/3 pl-3 mr-2 rounded" type="password" placeholder="Confirm Password" value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} onKeyDown={handleKeyDown} />
             </div>
           </div>
           <div className="">

@@ -160,14 +160,14 @@ const SensorForm = () => {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
     <div className="flex">
-      <div className="sensor w-1/2">
+      <div className="sensor w-2/5">
         <img className='w-32 p-6' src={logo2} alt="" />
       </div>
-      <div className="main w-1/2 pt-5 text-center">
+      <div className="main w-3/5 pt-5 text-center">
         <img className='mx-72 mt-2 mb-14' src={logo} alt="" />
       <h1  className='text-center pb-10 font-semibold text-3xl text-black'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Previously Entered Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
 
-      <div className="inline-flex justify-center">
+      <div className="inline-flex justify-center text-left">
       <div>
         <div className="mb-4 px-2">
           <label htmlFor="sensorlocation" className="block text-gray-700">Country:</label>
@@ -244,7 +244,7 @@ const SensorForm = () => {
       <h1 className='py-5 pt-14 text-center text-3xl text-black font-sans font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Add Sensor Information &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
       <div className="container mx-auto mt-2">
       <form>
-        <div className='justify-center pt-8 mx-20 block'>
+        <div className='justify-center text-left pt-8 mx-20 block'>
           <div className="mb-4 px-5">
             <label htmlFor="sensortype" className="block text-gray-700">Sensor Type:</label>
             <select id="sensortype" onChange={(e) => setsensortype(e.target.value)} name="sensortype" value={sensortype} className="border border-gray-300 p-1 w-full rounded">
@@ -255,7 +255,7 @@ const SensorForm = () => {
             </select>
           </div>
         </div>
-        <div className='block justify-center mx-20 pb-8'>
+        <div className='block justify-center text-left mx-20 pb-8'>
           <div className="mb-4 px-5">
             <label htmlFor="bridgesensorsrno" className="block text-gray-700">Sensor Number:</label>
             <input type="text" id="bridgesensorsrno" value={bridgesensorsrno} onChange={(e) => setbridgesensorsrno(e.target.value)} name="bridgesensorsrno" className="border border-gray-300 p-1 w-full rounded"/>

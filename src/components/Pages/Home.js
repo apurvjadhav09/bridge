@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { IoIosArrowDropdown } from "react-icons/io";
+import './tailwind.css';
 
 import bridge from '../Assets/Bridge.png';
 
@@ -53,12 +54,12 @@ const Home = () => {
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
       <div className="flex">
-        <div className="w-1/2">
-          <img src={bridge} alt="" />
+        <div className="w-2/5">
+          <img className='min-h-screen' src={bridge} alt="" />
         </div>
-        <div className='text-center w-1/2 pr-6'>
+        <div className='text-center w-3/5 pl-6 pr-6'>
           <h1 className='text-4xl font-bold text-black my-12'>REGISTER</h1>
-          <h1 className='text-white font-sm mb-6 text-l cursor-pointer mx-48 bg-blue-600 px-3 py-2 rounded-sm hover:bg-blue-900' onClick={Drop}>Select a method to Enter Data &nbsp;&nbsp; <IoIosArrowDropdown style={{alignItems: 'center' , display:'inline-flex'}} size={24}/></h1>
+          <h1 className='text-white font-sm mb-6 text-l cursor-pointer mx-64 bg-blue-600 px-3 py-2 rounded-sm hover:bg-blue-900' onClick={Drop}>Select a method to Enter Data &nbsp;&nbsp; <IoIosArrowDropdown style={{alignItems: 'center' , display:'inline-flex'}} size={24}/></h1>
           {Dropdown && (
           <div className='flex justify-center'>
             <button onClick={addbridge} className='bg-pink-600 px-3 mx-5 mb-5 py-2 text-gray-100 rounded-sm hover:bg-black'>Add Manually</button>

@@ -79,14 +79,14 @@ const Addexcelfile = () => {
 
       <div className='flex'>
 
-        <div id='excel' className='w-1/2'>
+        <div id='excel' className='w-1/3'>
             <img className='w-32 p-7' src={logo2} alt="" />
 
         </div>
 
 
 
-        <div className='w-1/2 pl-20 pb-6'>
+        <div className='w-2/3 pl-20 pb-6'>
             <div>
                 <h1 className='text-3xl font-semibold py-6'>Sample File</h1><br />
                 <p className='text-gray-800'>Download this sample excel file for additional reference. <br />Create your own excel file by referring to the format of the sample file.</p><br />

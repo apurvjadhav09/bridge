@@ -70,11 +70,11 @@ const Login = () => {
           <div className="">
             <div className="pb-6 flex justify-center">
               <FaUser style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="email" placeholder="Enter Email" value={email} onChange={(e) => setemail(e.target.value)}/>
+              <input className="border border-gray-500 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type="email" placeholder="Enter Email" value={email} onChange={(e) => setemail(e.target.value)}/>
             </div>
             <div className="pb-2 flex justify-center">
               <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-              <input className="border border-gray-500 p-3 ml-3 pr-16 pl-3 mr-2 rounded" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
+              <input className="border border-gray-500 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
             </div>
           </div>
           <div className="pt-16">
