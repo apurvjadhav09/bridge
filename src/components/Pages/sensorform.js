@@ -160,30 +160,27 @@ const SensorForm = () => {
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
     <div className="flex">
-      <div className="sensor w-2/5">
-        <img className='w-32 p-6' src={logo2} alt="" />
-      </div>
-      <div className="main w-3/5 pt-5 text-center">
-        <img className='mx-72 mt-2 mb-14' src={logo} alt="" />
+      <div className="main w-full text-center">
+        <img className='p-6' src={logo} alt="" />
       <h1  className='text-center pb-10 font-semibold text-3xl text-black'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Previously Entered Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
 
-      <div className="inline-flex justify-center text-left">
+      <div className="inline-flex box-border shadow-2xl p-6 bg-gray-100 justify-center text-left">
       <div>
         <div className="mb-4 px-2">
           <label htmlFor="sensorlocation" className="block text-gray-700">Country:</label>
-          <input type="text" value={country} className="border border-gray-300 p-1 w-full rounded" disabled/>
+          <input type="text" value={country} className="border border-gray-300 bg-white p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-2">
           <label htmlFor="sensorlocation" className="block text-gray-700">State:</label>
-          <input type="text" value={state} className="border border-gray-300 p-1 w-full rounded" disabled/>
+          <input type="text" value={state} className="border border-gray-300 bg-white p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-2">
           <label htmlFor="sensorlocation" className="block text-gray-700">Division:</label>
-          <input type="text" value={division} className="border border-gray-300 p-1 w-full rounded" disabled/>
+          <input type="text" value={division} className="border border-gray-300 bg-white p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-2">
           <label htmlFor="nobridgespan" className="block text-gray-700">No of Spans:</label>
-          <input type="text" value={nobridgespan} className="border border-gray-300 p-1 w-full rounded" disabled/>
+          <input type="text" value={nobridgespan} className="border border-gray-300 bg-white p-1 w-full rounded" disabled/>
         </div>
       </div>
     
@@ -191,19 +188,19 @@ const SensorForm = () => {
         
         <div className="mb-4 px-5">
           <label htmlFor="sensorlocation" className="block text-gray-700">Coordinates:</label>
-          <input type="text" value={coordinates} className="border border-gray-300 p-1 w-full rounded" disabled/>
+          <input type="text" value={coordinates} className="border border-gray-300 bg-white p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-5">
           <label htmlFor="sensorlocation" className="block text-gray-700">Bridge Location:</label>
-          <input type="text" value={bridgeLocation} className="border border-gray-300 p-1 w-full rounded" disabled/>
+          <input type="text" value={bridgeLocation} className="border border-gray-300 bg-white p-1 w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-5">
           <label htmlFor="sensorlocation" className="block text-gray-700">Bridge Name:</label>
-          <input type="text" value={bridgeName} className="border border-gray-300 p-1 w-full rounded" disabled/>
+          <input type="text" value={bridgeName} className="border border-gray-300 p-1 bg-white w-full rounded" disabled/>
         </div>
         <div className="mb-4 px-5">
           <label htmlFor="noofgirders" className="block text-gray-700">No of Girders:</label>
-          <input type="text" value={noofgirders} className="border border-gray-300 p-1 w-full rounded" disabled/>
+          <input type="text" value={noofgirders} className="border border-gray-300 p-1 bg-white w-full rounded" disabled/>
         </div>
       </div>
       <div>
@@ -242,7 +239,7 @@ const SensorForm = () => {
       <br /><br />
 
       <h1 className='py-5 pt-14 text-center text-3xl text-black font-sans font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Add Sensor Information &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
-      <div className="container mx-auto mt-2">
+      <div className="container mx-auto w-1/2 box-border shadow-2xl p-6 bg-gray-100 mt-2">
       <form>
         <div className='justify-center text-left pt-8 mx-20 block'>
           <div className="mb-4 px-5">
@@ -276,6 +273,7 @@ const SensorForm = () => {
     </div>
   </div>
   </div>
+  <br /><br />
     </>
   )
 }

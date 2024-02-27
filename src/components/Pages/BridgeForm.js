@@ -339,9 +339,9 @@ const BridgeForm = ({onSubmit }) => {
 
           {showUserForm && ( 
       <div id='userform' className='absolute left-1/2 text-left w-1/2'>
-          <button type="submit" onClick={PrevFrom} className="inline-flex underline mt-4"><IoArrowBackCircleSharp size={32}/>Back</button>
-        <div className='text-center mt-6'>
-          <img className='px-72 mt-10 mb-16' src={logo} alt="" />
+          <button type="submit" onClick={PrevFrom} className="inline-flex underline mt-4 hover:text-blue-800"><IoArrowBackCircleSharp size={32}/>Back</button>
+        <div className='text-left ml-20 mt-6'>
+          <img className='px-64 mt-10 mb-16' src={logo} alt="" />
           <h1 className='mt-12 mb-12 text-3xl font-semibold'>&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash; Add User Details &ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</h1>
         </div>
         <div>
@@ -457,7 +457,7 @@ const BridgeForm = ({onSubmit }) => {
 
     {showBridgeForm && ( 
       <div className="w-3/5 px-2 bg-white rounded-xl">
-            <button className='inline-flex underline mt-4' onClick={backHome}><IoArrowBackCircleSharp size={32}/>Home</button>
+            <button className='inline-flex underline mt-4 hover:text-blue-800' onClick={backHome}><IoArrowBackCircleSharp size={32}/>Home</button>
         <form>
           <div className='px-72 mt-10 mb-16'>
           <img  src={logo} alt="" />
@@ -522,8 +522,8 @@ const BridgeForm = ({onSubmit }) => {
         </div>
       </div>
           <div className='flex align-center justify-center text-center mt-12'>
-            <button type="submit" onClick={UserForm} className="bg-blue-600 px-6 mx-2 py-2 text-gray-100 rounded-sm hover:bg-pink-600">Next</button>
-            <button onClick={Cancel} className="bg-black px-5 py-2 text-gray-100 rounded-sm hover:bg-indigo-900 ml-2 hover:bg-pink-600">Cancel</button>
+            <button type="submit" onClick={UserForm} className="bg-blue-600 px-6 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900">Next</button>
+            <button onClick={Cancel} className="bg-black px-5 py-2 text-gray-100 rounded-sm hover:bg-white hover:text-black border border-black ml-2">Cancel</button>
           </div>
           
         </form>

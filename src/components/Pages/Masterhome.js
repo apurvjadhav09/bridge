@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './tailwind.css';
@@ -6,7 +6,7 @@ import './tailwind.css';
 
 import { FaBridge } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
-import {MdHome, MdSettings, MdPerson, MdSearch, MdNotifications, MdDashboard, MdSensors, MdDescription, MdLogout, MdEdit } from 'react-icons/md'
+import {MdHome, MdSettings, MdPerson, MdSearch, MdNotifications, MdDashboard, MdLogout, MdEdit } from 'react-icons/md'
 
 import logo2 from '../Assets/logo2.png';
 
@@ -81,33 +81,29 @@ const Masterhome = () => {
         setIsSelected4(!isSelected4);
     };
 
-    const [showForm, setShowForm] = useState(false);
 
-    const submitForm = async (event) => {
-      event.preventDefault();
-  
-      // Collect form data
-      const formData = {
-        name: event.target.elements.name.value,
-        designation: event.target.elements.designation.value,
-        companyName: event.target.elements.companyName.value,
-        email: event.target.elements.email.value,
-        phoneNumber: event.target.elements.countryCode.value + event.target.elements.phoneNumber.value,
-        role: event.target.elements.superadmin.value,
-      };
-  
-      console.log('Form Data:', formData);
-  
-      try {
-        // Make the API request
-        const response = await axios.post('http://localhost:9090/masterhome/register', formData);
-        console.log('Form submitted successfully', response.data);
-        alert('Form submitted successfully');
-      } catch (error) {
-        console.error('Error submitting form', error);
-      }
-      setShowForm(false);
+const submitForm = async (event) => {
+  try {
+    event.preventDefault();
+
+    const formData = {
+      name: event.target.elements.name.value,
+      designation: event.target.elements.designation.value,
+      companyName: event.target.elements.companyName.value,
+      email: event.target.elements.email.value,
+      phoneNumber: event.target.elements.countryCode.value + event.target.elements.phoneNumber.value,
+      role: event.target.elements.superadmin.value,
     };
+
+    console.log('Form Data:', formData);
+
+    const response = await axios.post('http://localhost:9090/masterhome/register', formData);
+    console.log('Form submitted successfully', response.data);
+    alert('Form submitted successfully');
+  } catch (error) {
+    console.error('Error submitting form', error);
+  }
+};
 
     const Logout = async () => {
     
@@ -191,10 +187,10 @@ const Masterhome = () => {
 
       {showHome && (
         <>
+          <form onSubmit={submitForm}>
           <div className='w-11/12 ml-28 p-6 pt-24 bg-white'>
             <h1 className='text-center font-semibold text-3xl pb-16'>Register Super Admin</h1>
               <div className='w-full flex px-24'>
-
                 <div className=' grid w-full px-8'>
                   <label htmlFor="name">Name:</label>
                   <input  className='border border-gray-500 p-2 mr-2 rounded mb-12' type="text" name="name" required />
@@ -443,6 +439,7 @@ const Masterhome = () => {
               <button className='p-2 px-6 rounded-sm bg-blue-600 text-white hover:bg-blue-900' onClick={submitForm}>Submit</button>
             </div>
           </div>
+          </form>
         </>
       )}
 
