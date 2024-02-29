@@ -89,9 +89,13 @@ const Masterhome = () => {
     const [phonenumber , setphonenumber] = useState('');
     const [countryCode , setCountryCode] = useState('');
     const [email , setEmail] = useState('');
-    const [role, setRole] = useState('');
+    const [role, setRole] = useState('SUPERADMIN');
 
     const submitForm = async (event) => {
+      if(phonenumber.length !== 10){
+        alert('Mobile Number should be exact 10 digits!')
+        setphonenumber('');
+      }
       try {
         setLoading(true);
         event.preventDefault();
@@ -115,6 +119,7 @@ const Masterhome = () => {
         setDesignation('');
         setCompanyName('');
         setEmail('');
+        setRole('SUPERADMIN')
         setCountryCode('');
         setphonenumber('');
       } catch (error) {
@@ -173,7 +178,6 @@ const Masterhome = () => {
         if (response.status >= 200 && response.status < 300) {
             console.log(response.data);
             navigate('/home');
-
         } 
         else {
             console.error('Failed to fetch data:', response.statusText);
@@ -468,7 +472,7 @@ const Masterhome = () => {
                   <input type="text" className='border border-gray-500 p-2 mr-2 rounded mb-12 w-4/5' name="phonenumber" value={phonenumber} onChange={(e) => setphonenumber(e.target.value)} minLength="10" maxLength="10" required/>
                 </div>
                   <label className='' htmlFor="Role">Role:</label>
-                  <input type="text" className='border border-gray-500 p-2 mr-2 rounded' value={role} onChange={(e) => setRole(e.target.value)} name="superadmin"/>
+                  <input type="text" className='border border-gray-500 p-2 mr-2 rounded' value={role} name="superadmin" readOnly/>
               </div>
             </div>
             <div className='text-center py-12'>
@@ -477,7 +481,7 @@ const Masterhome = () => {
               ) : (
                 <button className='p-2 px-6 rounded-sm bg-blue-600 text-white hover:bg-blue-900' onClick={submitForm}>Submit</button>
           )}
-              <button className='' onClick={DelBridge}>Delete</button>
+              <button className='p-2 mx-5 rounded-sm text-white bg-black hover:bg-white hover:text-black border border-black' onClick={DelBridge}>Delete Bridge</button>
             </div>
           </div>
           </form>
