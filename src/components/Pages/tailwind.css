@@ -46,10 +46,33 @@
     margin-left: -0.5%;
     background-position: right;
 }
-#userform{
-    margin-left: -6%;
+#Licon-bridgeform{
+    margin-top: -50%;
+    width: 100%;
+    opacity: 0.8;
 }
-
+#Licon-masterform{
+    margin-top: -40%;
+    width: 100%;
+    z-index: 999;
+    opacity: 0.8;
+    margin-left: -9%;
+}
+#Licon-sensorform{
+    margin-left: -3%;
+    width: 100%;
+    margin-top: -50%;
+    opacity: 0.6;
+}
+#Licon-login{
+    margin-top: -45%;
+    margin-left: -50%;
+    opacity: 0.8;
+}
+#sensorform-pop{
+    margin-left: 30%;
+    margin-top: -15%;
+}
 #globe{
     background: linear-gradient(to bottom, #000000cc, #00000000) ,url('../Assets/globe.jpg');
     background-repeat: no-repeat;

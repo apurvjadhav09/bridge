@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './tailwind.css';
 
 import { FaUser, FaLock } from "react-icons/fa";
+import loadingIcon from '../Assets/loading.gif';
 
 import logo from '../Assets/logo.png';
 import logo2 from '../Assets/logo2.png';
@@ -12,6 +13,7 @@ const Login = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     if (email === '') {
@@ -20,6 +22,7 @@ const Login = () => {
       alert('Please Enter Password');
     } else {
       try {
+        setLoading(true);
         const response = await axios.post('http://localhost:9090/login', {
           email: email,
           password: password,
@@ -37,10 +40,12 @@ const Login = () => {
           alert('Incorrect User ID or Password');
           setemail('');
           setPassword('');
+          setLoading(false);
         }
       } catch (error) {
         console.error('Error during login:', error);
         alert('Incorrect login credentials!');
+        setLoading(false);
       }
     }
   };  
@@ -79,7 +84,11 @@ const Login = () => {
           </div>
           <div className="pt-16">
             <div className="">
-              <button onClick={handleLogin} className='p-2 mb-2 bg-blue-600 hover:bg-blue-900 text-white rounded-sm px-8'>Login</button>
+            {loading ? (
+                <img id='Licon-login' className='absolute' src={loadingIcon} alt="Loading" />
+              ) : (
+                <button onClick={handleLogin} className='p-2 mb-2 bg-blue-600 hover:bg-blue-900 text-white rounded-sm px-8'>Login</button>
+              )}
               <p className='underline text-m text-blue-800'><a href="./forgotpassword">Forgot Password?</a></p>
             </div>
           </div>

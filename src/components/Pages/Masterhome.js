@@ -7,6 +7,7 @@ import './tailwind.css';
 import { FaBridge } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import {MdHome, MdSettings, MdPerson, MdSearch, MdNotifications, MdDashboard, MdLogout, MdEdit } from 'react-icons/md'
+import loadingIcon from '../Assets/loading.gif';
 
 import logo2 from '../Assets/logo2.png';
 
@@ -15,6 +16,7 @@ import logo2 from '../Assets/logo2.png';
 
 const Masterhome = () => {
 
+  const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const [isSelected0, setIsSelected0] = useState(true);
@@ -81,32 +83,66 @@ const Masterhome = () => {
         setIsSelected4(!isSelected4);
     };
 
+    const [Name, setName] = useState('');
+    const [designation, setDesignation] = useState('');
+    const [companyName , setCompanyName] = useState('');
+    const [phonenumber , setphonenumber] = useState('');
+    const [countryCode , setCountryCode] = useState('');
+    const [email , setEmail] = useState('');
+    const [role, setRole] = useState('');
 
-const submitForm = async (event) => {
-  try {
-    event.preventDefault();
+    const submitForm = async (event) => {
+      try {
+        setLoading(true);
+        event.preventDefault();
+    
+        const formData = {
+          name: Name,
+          designation: designation,
+          companyName: companyName,
+          email: email,
+          phonenumber: phonenumber,
+          countryCode: countryCode,
+          role: role,
+        };
+    
+        console.log('Form Data:', formData);
+    
+        const response = await axios.post('http://localhost:9090/masterhome/register', formData);
+        console.log('Form submitted successfully', response.data);
+        alert('Form submitted successfully');
+        setName('');
+        setDesignation('');
+        setCompanyName('');
+        setEmail('');
+        setCountryCode('');
+        setphonenumber('');
+      } catch (error) {
+        console.error('Error submitting form', error);
+        if (error.response && error.response.status === 400) {
+          if (error.response.data.message === "Email already exists. Please choose a different email.") {
+            alert('Email already exists. Please choose a different email.');
+            setLoading(false);
+          }
+          else if (error.response.data.message === "Name must be unique. Please choose a different name.") {
+            alert('Name must be unique. Please choose a different name.');
+            setLoading(false);
+          } 
+          else {
+            alert('Error submitting form');
+            setLoading(false);
+          }
+        } 
+        else {
+          alert('Error submitting form');
+          setLoading(false);
 
-    const formData = {
-      name: event.target.elements.name.value,
-      designation: event.target.elements.designation.value,
-      companyName: event.target.elements.companyName.value,
-      email: event.target.elements.email.value,
-      phoneNumber: event.target.elements.countryCode.value + event.target.elements.phoneNumber.value,
-      role: event.target.elements.superadmin.value,
+        }
+      }
     };
-
-    console.log('Form Data:', formData);
-
-    const response = await axios.post('http://localhost:9090/masterhome/register', formData);
-    console.log('Form submitted successfully', response.data);
-    alert('Form submitted successfully');
-  } catch (error) {
-    console.error('Error submitting form', error);
-  }
-};
+    
 
     const Logout = async () => {
-    
         try {
             const token = localStorage.getItem('authToken'); // Corrected key
             console.log(token);
@@ -149,13 +185,13 @@ const submitForm = async (event) => {
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
       <div className="flex fixed z-10 w-full justify-center bg-gray-100 py-2 shadow-xl">
-        <div className='w-1/3'>   
+        <div className='w-1/4'>   
            <img className='h-10 pt-2 cursor-pointer pl-5'  src={logo2} alt=""/>
         </div>
-        <div className='w-1/2 text-center pt-1'>
+        <div className='w-2/3 text-center pt-1'>
             <h1 className='text-2xl font-semibold'>Structural Health Monitoring - Master Admin Dashboard</h1>
         </div>
-        <div className='w-1/3 text-right'>
+        <div className='w-1/4 text-right'>
             <button className='pr-2'><MdSearch size={36} /></button>
             <button className='px-2'><MdNotifications size={36} /></button>
             <button onClick={UserDetails} className='px-2'><MdPerson onClick={UserDetails} size={36} /></button>
@@ -193,23 +229,23 @@ const submitForm = async (event) => {
               <div className='w-full flex px-24'>
                 <div className=' grid w-full px-8'>
                   <label htmlFor="name">Name:</label>
-                  <input  className='border border-gray-500 p-2 mr-2 rounded mb-12' type="text" name="name" required />
+                  <input  className='border border-gray-500 p-2 mr-2 rounded mb-12' type="text" value={Name} onChange={(e) => setName(e.target.value)} name="name" required />
                   <label htmlFor="designation">Designation:</label>
-                  <input className='border border-gray-500 p-2 mr-2 rounded' type="text" name="designation" required />
+                  <input className='border border-gray-500 p-2 mr-2 rounded' type="text" value={designation} onChange={(e) => setDesignation(e.target.value)} name="designation" required />
                 </div>
 
                 <div className='grid w-full px-8'>
                   <label htmlFor="companyName">Company Name:</label>
-                  <input  className='border border-gray-500 p-2 mr-2 rounded mb-12' type="text" name="companyName" required />
+                  <input  className='border border-gray-500 p-2 mr-2 rounded mb-12' type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} name="companyName" required />
                   <label  htmlFor="email">Email id:</label>
-                  <input className='border border-gray-500 p-2 mr-2 rounded' type="email" name="email" required />
+                  <input className='border border-gray-500 p-2 mr-2 rounded' type="email" value={email} onChange={(e) => setEmail(e.target.value)} name="email" required />
                 </div>
                 
 
               <div className='grid w-full px-8'>
-                <label htmlFor="phoneNumber">Mobile Number: </label>
+                <label htmlFor="phonenumber">Mobile Number: </label>
                 <div className='flex'>
-                <select name="countryCode" className='border w-1/3 mb-12 border-gray-500 p-2 mr-1 rounded' defaultValue="+1">
+                <select name="countryCode" className='border w-1/3 mb-12 border-gray-500 p-2 mr-1 rounded' value={countryCode} onChange={(e) => setCountryCode(e.target.value)}>
                 <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -429,14 +465,19 @@ const submitForm = async (event) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-                  <input type="text" className='border border-gray-500 p-2 mr-2 rounded mb-12 w-4/5' name="phoneNumber" maxLength="10"/>
+                  <input type="text" className='border border-gray-500 p-2 mr-2 rounded mb-12 w-4/5' name="phonenumber" value={phonenumber} onChange={(e) => setphonenumber(e.target.value)} minLength="10" maxLength="10" required/>
                 </div>
                   <label className='' htmlFor="Role">Role:</label>
-                  <input type="text" className='border border-gray-500 p-2 mr-2 rounded' defaultValue="SUPERADMIN" name="superadmin" readOnly />
+                  <input type="text" className='border border-gray-500 p-2 mr-2 rounded' value={role} onChange={(e) => setRole(e.target.value)} name="superadmin"/>
               </div>
             </div>
             <div className='text-center py-12'>
-              <button className='p-2 px-6 rounded-sm bg-blue-600 text-white hover:bg-blue-900' onClick={submitForm}>Submit</button>
+            {loading ? (
+                <img id='Licon-masterform' className='absolute' src={loadingIcon} alt="Loading" />
+              ) : (
+                <button className='p-2 px-6 rounded-sm bg-blue-600 text-white hover:bg-blue-900' onClick={submitForm}>Submit</button>
+          )}
+              <button className='' onClick={DelBridge}>Delete</button>
             </div>
           </div>
           </form>
