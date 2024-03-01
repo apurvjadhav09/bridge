@@ -31,6 +31,7 @@ const Login = () => {
 
         if (response.status >= 200 && response.status < 300) {
           console.log('Login successful');
+          setLoading(false);
           const token = response.data.token;
           localStorage.setItem('authToken', token);
           const dashboardUrl = response.data.dashboardUrl;

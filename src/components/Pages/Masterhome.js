@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './tailwind.css';
@@ -27,7 +27,7 @@ const Masterhome = () => {
 
     const [showUserDetails, setshowUserDetails] = useState(false);
     const [showDashboard, setshowDashboard] = useState(false);
-    const [showSensorDashboard, setshowSensorDashboard] = useState(false);
+    const [showBridgeDashboard, setshowBridgeDashboard] = useState(false);
     const [showModify, setshowModify] = useState(false);
     const [showHome, setshowHome] = useState(true);
 
@@ -42,17 +42,17 @@ const Masterhome = () => {
         setIsSelected1(false);
         setIsSelected4(false);
         setshowDashboard(!showDashboard);
-        setshowSensorDashboard(false);
+        setshowBridgeDashboard(false);
         setshowModify(false);
         setIsSelected0(false);
         setshowHome(false);
     };
 
-    const SensorDashboard = () => {
+    const BridgeDashboard = () => {
         setIsSelected1(!isSelected1);
         setIsSelected(false);
         setIsSelected4(false);
-        setshowSensorDashboard(!showSensorDashboard);
+        setshowBridgeDashboard(!showBridgeDashboard);
         setshowDashboard(false);
         setshowModify(false);
         setIsSelected0(false);
@@ -66,14 +66,14 @@ const Masterhome = () => {
         setIsSelected(false);
         setIsSelected4(false);
         setshowDashboard(false);
-        setshowSensorDashboard(false);
+        setshowBridgeDashboard(false);
         setshowDashboard(false);
         setshowModify(false);
     };
 
 
     const Modify = () => {
-        setshowSensorDashboard(false);
+        setshowBridgeDashboard(false);
         setshowDashboard(false);
         setIsSelected1(false);
         setIsSelected(false);
@@ -94,7 +94,7 @@ const Masterhome = () => {
     const submitForm = async (event) => {
       if(phonenumber.length !== 10){
         alert('Mobile Number should be exact 10 digits!')
-        setphonenumber('');
+        setphonenumber(''); 
       }
       try {
         setLoading(true);
@@ -122,6 +122,7 @@ const Masterhome = () => {
         setRole('SUPERADMIN')
         setCountryCode('');
         setphonenumber('');
+        setLoading(false);
       } catch (error) {
         console.error('Error submitting form', error);
         if (error.response && error.response.status === 400) {
@@ -184,6 +185,27 @@ const Masterhome = () => {
         }
     };
 
+    const [bridges, setBridges] = useState([]);
+    const [selectedBridge, setSelectedBridge] = useState('');
+  
+    useEffect(() => {
+      const fetchBridges = async () => {
+        try {
+          const response = await axios.get('http://localhost:9090/bridge/getallbridge');
+          setBridges(response.data); // Assuming the response data is an array of bridges
+        } catch (error) {
+          console.error('Error fetching bridges:', error);
+        }
+      };
+      fetchBridges();
+    }, []);
+  
+    
+    const handleBridgeChange = (e) => {
+      setSelectedBridge(e.target.value);
+    };
+  
+
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
@@ -208,7 +230,7 @@ const Masterhome = () => {
             <hr /><hr />
             <button className={`w-full py-5 ${isSelected ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={Dashboard}><ul><MdDashboard style={{width: '100%', alignItems: 'center'}} size={40} />Add Data Sheet</ul></button>
             <hr /><hr />
-            <button className={`w-full py-5 ${isSelected1 ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={SensorDashboard}><ul><FaBridge style={{width: '100%', alignItems: 'center'}} size={40} />Bridge List</ul></button>
+            <button className={`w-full py-5 ${isSelected1 ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={BridgeDashboard}><ul><FaBridge style={{width: '100%', alignItems: 'center'}} size={40} />Bridge List</ul></button>
             <hr /><hr />
             <button className={`w-full py-3 ${isSelected4 ? 'bg-gray-400' : 'hover:bg-gray-400'}`} onClick={Modify}><ul><FaEdit style={{width: '100%', alignItems: 'center'}} size={40} />Edit</ul></button>
             <hr /><hr />
@@ -481,13 +503,27 @@ const Masterhome = () => {
               ) : (
                 <button className='p-2 px-6 rounded-sm bg-blue-600 text-white hover:bg-blue-900' onClick={submitForm}>Submit</button>
           )}
-              <button className='p-2 mx-5 rounded-sm text-white bg-black hover:bg-white hover:text-black border border-black' onClick={DelBridge}>Delete Bridge</button>
             </div>
           </div>
           </form>
         </>
       )}
 
+
+      {showBridgeDashboard && (
+        <div className='w-11/12 ml-28 p-6 pt-24 bg-white'>
+              <div>
+              <select className='w-1/2 border border-gray-600 rounded-sm p-2' id="bridge" value={selectedBridge} onChange={handleBridgeChange}>
+                <option value="">Select a bridge</option>
+                {bridges.map((bridge) => (
+                  <option key={bridge.id} value={bridge.id}>{bridge.name}</option>
+                ))}
+                <button className='p-2 mx-5 rounded-sm text-white bg-black hover:bg-white hover:text-black border border-black' onClick={DelBridge}>Delete Bridge</button>
+              </select>
+              {selectedBridge && <p>You selected: {selectedBridge}</p>}
+            </div>
+        </div>
+      )}
 
 </>
 

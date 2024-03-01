@@ -59,7 +59,7 @@
     margin-left: -9%;
 }
 #Licon-sensorform{
-    margin-left: -4%;
+    margin-left: -4.2%;
     width: 100%;
     margin-top: -50%;
     opacity: 0.6;
@@ -67,6 +67,18 @@
 #Licon-login{
     margin-top: -45%;
     margin-left: -50%;
+    opacity: 0.8;
+}
+#Licon-resetpw{
+    width: 100%;
+    margin-left: -50%;
+    margin-top: -50%;
+    opacity: 0.8;
+}
+#Licon-forgotpw{
+    width: 100%;
+    margin-left: -50%;
+    margin-top: -50%;
     opacity: 0.8;
 }
 #sensorform-pop{
