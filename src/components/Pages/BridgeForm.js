@@ -103,26 +103,17 @@ const BridgeForm = ({onSubmit }) => {
     setShowOwnerForm(false);
   };
 
-
- 
-
-
   const handleAddManager = () => {
     setShowManagerForm(!showManagerForm);
     setShowAdminForm(false);
     setShowOwnerForm(false);
   };
 
-
-
   const handleAddOwner = () => {
     setShowOwnerForm(!showOwnerForm);
     setShowAdminForm(false);
     setShowManagerForm(false);
   };
-
-
-
 
   const closeForm = () => {
     setShowAdminForm(false);
@@ -157,7 +148,6 @@ const BridgeForm = ({onSubmit }) => {
   };
 
 
-
   const submitForm = async (e) => {
     e.preventDefault();
     if(adminName ==='' || adminEmail === '' || adminPhone === ''){
@@ -168,6 +158,15 @@ const BridgeForm = ({onSubmit }) => {
     }
     else if(ownerName === '' || ownerEmail === '' || ownerPhone === ''){
       alert('Please add atleast One Owner!');
+    }
+    else if(adminPhone.length !== 10){
+      alert('Mobile Number of Admin should be exactly 10 digits!')
+    }
+    else if(managerPhone.length !== 10){
+      alert('Mobile Number of Manager should be exactly 10 digits!')
+    }
+    else if(ownerPhone.length !== 10){
+      alert('Mobile Number of Owner should be exactly 10 digits!')
     }
     else{
         try {
@@ -339,8 +338,6 @@ const BridgeForm = ({onSubmit }) => {
       const backHome = () => {
         navigate('/home')
       }
-
-
 
 
 
