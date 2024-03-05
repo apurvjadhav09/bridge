@@ -6,7 +6,7 @@ import './tailwind.css';
 import loadingIcon from '../Assets/loading.gif';
 import logo from '../Assets/logo2.png';
 
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosWarning } from "react-icons/io";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 
@@ -52,6 +52,109 @@ const BridgeForm = ({onSubmit }) => {
   const [showManagerForm, setShowManagerForm] = useState(false);
   const [showOwnerForm, setShowOwnerForm] = useState(false); 
 
+  const [showBridgeDetailsError, setshowBridgeDetailsError] = useState(false);
+  const [showUserError0, setshowUserError0] =useState(false);
+  const [showUserError1, setshowUserError1] =useState(false);
+  const [showUserError2, setshowUserError2] =useState(false);
+
+
+  const [showUserError3, setshowUserError3] =useState(false);
+
+  const [showUserError31, setshowUserError31] =useState(false);
+  const [showUserError32, setshowUserError32] =useState(false);
+  const [showUserError33, setshowUserError33] =useState(false);
+  const [showUserError34, setshowUserError34] =useState(false);
+  const [showUserError35, setshowUserError35] =useState(false);
+  const [showUserError36, setshowUserError36] =useState(false);
+  const [showUserError37, setshowUserError37] =useState(false);
+  const [showUserError38, setshowUserError38] =useState(false);
+  const [showUserError39, setshowUserError39] =useState(false);
+
+  const [showUserError31a, setshowUserError31a] =useState(false);
+  const [showUserError32b, setshowUserError32b] =useState(false);
+  const [showUserError33c, setshowUserError33c] =useState(false);
+  const [showUserError34d, setshowUserError34d] =useState(false);
+  const [showUserError35e, setshowUserError35e] =useState(false);
+  const [showUserError36f, setshowUserError36f] =useState(false);
+  const [showUserError37g, setshowUserError37g] =useState(false);
+  const [showUserError38h, setshowUserError38h] =useState(false);
+  const [showUserError39i, setshowUserError39i] =useState(false);
+
+
+  const [showUserError4, setshowUserError4] =useState(false);
+
+  const [showUserError4a, setshowUserError4a] =useState(false);
+  const [showUserError4b, setshowUserError4b] =useState(false);
+  const [showUserError4c, setshowUserError4c] =useState(false);
+  const [showUserError4d, setshowUserError4d] =useState(false);
+  const [showUserError4e, setshowUserError4e] =useState(false);
+  const [showUserError4f, setshowUserError4f] =useState(false);
+  const [showUserError4g, setshowUserError4g] =useState(false);
+  const [showUserError4h, setshowUserError4h] =useState(false);
+  const [showUserError4i, setshowUserError4i] =useState(false);
+
+  const [showUserError41, setshowUserError41] =useState(false);
+  const [showUserError42, setshowUserError42] =useState(false);
+  const [showUserError43, setshowUserError43] =useState(false);
+  const [showUserError44, setshowUserError44] =useState(false);
+  const [showUserError45, setshowUserError45] =useState(false);
+  const [showUserError46, setshowUserError46] =useState(false);
+  const [showUserError47, setshowUserError47] =useState(false);
+  const [showUserError48, setshowUserError48] =useState(false);
+  const [showUserError49, setshowUserError49] =useState(false);
+
+  const [showUserError41a, setshowUserError41a] =useState(false);
+  const [showUserError42b, setshowUserError42b] =useState(false);
+  const [showUserError43c, setshowUserError43c] =useState(false);
+  const [showUserError44d, setshowUserError44d] =useState(false);
+  const [showUserError45e, setshowUserError45e] =useState(false);
+  const [showUserError46f, setshowUserError46f] =useState(false);
+  const [showUserError47g, setshowUserError47g] =useState(false);
+  const [showUserError48h, setshowUserError48h] =useState(false);
+  const [showUserError49i, setshowUserError49i] =useState(false);
+
+  const [showUserError411, setshowUserError411] =useState(false);
+  const [showUserError422, setshowUserError422] =useState(false);
+  const [showUserError433, setshowUserError433] =useState(false);
+  const [showUserError444, setshowUserError444] =useState(false);
+  const [showUserError455, setshowUserError455] =useState(false);
+  const [showUserError466, setshowUserError466] =useState(false);
+  const [showUserError477, setshowUserError477] =useState(false);
+  const [showUserError488, setshowUserError488] =useState(false);
+  const [showUserError499, setshowUserError499] =useState(false);
+
+  const [showUserError411a, setshowUserError411a] =useState(false);
+  const [showUserError422b, setshowUserError422b] =useState(false);
+  const [showUserError433c, setshowUserError433c] =useState(false);
+  const [showUserError444d, setshowUserError444d] =useState(false);
+  const [showUserError455e, setshowUserError455e] =useState(false);
+  const [showUserError466f, setshowUserError466f] =useState(false);
+  const [showUserError477g, setshowUserError477g] =useState(false);
+  const [showUserError488h, setshowUserError488h] =useState(false);
+  const [showUserError499i, setshowUserError499i] =useState(false);
+
+
+  const [showUserError5, setshowUserError5] =useState(false);
+
+  const [showUserError51, setshowUserError51] =useState(false);
+  const [showUserError52, setshowUserError52] =useState(false);
+  const [showUserError53, setshowUserError53] =useState(false);
+  const [showUserError54, setshowUserError54] =useState(false);
+  const [showUserError55, setshowUserError55] =useState(false);
+  const [showUserError56, setshowUserError56] =useState(false);
+  const [showUserError57, setshowUserError57] =useState(false);
+  const [showUserError58, setshowUserError58] =useState(false);
+  const [showUserError59, setshowUserError59] =useState(false);
+
+  const [showUserError51a, setshowUserError51a] =useState(false);
+  const [showUserError52b, setshowUserError52b] =useState(false);
+  const [showUserError53c, setshowUserError53c] =useState(false);
+  const [showUserError54d, setshowUserError54d] =useState(false);
+  const [showUserError55e, setshowUserError55e] =useState(false);
+  const [showUserError56f, setshowUserError56f] =useState(false);
+  const [showUserError57g, setshowUserError57g] =useState(false);
+  const [showUserError58h, setshowUserError58h] =useState(false);
+  const [showUserError59i, setshowUserError59i] =useState(false);
 
   
   const [adminEmail, setAdminEmail] = useState('');
@@ -122,9 +225,13 @@ const BridgeForm = ({onSubmit }) => {
   };
 
 
-  const UserForm = () => {
+  const UserForm = async(e) => {
+    e.preventDefault();
     if(country === '' || state === '' || nobridgespan==='' || noofgirders==='' || coordinates === '' || division === '' || location === '' || bridgeName === ''){
-      alert('Please Fill all bridge related data!')
+      setshowBridgeDetailsError(true);
+      setTimeout(() => {
+        setshowBridgeDetailsError(false);
+    }, 5000);
     }
     else{
       setShowUserForm(!showUserForm);
@@ -151,22 +258,148 @@ const BridgeForm = ({onSubmit }) => {
   const submitForm = async (e) => {
     e.preventDefault();
     if(adminName ==='' || adminEmail === '' || adminPhone === ''){
-      alert('Please add atleast One Admin!');
+      setshowUserError0(true);
+      setTimeout(() => {
+        setshowUserError0(false);
+    }, 5000);
     }
     else if(managerName === '' || managerEmail === '' || managerPhone === ''){
-      alert('Please add atleast One Manager!');
+      setshowUserError1(true);
+      setTimeout(() => {
+        setshowUserError1(false);
+    }, 5000);
     }
     else if(ownerName === '' || ownerEmail === '' || ownerPhone === ''){
-      alert('Please add atleast One Owner!');
+      setshowUserError2(true);
+      setTimeout(() => {
+        setshowUserError2(false);
+    }, 5000);
     }
     else if(adminPhone.length !== 10){
-      alert('Mobile Number of Admin should be exactly 10 digits!')
+      setshowUserError3(true);
+      setTimeout(() => {
+        setshowUserError3(false);
+    }, 5000);
+    }
+    else if(adminName2.length === 0 && adminEmail2.length >  0 && adminPhone2.length === 10){
+      setshowUserError31(true);
+      setTimeout(() => {
+        setshowUserError31(false);
+    }, 5000);
+    }
+    else if(adminName2.length > 0 && adminEmail2.length ===  0 && adminPhone2.length === 10){
+      setshowUserError32(true);
+      setTimeout(() => {
+        setshowUserError32(false);
+    }, 5000);
+    }
+    else if(adminName2.length > 0 && adminEmail2.length >  0 && adminPhone2.length === 0){
+      setshowUserError33(true);
+      setTimeout(() => {
+        setshowUserError33(false);
+    }, 5000);
+    }
+    else if(adminName2.length === 0 && adminEmail2.length >  0 && adminPhone2.length === 0){
+      setshowUserError34(true);
+      setTimeout(() => {
+        setshowUserError34(false);
+    }, 5000);
+    }
+    else if(adminName2.length > 0 && adminEmail2.length ===  0 && adminPhone2.length === 0){
+      setshowUserError35(true);
+      setTimeout(() => {
+        setshowUserError35(false);
+    }, 5000);
+    }
+    else if(adminName2.length === 0 && adminEmail2.length ===  0 && adminPhone2.length === 10){
+      setshowUserError36(true);
+      setTimeout(() => {
+        setshowUserError36(false);
+    }, 5000);
+    }
+    else if(adminName2.length > 0 && adminEmail2.length >  0 && adminPhone2.length !== 10){
+      setshowUserError37(true);
+      setTimeout(() => {
+        setshowUserError37(false);
+    }, 5000);
+    }
+    else if(adminName2.length === 0 && adminEmail2.length >  0 && adminPhone2.length !== 10){
+      setshowUserError38(true);
+      setTimeout(() => {
+        setshowUserError38(false);
+    }, 5000);
+    }
+    else if(adminName2.length > 0 && adminEmail2.length ===  0 && adminPhone2.length !== 10){
+      setshowUserError39(true);
+      setTimeout(() => {
+        setshowUserError39(false);
+    }, 5000);
+    }
+    else if(adminName3.length === 0 && adminEmail3.length >  0 && adminPhone3.length === 10){
+      setshowUserError31a(true);
+      setTimeout(() => {
+        setshowUserError31a(false);
+    }, 5000);
+    }
+    else if(adminName3.length > 0 && adminEmail3.length ===  0 && adminPhone3.length === 10){
+      setshowUserError32b(true);
+      setTimeout(() => {
+        setshowUserError32b(false);
+    }, 5000);
+    }
+    else if(adminName3.length > 0 && adminEmail3.length >  0 && adminPhone3.length === 0){
+      setshowUserError33c(true);
+      setTimeout(() => {
+        setshowUserError33c(false);
+    }, 5000);
+    }
+    else if(adminName3.length === 0 && adminEmail3.length >  0 && adminPhone3.length === 0){
+      setshowUserError34d(true);
+      setTimeout(() => {
+        setshowUserError34d(false);
+    }, 5000);
+    }
+    else if(adminName3.length > 0 && adminEmail3.length ===  0 && adminPhone3.length === 0){
+      setshowUserError35e(true);
+      setTimeout(() => {
+        setshowUserError35e(false);
+    }, 5000);
+    }
+    else if(adminName3.length === 0 && adminEmail3.length ===  0 && adminPhone3.length === 10){
+      setshowUserError36f(true);
+      setTimeout(() => {
+        setshowUserError36f(false);
+    }, 5000);
+    }
+    else if(adminName3.length > 0 && adminEmail3.length >  0 && adminPhone3.length !== 10){
+      setshowUserError37g(true);
+      setTimeout(() => {
+        setshowUserError37g(false);
+    }, 5000);
+    }
+    else if(adminName3.length === 0 && adminEmail3.length >  0 && adminPhone3.length !== 10){
+      setshowUserError38h(true);
+      setTimeout(() => {
+        setshowUserError38h(false);
+    }, 5000);
+    }
+    else if(adminName3.length > 0 && adminEmail3.length ===  0 && adminPhone3.length !== 10){
+      setshowUserError39i(true);
+      setTimeout(() => {
+        setshowUserError39i(false);
+    }, 5000);
     }
     else if(managerPhone.length !== 10){
-      alert('Mobile Number of Manager should be exactly 10 digits!')
+      setshowUserError4(true);
+      setTimeout(() => {
+        setshowUserError4(false);
+    }, 5000);
     }
     else if(ownerPhone.length !== 10){
-      alert('Mobile Number of Owner should be exactly 10 digits!')
+      setshowUserError5(true);
+      setTimeout(() => {
+        setshowUserError5(false);
+    }, 5000);
     }
     else{
         try {
@@ -267,8 +500,13 @@ const BridgeForm = ({onSubmit }) => {
 
           console.log('Backend response:', response.data);
           navigate('/home/bridgeform/sensorform');
-          if (onSubmit) {
-            onSubmit();
+          if (response.data.message.includes('User details do not match.')) {
+            alert('User registration failed. existing user field not matched.');
+        } else {
+            navigate('/home/bridgeform/sensorform');
+            if (onSubmit) {
+                onSubmit();
+            }
           }
         } catch (error) {
           console.error('Error submitting form', error);
@@ -351,9 +589,220 @@ const BridgeForm = ({onSubmit }) => {
           <button type="submit" onClick={PrevFrom} className="inline-flex underline mt-4 p-2 hover:text-blue-800"><IoArrowBackCircleSharp size={32}/>Back</button>
         <div className='text-center justify-center flex'>
           <img className='' src={logo} alt="" />
+          { showUserError0 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Please Add Atleast One Admin!</h1>
+            </div>
+          )}
+        { showUserError1 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Please Add Atleast One Manager!</h1>
+            </div>
+          )}
+        { showUserError2 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Please Add Atleast One Owner!</h1>
+            </div>
+          )}
+        { showUserError3 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError31 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Please Enter Name!</h1>
+            </div>
+          )}
+        { showUserError32 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Please Enter email!</h1>
+            </div>
+          )}
+        { showUserError33 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Please Enter Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError34 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Please Enter Name and Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError35 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Please Enter email and Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError36 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Please Enter Name and email!</h1>
+            </div>
+          )}
+        { showUserError37 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError38 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Enter Name and Mobile Number must be 10 digits!</h1>
+            </div>
+          )}
+        { showUserError39 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 2: Enter email & Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError31a && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Please Enter Name!</h1>
+            </div>
+          )}
+        { showUserError32b && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Please Enter email!</h1>
+            </div>
+          )}
+        { showUserError33c && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Please Enter Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError34d && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Please Enter Name and Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError35e && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Please Enter email and Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError36f && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Please Enter Name and email!</h1>
+            </div>
+          )}
+        { showUserError37g && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError38h && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Enter Name and Mobile Number must be 10 digits!</h1>
+            </div>
+          )}
+        { showUserError39i && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Admin 3: Enter email & Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError51 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Please Enter Name!</h1>
+            </div>
+          )}
+        { showUserError52 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Please Enter email!</h1>
+            </div>
+          )}
+        { showUserError53 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Please Enter Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError54 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Please Enter Name and Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError55 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Please Enter email and Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError56 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Please Enter Name and email!</h1>
+            </div>
+          )}
+        { showUserError57 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError58 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Enter Name and Mobile Number must be 10 digits!</h1>
+            </div>
+          )}
+        { showUserError59 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 2: Enter email & Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError51a && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Please Enter Name!</h1>
+            </div>
+          )}
+        { showUserError52b && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Please Enter email!</h1>
+            </div>
+          )}
+        { showUserError53c && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Please Enter Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError54d && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Please Enter Name and Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError55e && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Please Enter email and Mobile Number!</h1>
+            </div>
+          )}
+        { showUserError56f && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Please Enter Name and email!</h1>
+            </div>
+          )}
+        { showUserError57g && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError58h && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Enter Name and Mobile Number must be 10 digits!</h1>
+            </div>
+          )}
+        { showUserError59i && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner 3: Enter email & Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError4 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Manager Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
+        { showUserError5 && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Owner Mobile Number Must Include 10 digits!</h1>
+            </div>
+          )}
         </div>
-        <h1 className='mt-12 mb-12 text-3xl text-center font-semibold'>Add User Details</h1>
-        <hr />
+
+        <h1 className='mt-12 mb-12 text-3xl text-center font-semibold'>Add User Details</h1>        
+        <hr />          
         <button className='text-black w-full hover:bg-gray-100 flex justify-center font-bold text-xl py-5' onClick={handleAddAdmin}>Add Admin(s): <IoIosArrowDown size={26}/></button><hr />
         {showAdminForm && ( 
         <form className='text-center pt-6 pb-12' action="submit">
@@ -361,8 +810,7 @@ const BridgeForm = ({onSubmit }) => {
             <h1 className='text-lg font-semibold mt-1'>Admin 1: &nbsp;</h1>
             <input id='adminName' value={adminName} onChange={(e) => setAdminName(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 1)'/>
             <input id='adminEmail' value={adminEmail} onChange={(e) => setAdminEmail(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 w-20 text-gray-500 p-2 mr-1 rounded' value={admin1countryCode} onChange={(e) => setCountryCode1(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={admin1countryCode} onChange={(e) => setCountryCode1(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -582,15 +1030,14 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='adminPhone' value={adminPhone} onChange={(e) => setAdminPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='adminPhone' value={adminPhone} onChange={(e) => setAdminPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
         
         <div className='mt-5 flex justify-center'>
           <h1 className='text-lg font-semibold mt-1'>Admin 2: &nbsp;</h1>
             <input id='adminName2' value={adminName2} onChange={(e) => setAdminName2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 2)'/>
             <input id='adminEmail2' value={adminEmail2} onChange={(e) => setAdminEmail2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={admin2countryCode} onChange={(e) => setCountryCode2(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={admin2countryCode} onChange={(e) => setCountryCode2(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -810,15 +1257,14 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='adminPhone2' value={adminPhone2} onChange={(e) => setAdminPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='adminPhone2' value={adminPhone2} onChange={(e) => setAdminPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
 
         <div className='mt-5 flex justify-center'>
             <h1 className='text-lg font-semibold mt-1'>Admin 3: &nbsp;</h1>
             <input id='adminName3' value={adminName3} onChange={(e) => setAdminName3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Admin 3)'/>
             <input id='adminEmail3' value={adminEmail3} onChange={(e) => setAdminEmail3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={admin3countryCode} onChange={(e) => setCountryCode3(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={admin3countryCode} onChange={(e) => setCountryCode3(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -1038,7 +1484,7 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='adminPhone3' value={adminPhone3} onChange={(e) => setAdminPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='adminPhone3' value={adminPhone3} onChange={(e) => setAdminPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
         </form>
         )}
@@ -1051,8 +1497,7 @@ const BridgeForm = ({onSubmit }) => {
             <h1 className='text-lg font-semibold mt-1'>Manager 1: &nbsp;</h1>
             <input id='managerName' value={managerName} onChange={(e) => setManagerName(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 1)'/>
             <input id='managerEmail' value={managerEmail} onChange={(e) => setManagerEmail(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={manager1countryCode} onChange={(e) => setCountryCode4(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={manager1countryCode} onChange={(e) => setCountryCode4(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -1272,7 +1717,7 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='managerPhone' value={managerPhone} onChange={(e) => setManagerPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='managerPhone' value={managerPhone} onChange={(e) => setManagerPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
 
         </div>
  
@@ -1280,8 +1725,7 @@ const BridgeForm = ({onSubmit }) => {
             <h1 className='text-lg font-semibold mt-1'>Manager 2: &nbsp;</h1>
             <input id='managerName2' value={managerName2} onChange={(e) => setManagerName2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 2)'/>
             <input id='managerEmail2' value={managerEmail2} onChange={(e) => setManagerEmail2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={manager2countryCode} onChange={(e) => setCountryCode5(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={manager2countryCode} onChange={(e) => setCountryCode5(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -1501,7 +1945,7 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='managerPhone2' value={managerPhone2} onChange={(e) => setManagerPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='managerPhone2' value={managerPhone2} onChange={(e) => setManagerPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
 
 
@@ -1509,8 +1953,7 @@ const BridgeForm = ({onSubmit }) => {
             <h1 className='text-lg font-semibold mt-1'>Manager 3: &nbsp;</h1>
             <input id='managerName3' value={managerName3} onChange={(e) => setManagerName3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 3)'/>
             <input id='managerEmail3' value={managerEmail3} onChange={(e) => setManagerEmail3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={manager3countryCode} onChange={(e) => setCountryCode6(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={manager3countryCode} onChange={(e) => setCountryCode6(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -1730,15 +2173,14 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='managerPhone3' value={managerPhone3} onChange={(e) => setManagerPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='managerPhone3' value={managerPhone3} onChange={(e) => setManagerPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
 
         <div className='mt-5 flex justify-center'>
             <h1 className='text-lg font-semibold mt-1'>Manager 4: &nbsp;</h1>
             <input id='managerName4' value={managerName4} onChange={(e) => setManagerName4(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 4)'/>
             <input id='managerEmail4' value={managerEmail4} onChange={(e) => setManagerEmail4(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={manager4countryCode} onChange={(e) => setCountryCode7(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={manager4countryCode} onChange={(e) => setCountryCode7(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -1958,15 +2400,14 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='managerPhone4' value={managerPhone4} onChange={(e) => setManagerPhone4(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='managerPhone4' value={managerPhone4} onChange={(e) => setManagerPhone4(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
 
         <div className='mt-5 flex justify-center'>
             <h1 className='text-lg font-semibold mt-1'>Manager 5: &nbsp;</h1>
             <input id='managerName5' value={managerName5} onChange={(e) => setManagerName5(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 5)'/>
             <input id='managerEmail5' value={managerEmail5} onChange={(e) => setManagerEmail5(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={manager5countryCode} onChange={(e) => setCountryCode8(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={manager5countryCode} onChange={(e) => setCountryCode8(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -2186,15 +2627,14 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='managerPhone5' value={managerPhone5} onChange={(e) => setManagerPhone5(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='managerPhone5' value={managerPhone5} onChange={(e) => setManagerPhone5(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
 
           <div className='mt-5 flex justify-center'>
             <h1 className='text-lg font-semibold mt-1'>Manager 6: &nbsp;</h1>
             <input id='managerName6' value={managerName6} onChange={(e) => setManagerName6(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Manager 6)'/>
             <input id='managerEmail6' value={managerEmail6} onChange={(e) => setManagerEmail6(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={manager6countryCode} onChange={(e) => setCountryCode9(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={manager6countryCode} onChange={(e) => setCountryCode9(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -2414,7 +2854,7 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='managerPhone6' value={managerPhone6} onChange={(e) => setManagerPhone6(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='managerPhone6' value={managerPhone6} onChange={(e) => setManagerPhone6(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
         </form>
         )}
@@ -2426,8 +2866,7 @@ const BridgeForm = ({onSubmit }) => {
             <h1 className='text-lg font-semibold mt-1'>Owner 1: &nbsp;</h1>
             <input id='ownerName' value={ownerName} onChange={(e) => setOwnerName(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 1)'/>
             <input id='ownerEmail' value={ownerEmail} onChange={(e) => setOwnerEmail(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={owner1countryCode} onChange={(e) => setCountryCode10(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={owner1countryCode} onChange={(e) => setCountryCode10(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -2647,7 +3086,7 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='ownerPhone' value={ownerPhone} onChange={(e) => setOwnerPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='ownerPhone' value={ownerPhone} onChange={(e) => setOwnerPhone(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
 
         </div>
 
@@ -2655,8 +3094,7 @@ const BridgeForm = ({onSubmit }) => {
             <h1 className='text-lg font-semibold mt-1'>Owner 2: &nbsp;</h1>
             <input id='ownerName2' value={ownerName2} onChange={(e) => setOwnerName2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 2)'/>
             <input id='ownerEmail2' value={ownerEmail2} onChange={(e) => setOwnerEmail2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={owner2countryCode} onChange={(e) => setCountryCode11(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={owner2countryCode} onChange={(e) => setCountryCode11(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -2876,15 +3314,14 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='ownerPhone2' value={ownerPhone2} onChange={(e) => setOwnerPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='ownerPhone2' value={ownerPhone2} onChange={(e) => setOwnerPhone2(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
 
         <div className='mt-5 flex justify-center'>
             <h1 className='text-lg font-semibold mt-1'>Owner 3: &nbsp;</h1>
             <input id='ownerName3' value={ownerName3} onChange={(e) => setOwnerName3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Name (Owner 3)'/>
             <input id='ownerEmail3' value={ownerEmail3} onChange={(e) => setOwnerEmail3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="email" placeholder='email'/>
-            <select name="countryCode" className='border border-gray-500 text-gray-500 w-20 p-2 mr-1 rounded' value={owner3countryCode} onChange={(e) => setCountryCode12(e.target.value)}>
-                  <option value="+">Code</option>
+            <select name="countryCode" className='border border-gray-500 w-20 p-2 mr-1 rounded' value={owner3countryCode} onChange={(e) => setCountryCode12(e.target.value)}>
                   <option value="+93">(+93) Afghanistan</option>
                   <option value="+355">(+355) Albania</option>
                   <option value="+213">(+213) Algeria</option>
@@ -3104,7 +3541,7 @@ const BridgeForm = ({onSubmit }) => {
                   <option value="+263">(+263) Zimbabwe</option>
                   <option value="+358">(+358) Åland Islands</option>
                 </select>
-            <input id='ownerPhone3' value={ownerPhone3} onChange={(e) => setOwnerPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number'/>
+            <input id='ownerPhone3' value={ownerPhone3} onChange={(e) => setOwnerPhone3(e.target.value)} className="border border-gray-500 p-2 mr-2 rounded" type="text" placeholder='Mobile Number' minLength="10" maxLength="10"/>
         </div>
         </form>
         )}
@@ -3130,6 +3567,11 @@ const BridgeForm = ({onSubmit }) => {
 
         <form><hr />
           <h1 className='text-center text-3xl mt-8 mb-8 font-semibold'>Enter Bridge Details</h1><hr />
+          { showBridgeDetailsError && ( 
+            <div className='absolute text-center w-full flex justify-center items-center'>
+              <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={22}/>Please Fill all the Fields Correctly!</h1>
+            </div>
+          )}
           <div className="flex bg-gray-100 mt-16 mx-12 shadow-2xl p-6 pt-12 pb-12">
             <div className='w-full mx-5'>
               <div className="mb-6">

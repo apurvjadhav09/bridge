@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './tailwind.css';
 
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import loadingIcon from '../Assets/loading.gif';
 
 import logo from '../Assets/logo.png';
@@ -12,15 +12,18 @@ import logo2 from '../Assets/logo2.png';
 const Login = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     if (email === '') {
       alert('Please Enter User ID');
-    } else if (password === '') {
+    } 
+    else if (password === '') {
       alert('Please Enter Password');
-    } else {
+    }
+    else {
       try {
         setLoading(true);
         const response = await axios.post('http://localhost:9090/login', {
@@ -37,7 +40,8 @@ const Login = () => {
           const dashboardUrl = response.data.dashboardUrl;
           localStorage.setItem('dashboardUrl', dashboardUrl);          
           navigate(dashboardUrl);
-        } else {
+        } 
+        else {
           alert('Incorrect User ID or Password');
           setemail('');
           setPassword('');
@@ -57,6 +61,9 @@ const Login = () => {
     }
   };
 
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   
   return (
     <>
@@ -74,14 +81,17 @@ const Login = () => {
               <h1 className='text-2xl pb-24 font-semibold text-indigo-900'>Login</h1>
             </div>
           <div className="">
-            <div className="pb-6 flex justify-center">
+            <div className="pb-6 ml-5 flex justify-center">
               <FaUser style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
               <input className="border border-gray-500 bg-gray-100 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type="email" placeholder="Enter Email" value={email} onChange={(e) => setemail(e.target.value)}/>
             </div>
             <div className="pb-2 flex justify-center">
-              <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-              <input className="border bg-gray-100 border-gray-500 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
-            </div>
+            <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
+            <input className="border bg-gray-100 border-gray-500 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type={showPassword ? 'text' : 'password'} placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
+            <button id='btn' className="ml-2 focus:outline-none" onClick={handleTogglePasswordVisibility}>
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+        </div>
           </div>
           <div className="pt-16">
             <div className="">

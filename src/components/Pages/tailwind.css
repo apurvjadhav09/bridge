@@ -104,6 +104,9 @@
     margin-left: -0.5%;
     background-position: right;
 }
+#btn{
+    margin-left: -5%;
+}
 .background{
     background-image: url('../Assets/Bridge.png');
     background-repeat: no-repeat;
