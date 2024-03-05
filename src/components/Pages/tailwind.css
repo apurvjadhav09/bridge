@@ -85,6 +85,10 @@
     margin-left: 30%;
     margin-top: -15%;
 }
+#sensorform-pop1{
+    margin-left: 10%;
+    margin-top: 15%;
+}
 #globe{
     background: linear-gradient(to bottom, #000000cc, #00000000) ,url('../Assets/globe.jpg');
     background-repeat: no-repeat;

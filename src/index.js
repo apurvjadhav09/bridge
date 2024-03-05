@@ -9,7 +9,6 @@ import ChangePassword from './components/Pages/ChangePassword';
 import Masterhome from './components/Pages/Masterhome';
 import Superuserhome from './components/Pages/Superuserhome';
 import ResetPassword from './components/Pages/ResetPassword';
-import Bridgeadmin from './components/Pages/Bridgeadmin';
 import Home from './components/Pages/Home';
 import BridgeForm from './components/Pages/BridgeForm';
 import SensorForm from './components/Pages/sensorform';
@@ -34,7 +33,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/home/bridgeform/sensorform" element={<SensorForm/>} />
       <Route path="/home/dashboard" element={<Superuserhome />} />
       <Route path="/masterhome" element={<Masterhome />} />
-      <Route path="/bridgeadmin" element={<Bridgeadmin />} />
       <Route path="/bridges" element={<Bridges />} />
     </Routes>
   </Router>,

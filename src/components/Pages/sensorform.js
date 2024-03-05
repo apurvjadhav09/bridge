@@ -6,14 +6,18 @@ import './tailwind.css';
 import logo from '../Assets/logo2.png';
 import loadingIcon from '../Assets/loading.gif';
 
+import { IoIosWarning } from "react-icons/io";
 
 const SensorForm = () => {
   const [loading, setLoading] = useState(false);
   const [showAddSensor, setshowAddSensor] =useState(false);
+  const [showAddSensors, setshowAddSensors] =useState(false);
+  const [showSensorError, setshowSensorError] = useState(false);
+  const [numSensors, setNumSensors] = useState(1);
+  const [sensorLocations, setSensorLocations] = useState([]);
 
-  const [sensortype, setsensortype]= useState('Accelerometer');
+  const [sensortype, setsensortype]= useState('');
   const [bridgesensorsrno, setbridgesensorsrno]= useState('');
-  const [sensorlocation, setsensorlocation]= useState('');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [division, setDivision] = useState('');
@@ -22,6 +26,8 @@ const SensorForm = () => {
   const [bridgeName, setBridgeName] = useState('');
   const [noofgirders, setnoofgirders] = useState('');
   const [nobridgespan, setnobridgespan] = useState('');
+  const [spanno, setspanno] = useState('');
+  const [girderno, setgirderno] = useState('');
 
   const [adminName, setAdminName] = useState('');
   const [adminName2, setAdminName2] = useState('');
@@ -96,10 +102,41 @@ const SensorForm = () => {
 
   }, []);
 
+  const handleSensorTypeChange = (e) => {
+    setsensortype(e.target.value);
+    setshowAddSensors(true);
+    
+  };
+
+  const handleNumSensorsChange = (e) => {
+    setNumSensors(parseInt(e.target.value));
+  };
+
+  const handleAddSensorLocations = () => {
+    const locations = Array.from({ length: numSensors }, (_, index) => ({
+      spanno: '',
+      girderno: '',
+    }));
+
+    setSensorLocations(locations);
+    setshowAddSensors(false);
+  };
+
+  const handleLocationChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedLocations = [...sensorLocations];
+    updatedLocations[index] = { ...updatedLocations[index], [name]: value };
+    setSensorLocations(updatedLocations);
+  };
+
+
   const handleSubmit1 = async(e) => {
     e.preventDefault();
-    if(bridgesensorsrno === '' || sensorlocation === ''){
-      alert('Please fill all the fiels!')
+    if(bridgesensorsrno === '' || sensortype === ''){
+      setshowSensorError(true);
+      setTimeout(() => {
+        setshowSensorError(false);
+    }, 5000);
     }
     else {
       setshowAddSensor(!showAddSensor);
@@ -108,43 +145,47 @@ const SensorForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(bridgesensorsrno === '' || sensorlocation === ''){
-      alert('Please fill all the fiels!')
-    }
-    else{
-      try{
-        setLoading(true);
-        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, {
-          sensortype:sensortype,
-          bridgesensorsrno:bridgesensorsrno,
-          sensorlocation:sensorlocation,
-        });
-        if(response.status >= 200 && response.status < 300){
-          alert('Sensor Added Successfully!');
-          console.log('Backend response:', response.data);
-          Navigate('../home');
+      if (bridgesensorsrno === '' || sensortype === '') {
+        alert('Please fill all the fields!');
+      } 
+      else{
+        try{
+          setLoading(true);
+          const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, {
+            sensortype:sensortype,
+            bridgesensorsrno:bridgesensorsrno,
+            spanno:spanno,
+            girderno:girderno,
+          });
+          if(response.status >= 200 && response.status < 300){
+            alert('Sensor Added Successfully!');
+            console.log('Backend response:', response.data);
+            Navigate('../home');
+          }
         }
+        catch(error){
+          console.error('Error submitting form: ', error);
+          setshowAddSensor(false);
+          setLoading(false);
+          setsensortype('Accelerometer');
+          setbridgesensorsrno('');
+          setspanno('1');
+          setgirderno('1');
+        };
       }
-      catch(error){
-        console.error('Error submitting form: ', error);
-        setshowAddSensor(false);
-        setLoading(false);
-        setsensortype('Accelerometer');
-        setbridgesensorsrno('');
-        setsensorlocation('');
-      }
-    };
+
   };
   
   const handleCancel = () => {
     setsensortype('Accelerometer');
     setbridgesensorsrno(' ');
-    setsensorlocation(' ');
+    setspanno('1');
+    setgirderno('1');
   };
 
   const handleAddSensor = async (e) => {
     e.preventDefault();
-    if (bridgesensorsrno === '' || sensorlocation === '') {
+    if (bridgesensorsrno === '' || sensortype === '') {
       alert('Please fill all the fields!');
     } else {
       try {
@@ -152,7 +193,8 @@ const SensorForm = () => {
         const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, {
           sensortype: sensortype,
           bridgesensorsrno: bridgesensorsrno,
-          sensorlocation: sensorlocation,
+          spanno: spanno,
+          girderno: girderno,
         });
         if (response.status >= 200 && response.status < 300) {
           alert('Sensor Added Successfully!');
@@ -165,7 +207,8 @@ const SensorForm = () => {
         setshowAddSensor(false);
         setsensortype('Accelerometer');
         setbridgesensorsrno('');
-        setsensorlocation('');
+        setspanno('1');
+        setgirderno('1');
       }
     }
   };
@@ -173,7 +216,11 @@ const SensorForm = () => {
   return (
     <>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
+    { showSensorError && ( 
+      <div className='absolute text-center mt-12 w-full flex justify-center items-center'>
+        <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Please Fill in all the fields!</h1>
+      </div>
+    )}
     <div className="">
       <img className='pl-6 pt-6 pb-6' src={logo} alt="" />
       <div className="flex w-full text-center">
@@ -183,7 +230,8 @@ const SensorForm = () => {
         <div className='justify-center text-left pt-8 mx-20 block'>
           <div className="mb-4 px-5">
             <label htmlFor="sensortype" className="block text-gray-700">Sensor Type:</label>
-            <select id="sensortype" onChange={(e) => setsensortype(e.target.value)} name="sensortype" value={sensortype} className="border border-gray-300 p-1 w-full rounded">
+            <select id="sensortype" onChange={handleSensorTypeChange} name="sensortype" value={sensortype} className="border border-gray-300 p-1 w-full rounded">
+              <option value="" disabled>Select Sensor Type</option>
               <option value="Accelerometer">Accelerometer</option>
               <option value="Strain Gauge">Strain Gauge</option>
               <option value="Deflection Gauge">Deflection Gauge</option>
@@ -197,10 +245,30 @@ const SensorForm = () => {
             <input type="text" id="bridgesensorsrno" value={bridgesensorsrno} onChange={(e) => setbridgesensorsrno(e.target.value)} name="bridgesensorsrno" className="border border-gray-300 p-1 w-full rounded"/>
           </div>
 
-          <div className="mb-4 px-5">
-            <label htmlFor="sensorlocation" className="block text-gray-700">Sensor Location:</label>
-            <input type="text" id="sensorlocation" value={sensorlocation} onChange={(e) => setsensorlocation(e.target.value)} name="sensorlocation" className="border border-gray-300 p-1 w-full rounded"/>
-          </div>
+            <label htmlFor="sensorlocation" className="mb-4 mt-6 font-semibold px-5 text-center block text-gray-700">Sensor Location(s):</label>
+            {sensorLocations.map((location, index) => (
+            <div key={index} className="mb-4 px-5 flex">
+              <div className='w-2/3 mt-6 font-semibold'>
+              <h1>Sensor {index + 1}:</h1>
+              </div>
+              <div className="mb-4 px-5 w-full">
+                <label htmlFor={`spanno-${index}`} className="block text-gray-700">Span Number:</label>
+                <select id={`spanno-${index}`} name={`spanno-${index}`} value={location.spanno} onChange={(e) => handleLocationChange(e, index)} className="border border-gray-300 p-1 w-full rounded">
+                  {Array.from({ length: parseInt(nobridgespan) }, (_, i) => (
+                    <option key={`span-${i + 1}`} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-4 px-5 w-full">
+                <label htmlFor={`girderno-${index}`} className="block text-gray-700">Girder Number:</label>
+                <select id={`girderno-${index}`} name={`girderno-${index}`} value={location.girderno} onChange={(e) => handleLocationChange(e, index)} className="border border-gray-300 p-1 w-full rounded">
+                  {Array.from({ length: parseInt(noofgirders) }, (_, i) => (
+                    <option key={`girder-${i + 1}`} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          ))}
         </div>
 
         {showAddSensor && (
@@ -218,8 +286,6 @@ const SensorForm = () => {
           )}
         </div>
           )}
-
-        {/* Render the submit and cancel buttons only if showAddSensor is false */}
         {!showAddSensor && (
           <div className='my-6 text-center'>
             <button className="bg-blue-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900" onClick={handleSubmit1}>Submit</button>
@@ -228,6 +294,18 @@ const SensorForm = () => {
         )}
       </form>
     </div>
+
+    {showAddSensors && (
+            <div id='sensorform-pop1' className="mb-4 px-5 absolute bg-white rounded border shadow-xl border-gray-300 px-40 py-8">
+              <label htmlFor="numSensors" className="block text-gray-700">Number of Sensors:</label>
+              <select id="numSensors" onChange={handleNumSensorsChange} value={numSensors} className="border border-gray-300 p-1 w-full rounded">
+                {Array.from({ length: 20 }, (_, index) => (
+                  <option key={index + 1} value={index + 1}>{index + 1}</option>
+                ))}
+              </select>
+              <button className="bg-blue-600 py-1 px-5 mx-2 text-gray-100 mt-6 rounded-sm hover:bg-blue-900" onClick={handleAddSensorLocations}>Submit</button>
+            </div>
+          )}
 
     <div className="box-border shadow-2xl w-1/2 p-6 bg-gray-100 mx-5 mr-10 my-8 justify-center text-left">
       <h1 className='text-center font-semibold text-3xl text-black'>Previously Entered Details</h1><br /><hr /><hr />

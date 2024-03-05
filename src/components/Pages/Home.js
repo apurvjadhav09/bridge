@@ -48,17 +48,17 @@ const Home = () => {
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-      <div className='flex justify-center'>
+      <div className='flex justify-center my-10'>
         <img src={logo} alt="" />
       </div>
       <div className="w-full bg-white">
-      <div className='m-6 py-6 bg-gray-200 shadow-2xl text-center border border-gray-300 rounded-sm'>
+      <div className='m-6 py-12 mx-20 bg-gray-200 shadow-2xl text-center border border-gray-300 rounded-sm'>
         <div className='w-full'>
           <h1 className='text-3xl font-bold text-black mb-8'>REGISTER NEW BRIDGE</h1>  
         </div>
         <div className='w-full flex justify-center'>
-          <button onClick={addbridge} className='bg-pink-600 px-3 mx-5 w-full py-2 text-xl font-semibold text-gray-100 rounded-sm hover:bg-pink-900'>Add Manually</button><br />
-          <button onClick={addcsv} className='bg-pink-600 px-3 py-2 mx-5 w-full text-xl font-semibold text-gray-100 rounded-sm hover:bg-pink-900'>Upload Excel</button>
+          <button onClick={addbridge} className='bg-pink-600 px-3 mx-5 w-1/3 py-2 text-xl font-semibold text-gray-100 rounded-sm hover:bg-pink-900'>Add Manually</button><br />
+          <button onClick={addcsv} className='bg-pink-600 px-3 py-2 mx-5 w-1/3 text-xl font-semibold text-gray-100 rounded-sm hover:bg-pink-900'>Upload Excel</button>
         </div>
       </div>
       <br />
@@ -75,7 +75,7 @@ const Home = () => {
         <tbody>
             {BackEndData.length > 0 ? (
                 BackEndData.map((data, index) => (
-                    <tr key={index} onClick={RedirectDashboard} className="hover:bg-gray-200 cursor-pointer border">
+                    <tr key={index} onClick={RedirectDashboard} className="hover:bg-gray-200 cursor-pointer border border-gray-300">
                         <td className="border px-4 py-2">{data.bridge.bridgeName}</td>
                         <td className="border px-4 py-2">{data.bridge.noofgirders}</td>
                         <td className="border px-4 py-2">{data.bridge.nobridgespans}</td>
@@ -83,7 +83,7 @@ const Home = () => {
                 ))
             ) : (
                 <tr>
-                    <td colSpan="3" className="px-4 py-2 text-center border hover:bg-gray-200 cursor-pointer">No bridges found</td>
+                    <td colSpan="3" className="px-4 py-2 text-center text-lg border border-gray-300 hover:bg-gray-200 cursor-pointer">No bridges found</td>
                 </tr>
             )}
         </tbody>
