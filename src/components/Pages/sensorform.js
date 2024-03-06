@@ -139,8 +139,8 @@ const SensorForm = () => {
   const sensorData = Array.from({ length: numSensors }, (_, index) => ({
     sensortype: sensortype,
     bridgesensorsrno: bridgesensorsrno,
-    spanno: sensorLocations[index].spanno,
-    girderno: sensorLocations[index].girderno,
+    spanno: sensorLocations[index] ? sensorLocations[index].spanno : '',
+    girderno: sensorLocations[index] ? sensorLocations[index].girderno : '',
   }));
 
   const handleSubmit = async (e) => {
