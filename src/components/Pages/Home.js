@@ -44,6 +44,10 @@ const Home = () => {
     localStorage.setItem('bridgeName', bridgeName);
     navigate('/home/dashboard');
   };
+
+  const handleRowClick = (bridgeName) => {
+    RedirectDashboard(bridgeName);
+  };
  
   return (
     <>
@@ -67,23 +71,33 @@ const Home = () => {
     <table className="table-auto w-full border-collapse border">
         <thead>
             <tr>
-                <th className="border bg-black text-lg text-white px-4 py-4 font-bold">Bridge Name</th>
-                <th className="border bg-black text-lg text-white px-4 py-4 font-bold">Number of Girders</th>
-                <th className="border bg-black text-lg text-white px-4 py-4 font-bold">Number of Spans</th>
+                <th className="border bg-black text-lg text-white px-2 py-4 font-bold">ID</th>
+                <th className="border bg-black text-lg text-white px-16 py-4 font-bold">Name</th>
+                <th className="border bg-black text-lg text-white px-8 py-4 font-bold">Country</th>
+                <th className="border bg-black text-lg text-white px-8 py-4 font-bold">State</th>
+                <th className="border bg-black text-lg text-white px-8 py-4 font-bold">Division</th>
+                <th className="border bg-black text-lg text-white px-8 py-4 font-bold">Coordinates</th>
+                <th className="border bg-black text-lg text-white px-2 py-4 font-bold">Girders</th>
+                <th className="border bg-black text-lg text-white px-2 py-4 font-bold">Spans</th>
             </tr>
         </thead>
         <tbody>
             {BackEndData.length > 0 ? (
                 BackEndData.map((data, index) => (
-                    <tr key={index} onClick={RedirectDashboard} className="hover:bg-gray-200 cursor-pointer border border-gray-300">
-                        <td className="border px-4 py-2">{data.bridge.bridgeName}</td>
-                        <td className="border px-4 py-2">{data.bridge.noofgirders}</td>
-                        <td className="border px-4 py-2">{data.bridge.nobridgespans}</td>
+                    <tr key={index} onClick={() => handleRowClick(data.bridge.bridgeName)} className="hover:bg-gray-200 cursor-pointer border border-gray-300">
+                        <td className="border px-2 py-2">#{data.bridge.bridgeid}</td>
+                        <td className="border px-16 py-2">{data.bridge.bridgeName}</td>
+                        <td className="border px-8 py-2">{data.bridge.country}</td>
+                        <td className="border px-8 py-2">{data.bridge.state}</td>
+                        <td className="border px-8 py-2">{data.bridge.division}</td>
+                        <td className="border px-8 py-2">{data.bridge.coordinates}</td>
+                        <td className="border px-2 py-2">{data.bridge.noofgirders}</td>
+                        <td className="border px-2 py-2">{data.bridge.nobridgespan}</td>
                     </tr>
                 ))
             ) : (
                 <tr>
-                    <td colSpan="3" className="px-4 py-2 text-center text-lg border border-gray-300 hover:bg-gray-200 cursor-pointer">No bridges found</td>
+                    <td colSpan="8" className="py-4 text-center text-lg hover:bg-gray-200 cursor-pointer">No bridges found</td>
                 </tr>
             )}
         </tbody>

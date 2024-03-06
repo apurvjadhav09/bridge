@@ -53,6 +53,7 @@ const BridgeForm = ({onSubmit }) => {
   const [showOwnerForm, setShowOwnerForm] = useState(false); 
 
   const [showBridgeDetailsError, setshowBridgeDetailsError] = useState(false);
+  const [showBackendError,setBackendError]=useState(false);
   const [showUserError0, setshowUserError0] =useState(false);
   const [showUserError1, setshowUserError1] =useState(false);
   const [showUserError2, setshowUserError2] =useState(false);
@@ -880,17 +881,19 @@ const BridgeForm = ({onSubmit }) => {
           localStorage.setItem('adminName', adminName);
           localStorage.setItem('adminName2', adminName2);
           localStorage.setItem('adminName3', adminName3);
+          console.log(response.data.message);
 
-          console.log('Backend response:', response.data);
-          navigate('/home/bridgeform/sensorform');
-          if (response.data.message.includes('User details do not match.')) {
-            alert('User registration failed. existing user field not matched.');
+         if (response.data.message.includes('User details do not match.')) {
+            setBackendError(true);
+            setTimeout(() => {
+              setBackendError(false);
+          }, 5000);
         } else {
             navigate('/home/bridgeform/sensorform');
             if (onSubmit) {
                 onSubmit();
             }
-          }
+        }
         } catch (error) {
           console.error('Error submitting form', error);
         } finally {
@@ -972,6 +975,11 @@ const BridgeForm = ({onSubmit }) => {
           <button type="submit" onClick={PrevFrom} className="inline-flex underline mt-4 p-2 hover:text-blue-800"><IoArrowBackCircleSharp size={32}/>Back</button>
         <div className='text-center justify-center flex'>
           <img className='' src={logo} alt="" />
+          {showBackendError && (
+            <div className='absolute text-center w-full flex justify-center items-center'>
+            <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Existing Users Details Not Matched! </h1>
+          </div>
+          )}
           { showUserError0 && ( 
             <div className='absolute text-center w-full flex justify-center items-center'>
               <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Please Add Atleast One Admin!</h1>
