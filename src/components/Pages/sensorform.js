@@ -136,12 +136,16 @@ const SensorForm = () => {
     }
   };
 
-  const sensorData = sensorLocations.map((location, index) => ({
-    sensortype: sensortype,
-    bridgesensorsrno: bridgesensorsrno,
-    spanno: location.spanno,
-    girderno: location.girderno,
-  }));
+  const allSensorData = [];
+
+  sensorLocations.forEach((location, index) => {
+    allSensorData.push({
+      sensortype: sensortype,
+      bridgesensorsrno: numSensors,
+      spanno: location.spanno,
+      girderno: location.girderno,
+    });
+  });
 
   const handleLocationChange = (index, field, value) => {
     const updatedLocations = [...sensorLocations];
@@ -157,7 +161,7 @@ const SensorForm = () => {
       else{
         try{
           setLoading(true);
-          const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, sensorData);
+          const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, allSensorData);
           if(response.status >= 200 && response.status < 300){
             alert('Sensor Added Successfully!');
             console.log('Backend response:', response.data);
@@ -193,7 +197,7 @@ const SensorForm = () => {
     else {
       try {
         setLoading(true);
-        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, sensorData);
+        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, allSensorData);
         if (response.status >= 200 && response.status < 300) {
           alert('Sensor Added Successfully!');
           console.log('Backend response:', response.data);
@@ -297,7 +301,7 @@ const SensorForm = () => {
               </div>
               <div className="mb-2 w-full px-5">
                 <label htmlFor={`spanno-${index}`} className="block text-gray-700">Span Number:</label>
-                <select id={`spanno-${index}`} name={`spanno-${index}`} value={location.spanno} onChange={(e) => handleLocationChange(index, 'spanno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
+                <select id={`spanno-${index}`} name={`spanno-${index}`} value={spanno} onChange={(e) => handleLocationChange(index, 'spanno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
                   {Array.from({ length: parseInt(nobridgespan) }, (_, i) => (
                     <option key={`span-${i + 1}`} value={i + 1}>{i + 1}</option>
                   ))}
@@ -305,7 +309,7 @@ const SensorForm = () => {
               </div>
               <div className="mb-2 w-full px-5">
                 <label htmlFor={`girderno-${index}`} className="block text-gray-700">Girder Number:</label>
-                <select id={`girderno-${index}`} name={`girderno-${index}`} value={location.girderno} onChange={(e) => handleLocationChange(index, 'girderno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
+                <select id={`girderno-${index}`} name={`girderno-${index}`} value={girderno} onChange={(e) => handleLocationChange(index, 'girderno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
                   {Array.from({ length: parseInt(noofgirders) }, (_, i) => (
                     <option key={`girder-${i + 1}`} value={i + 1}>{i + 1}</option>
                   ))}
