@@ -7,6 +7,7 @@ import logo from '../Assets/logo2.png';
 import loadingIcon from '../Assets/loading.gif';
 
 import { IoIosWarning } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
 
 const SensorForm = () => {
   const [loading, setLoading] = useState(false);
@@ -150,7 +151,7 @@ const SensorForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      if (bridgesensorsrno === '' || sensortype === '' || numSensors === '' || spanno === '' || girderno === '') {
+      if (bridgesensorsrno === '' || sensortype === '' || numSensors === '') {
         alert('Please fill all the fields!');
       } 
       else{
@@ -186,9 +187,10 @@ const SensorForm = () => {
 
   const handleAddSensor = async (e) => {
     e.preventDefault();
-    if (bridgesensorsrno === '' || sensortype === '' || numSensors === '' || spanno === '' || girderno === '') {
+    if (bridgesensorsrno === '' || sensortype === '' || numSensors === '') {
       alert('Please fill all the fields!');
-    } else {
+    } 
+    else {
       try {
         setLoading(true);
         const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, sensorData);
@@ -209,8 +211,6 @@ const SensorForm = () => {
       }
     }
   };
-
-  
 
   const handleSubmit2 = () => {
     setshowAddLocation(false);
@@ -285,37 +285,40 @@ const SensorForm = () => {
         )}
       </form>
     </div>
-
-  {sensorLocations.map((location, index) => (
-  <div key={index} className="mb-4 px-5 flex">
-    <div className='w-1/3 mt-6 font-semibold'>
-      <h1>Sensor {index + 1}:</h1>
-    </div>
-      <div className="mb-2 w-full px-5">
-        <label htmlFor={`spanno-${index}`} className="block text-gray-700">Span Number:</label>
-        <select id={`spanno-${index}`} name={`spanno-${index}`} value={location.spanno} onChange={(e) => handleLocationChange(index, 'spanno', e.target.value)} className="border border-gray-300 p-1 w-full rounded"
-        >
-          {Array.from({ length: parseInt(nobridgespan) }, (_, i) => (
-            <option key={`span-${i + 1}`} value={i + 1}>{i + 1}</option>
+  
+    {showAddLocation && (
+        <div className='absolute bg-white shadow-2xl w-full justify-center text-left'>
+          <h1 className='p-4 w-12 cursor-pointer' onClick={handleCancel2}><MdCancel size={30}/></h1>
+          <label htmlFor="sensorlocation" className="mb-4 mt-6 font-semibold px-5 text-center block text-gray-700">Sensor Location(s):</label>
+          {sensorLocations.map((location, index) => (
+            <div key={index} className="mb-4 px-5 flex">
+              <div className='w-1/3 mt-6 font-semibold'>
+                <h1>Sensor {index + 1}:</h1>
+              </div>
+              <div className="mb-2 w-full px-5">
+                <label htmlFor={`spanno-${index}`} className="block text-gray-700">Span Number:</label>
+                <select id={`spanno-${index}`} name={`spanno-${index}`} value={location.spanno} onChange={(e) => handleLocationChange(index, 'spanno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
+                  {Array.from({ length: parseInt(nobridgespan) }, (_, i) => (
+                    <option key={`span-${i + 1}`} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-2 w-full px-5">
+                <label htmlFor={`girderno-${index}`} className="block text-gray-700">Girder Number:</label>
+                <select id={`girderno-${index}`} name={`girderno-${index}`} value={location.girderno} onChange={(e) => handleLocationChange(index, 'girderno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
+                  {Array.from({ length: parseInt(noofgirders) }, (_, i) => (
+                    <option key={`girder-${i + 1}`} value={i + 1}>{i + 1}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
           ))}
-        </select>
-      </div>
-      <div className="mb-2 w-full px-5">
-        <label htmlFor={`girderno-${index}`} className="block text-gray-700">Girder Number:</label>
-        <select id={`girderno-${index}`} name={`girderno-${index}`} value={location.girderno} onChange={(e) => handleLocationChange(index, 'girderno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
-          {Array.from({ length: parseInt(noofgirders) }, (_, i) => (
-            <option key={`girder-${i + 1}`} value={i + 1}>{i + 1}</option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <div>
-        <button className="bg-blue-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900" onClick={handleSubmit2}>Confirm</button>
-        <button className="bg-blue-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900" onClick={handleCancel2}>Cancel</button>
+          <div className='my-12 text-center'>
+            <button className="bg-blue-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900" onClick={handleSubmit2}>Confirm</button>
+            <button className="bg-blue-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900" onClick={handleCancel2}>Cancel</button>
+          </div>
         </div>
-    </div>
-  </div>
-  ))}
+      )}
 
     <div className="box-border shadow-2xl w-1/2 p-6 bg-gray-100 mx-5 mr-10 my-8 justify-center text-left">
       <h1 className='text-center font-semibold text-3xl text-black'>Previously Entered Details</h1><br /><hr /><hr />
@@ -393,7 +396,7 @@ const SensorForm = () => {
   </div>
   </div>
   <br /><br />
-    </>
+  </>
   )
 }
 
