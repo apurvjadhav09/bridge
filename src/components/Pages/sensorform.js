@@ -136,16 +136,6 @@ const SensorForm = () => {
     }
   };
 
-  const allSensorData = [];
-
-  sensorLocations.forEach((location, index) => {
-    allSensorData.push({
-      sensortype: sensortype,
-      bridgesensorsrno: numSensors,
-      spanno: location.spanno,
-      girderno: location.girderno,
-    });
-  });
 
   const handleLocationChange = (index, field, value) => {
     const updatedLocations = [...sensorLocations];
@@ -153,57 +143,39 @@ const SensorForm = () => {
     setSensorLocations(updatedLocations);
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-      if (bridgesensorsrno === '' || sensortype === '' || numSensors === '') {
-        alert('Please fill all the fields!');
-      } 
-      else{
-        try{
-          setLoading(true);
-          const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, allSensorData);
-          if(response.status >= 200 && response.status < 300){
-            alert('Sensor Added Successfully!');
-            console.log('Backend response:', response.data);
-            Navigate('../home');
-          }
-        }
-        catch(error){
-          console.error('Error submitting form: ', error);
-          setshowAddSensor(false);
-          setLoading(false);
-          setshowAddSensors(false);
-          setsensortype('');
-          setbridgesensorsrno('');
-          setspanno('1');
-          setgirderno('1');
-        };
-      }
-  };
-  
-  const handleCancel = () => {
-    setsensortype('');
-    setshowAddSensors(false);
-    setbridgesensorsrno(' ');
-    setspanno('1');
-    setgirderno('1');
-  };
-
-  const handleAddSensor = async (e) => {
-    e.preventDefault();
-    if (bridgesensorsrno === '' || sensortype === '' || numSensors === '') {
+    if (bridgesensorsrno === '' || sensortype === '') {
       alert('Please fill all the fields!');
-    } 
-    else {
+    } else {
       try {
         setLoading(true);
-        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, allSensorData);
-        if (response.status >= 200 && response.status < 300) {
-          alert('Sensor Added Successfully!');
-          console.log('Backend response:', response.data);
+        const sensorData = [];
+        
+        // Loop through each sensor location and push sensor data to sensorData array
+        sensorLocations.forEach((location) => {
+          sensorData.push({
+            sensortype: sensortype,
+            bridgesensorsrno: bridgesensorsrno,
+            spanno: location.spanno,
+            girderno: location.girderno,
+          });
+        });
+  
+        // Post sensor data for each location separately
+        for (const data of sensorData) {
+          const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data]);
+          if (response.status >= 200 && response.status < 300) {
+            console.log('Sensor Added Successfully:', data);
+          }
         }
+  
+        alert('All Sensors Added Successfully!');
+        Navigate('../home');
       } catch (error) {
         console.error('Error submitting form: ', error);
+        alert('Failed to submit form. Please try again later.');
       } finally {
         setLoading(false);
         setshowAddSensor(false);
@@ -215,6 +187,57 @@ const SensorForm = () => {
       }
     }
   };
+
+
+  const handleCancel = () => {
+    setsensortype('');
+    setshowAddSensors(false);
+    setbridgesensorsrno(' ');
+    setspanno('1');
+    setgirderno('1');
+  };
+
+const handleAddSensor = async (e) => {
+  e.preventDefault();
+  if (bridgesensorsrno === '' || sensortype === '') {
+    alert('Please fill all the fields!');
+  } else {
+    try {
+      setLoading(true);
+      const sensorData = [];
+      
+      // Loop through each sensor location and push sensor data to sensorData array
+      sensorLocations.forEach((location) => {
+        sensorData.push({
+          sensortype: sensortype,
+          bridgesensorsrno: bridgesensorsrno,
+          spanno: location.spanno,
+          girderno: location.girderno,
+        });
+      });
+
+      // Post sensor data for each location separately
+      for (const data of sensorData) {
+        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data]);
+        if (response.status >= 200 && response.status < 300) {
+          console.log('Sensor Added Successfully:', data);
+        }
+      }
+      alert('All Sensors Added Successfully!');
+    } catch (error) {
+      console.error('Error submitting form: ', error);
+      alert('Failed to submit form. Please try again later.');
+    } finally {
+      setLoading(false);
+      setshowAddSensor(false);
+      setshowAddSensors(false);
+      setsensortype('');
+      setbridgesensorsrno('');
+      setspanno('1');
+      setgirderno('1');
+    }
+  }
+};
 
   const handleSubmit2 = () => {
     setshowAddLocation(false);
