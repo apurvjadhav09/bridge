@@ -19,7 +19,6 @@ const SensorForm = () => {
   const [showAddLocation, setshowAddLocation] = useState(false);
 
   const [sensortype, setsensortype]= useState('');
-  const [bridgesensorsrno, setbridgesensorsrno]= useState('');
   const [country, setCountry] = useState('');
   const [state, setState] = useState('');
   const [division, setDivision] = useState('');
@@ -125,7 +124,7 @@ const SensorForm = () => {
 
   const handleSubmit1 = async(e) => {
     e.preventDefault();
-    if(bridgesensorsrno === '' || sensortype === ''){
+    if(sensortype === ''){
       setshowSensorError(true);
       setTimeout(() => {
         setshowSensorError(false);
@@ -146,7 +145,7 @@ const SensorForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (bridgesensorsrno === '' || sensortype === '') {
+    if (sensortype === '') {
       alert('Please fill all the fields!');
     } else {
       try {
@@ -156,8 +155,7 @@ const SensorForm = () => {
         // Loop through each sensor location and push sensor data to sensorData array
         sensorLocations.forEach((location) => {
           sensorData.push({
-            sensortype: sensortype,
-            bridgesensorsrno: bridgesensorsrno,
+            sensortype: location.sensortype,
             spanno: location.spanno,
             girderno: location.girderno,
           });
@@ -181,7 +179,6 @@ const SensorForm = () => {
         setshowAddSensor(false);
         setshowAddSensors(false);
         setsensortype('');
-        setbridgesensorsrno('');
         setspanno('1');
         setgirderno('1');
       }
@@ -192,14 +189,13 @@ const SensorForm = () => {
   const handleCancel = () => {
     setsensortype('');
     setshowAddSensors(false);
-    setbridgesensorsrno(' ');
     setspanno('1');
     setgirderno('1');
   };
 
 const handleAddSensor = async (e) => {
   e.preventDefault();
-  if (bridgesensorsrno === '' || sensortype === '') {
+  if (sensortype === '') {
     alert('Please fill all the fields!');
   } else {
     try {
@@ -209,8 +205,7 @@ const handleAddSensor = async (e) => {
       // Loop through each sensor location and push sensor data to sensorData array
       sensorLocations.forEach((location) => {
         sensorData.push({
-          sensortype: sensortype,
-          bridgesensorsrno: bridgesensorsrno,
+          sensortype: location.sensortype,
           spanno: location.spanno,
           girderno: location.girderno,
         });
@@ -232,7 +227,6 @@ const handleAddSensor = async (e) => {
       setshowAddSensor(false);
       setshowAddSensors(false);
       setsensortype('');
-      setbridgesensorsrno('');
       setspanno('1');
       setgirderno('1');
     }
@@ -282,10 +276,6 @@ const handleAddSensor = async (e) => {
               </select>
             </div>
           )}
-          <div className="mb-4 px-5">
-            <label htmlFor="bridgesensorsrno" className="block text-gray-700">Sensor Number:</label>
-            <input type="text" id="bridgesensorsrno" value={bridgesensorsrno} onChange={(e) => setbridgesensorsrno(e.target.value)} name="bridgesensorsrno" className="border border-gray-300 p-1 w-full rounded"/>
-          </div>
         </div>
 
 
