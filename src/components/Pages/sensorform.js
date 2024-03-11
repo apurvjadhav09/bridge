@@ -27,8 +27,9 @@ const SensorForm = () => {
   const [bridgeName, setBridgeName] = useState('');
   const [noofgirders, setnoofgirders] = useState('');
   const [nobridgespan, setnobridgespan] = useState('');
-  const [ setspanno ] = useState('');
-  const [ setgirderno ] = useState('');
+  
+  const [ setspanno] = useState('');
+  const [ setgirderno] = useState('');
 
   const [adminName, setAdminName] = useState('');
   const [adminName2, setAdminName2] = useState('');
@@ -150,24 +151,30 @@ const SensorForm = () => {
     } else {
       try {
         setLoading(true);
-        const sensorData = sensorLocations.map((location) => ({
-          sensortype: sensortype,
-          spanno: location.spanno,
-          girderno: location.girderno,
-        }));
+        const sensorData = [];
+        
+        // Loop through each sensor location and push sensor data to sensorData array
+        sensorLocations.forEach((location) => {
+          sensorData.push({
+            sensortype: sensortype,
+            spanno: location.spanno,
+            girderno: location.girderno,
+          });
+        });
   
-        // Map each sensor data to a promise that posts it to the API
-        const promises = sensorData.map((data) =>
-          axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data])
-        );
+        // Post sensor data for each location separately
+        for (const data of sensorData) {
+          const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data]);
+          if (response.status >= 200 && response.status < 300) {
+            console.log('Sensor Added Successfully:', data);
+          }
+        }
   
-        // Use Promise.all to execute all promises concurrently
-        await Promise.all(promises);
         alert('All Sensors Added Successfully!');
         Navigate('../home');
       } catch (error) {
         console.error('Error submitting form: ', error);
-        alert('Failed to submit form.');
+        alert('Failed to submit form. Please try again later.');
       } finally {
         setLoading(false);
         setshowAddSensor(false);
@@ -180,8 +187,7 @@ const SensorForm = () => {
   };
 
 
-  const handleCancel = async(e) => {
-    e.preventDefault();
+  const handleCancel = () => {
     setsensortype('');
     setshowAddSensors(false);
     setspanno('1');
@@ -206,13 +212,13 @@ const handleAddSensor = async (e) => {
         });
       });
 
-      const promises = sensorData.map((data) =>
-          axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data])
-        );
-  
-        // Use Promise.all to execute all promises concurrently
-        await Promise.all(promises);
-
+      // Post sensor data for each location separately
+      for (const data of sensorData) {
+        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data]);
+        if (response.status >= 200 && response.status < 300) {
+          console.log('Sensor Added Successfully:', data);
+        }
+      }
       alert('All Sensors Added Successfully!');
     } catch (error) {
       console.error('Error submitting form: ', error);
