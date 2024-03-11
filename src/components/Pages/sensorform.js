@@ -27,8 +27,8 @@ const SensorForm = () => {
   const [bridgeName, setBridgeName] = useState('');
   const [noofgirders, setnoofgirders] = useState('');
   const [nobridgespan, setnobridgespan] = useState('');
-  const [spanno, setspanno] = useState('');
-  const [girderno, setgirderno] = useState('');
+  const [ setspanno ] = useState('');
+  const [ setgirderno ] = useState('');
 
   const [adminName, setAdminName] = useState('');
   const [adminName2, setAdminName2] = useState('');
@@ -150,30 +150,24 @@ const SensorForm = () => {
     } else {
       try {
         setLoading(true);
-        const sensorData = [];
-        
-        // Loop through each sensor location and push sensor data to sensorData array
-        sensorLocations.forEach((location) => {
-          sensorData.push({
-            sensortype: location.sensortype,
-            spanno: location.spanno,
-            girderno: location.girderno,
-          });
-        });
+        const sensorData = sensorLocations.map((location) => ({
+          sensortype: sensortype,
+          spanno: location.spanno,
+          girderno: location.girderno,
+        }));
   
-        // Post sensor data for each location separately
-        for (const data of sensorData) {
-          const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data]);
-          if (response.status >= 200 && response.status < 300) {
-            console.log('Sensor Added Successfully:', data);
-          }
-        }
+        // Map each sensor data to a promise that posts it to the API
+        const promises = sensorData.map((data) =>
+          axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data])
+        );
   
+        // Use Promise.all to execute all promises concurrently
+        await Promise.all(promises);
         alert('All Sensors Added Successfully!');
         Navigate('../home');
       } catch (error) {
         console.error('Error submitting form: ', error);
-        alert('Failed to submit form. Please try again later.');
+        alert('Failed to submit form.');
       } finally {
         setLoading(false);
         setshowAddSensor(false);
@@ -186,7 +180,8 @@ const SensorForm = () => {
   };
 
 
-  const handleCancel = () => {
+  const handleCancel = async(e) => {
+    e.preventDefault();
     setsensortype('');
     setshowAddSensors(false);
     setspanno('1');
@@ -205,19 +200,19 @@ const handleAddSensor = async (e) => {
       // Loop through each sensor location and push sensor data to sensorData array
       sensorLocations.forEach((location) => {
         sensorData.push({
-          sensortype: location.sensortype,
+          sensortype: sensortype,
           spanno: location.spanno,
           girderno: location.girderno,
         });
       });
 
-      // Post sensor data for each location separately
-      for (const data of sensorData) {
-        const response = await axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data]);
-        if (response.status >= 200 && response.status < 300) {
-          console.log('Sensor Added Successfully:', data);
-        }
-      }
+      const promises = sensorData.map((data) =>
+          axios.post(`http://localhost:9090/bridge/addSensorData/${bid}`, [data])
+        );
+  
+        // Use Promise.all to execute all promises concurrently
+        await Promise.all(promises);
+
       alert('All Sensors Added Successfully!');
     } catch (error) {
       console.error('Error submitting form: ', error);
@@ -314,7 +309,7 @@ const handleAddSensor = async (e) => {
               </div>
               <div className="mb-2 w-full px-5">
                 <label htmlFor={`spanno-${index}`} className="block text-gray-700">Span Number:</label>
-                <select id={`spanno-${index}`} name={`spanno-${index}`} value={spanno} onChange={(e) => handleLocationChange(index, 'spanno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
+                <select id={`spanno-${index}`} name={`spanno-${index}`} value={location.spanno} onChange={(e) => handleLocationChange(index, 'spanno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
                   {Array.from({ length: parseInt(nobridgespan) }, (_, i) => (
                     <option key={`span-${i + 1}`} value={i + 1}>{i + 1}</option>
                   ))}
@@ -322,7 +317,7 @@ const handleAddSensor = async (e) => {
               </div>
               <div className="mb-2 w-full px-5">
                 <label htmlFor={`girderno-${index}`} className="block text-gray-700">Girder Number:</label>
-                <select id={`girderno-${index}`} name={`girderno-${index}`} value={girderno} onChange={(e) => handleLocationChange(index, 'girderno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
+                <select id={`girderno-${index}`} name={`girderno-${index}`} value={location.girderno} onChange={(e) => handleLocationChange(index, 'girderno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
                   {Array.from({ length: parseInt(noofgirders) }, (_, i) => (
                     <option key={`girder-${i + 1}`} value={i + 1}>{i + 1}</option>
                   ))}
