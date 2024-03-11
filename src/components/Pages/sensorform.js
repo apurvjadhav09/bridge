@@ -14,7 +14,7 @@ const SensorForm = () => {
   const [showAddSensor, setshowAddSensor] =useState(false);
   const [showAddSensors, setshowAddSensors] =useState(false);
   const [showSensorError, setshowSensorError] = useState(false);
-  const [numSensors, setNumSensors] = useState(1);
+  const [numSensors, setNumSensors] = useState('');
   const [sensorLocations, setSensorLocations] = useState([]);
   const [showAddLocation, setshowAddLocation] = useState(false);
 
@@ -28,8 +28,8 @@ const SensorForm = () => {
   const [noofgirders, setnoofgirders] = useState('');
   const [nobridgespan, setnobridgespan] = useState('');
   
-  const [ setspanno] = useState('');
-  const [ setgirderno] = useState('');
+  const [spanno, setspanno] = useState(0);
+  const [girderno, setgirderno] = useState(0);
 
   const [adminName, setAdminName] = useState('');
   const [adminName2, setAdminName2] = useState('');
@@ -107,7 +107,6 @@ const SensorForm = () => {
   const handleSensorTypeChange = (e) => {
     setsensortype(e.target.value);
     setshowAddSensors(true);
-    
   };
 
   const handleNumSensorsChange = (e) => {
@@ -146,8 +145,9 @@ const SensorForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (sensortype === '') {
+    if (sensortype === '' || numSensors === '' || girderno === '' || spanno === '') {
       alert('Please fill all the fields!');
+      setshowAddSensor(false);
     } else {
       try {
         setLoading(true);
@@ -179,9 +179,10 @@ const SensorForm = () => {
         setLoading(false);
         setshowAddSensor(false);
         setshowAddSensors(false);
+        setNumSensors('');
         setsensortype('');
-        setspanno('1');
-        setgirderno('1');
+        setspanno('');
+        setgirderno('');
       }
     }
   };
@@ -190,14 +191,15 @@ const SensorForm = () => {
   const handleCancel = () => {
     setsensortype('');
     setshowAddSensors(false);
-    setspanno('1');
-    setgirderno('1');
+    setspanno('');
+    setgirderno('');
   };
 
 const handleAddSensor = async (e) => {
   e.preventDefault();
-  if (sensortype === '') {
+  if (sensortype === '' || numSensors === '' || girderno === '' || spanno === '') {
     alert('Please fill all the fields!');
+    setshowAddSensor(false);
   } else {
     try {
       setLoading(true);
@@ -227,9 +229,10 @@ const handleAddSensor = async (e) => {
       setLoading(false);
       setshowAddSensor(false);
       setshowAddSensors(false);
+      setNumSensors('');
       setsensortype('');
-      setspanno('1');
-      setgirderno('1');
+      setspanno('');
+      setgirderno('');
     }
   }
 };
@@ -272,7 +275,7 @@ const handleAddSensor = async (e) => {
               <label htmlFor="numSensors" className="block text-gray-700">Number of Sensors:</label>
               <select id="numSensors" onChange={handleNumSensorsChange} value={numSensors} className="border border-gray-300 p-1 w-full rounded">
                 {Array.from({ length: 20 }, (_, index) => (
-                  <option key={index + 1} value={index + 1}>{index + 1}</option>
+                  <option key={index} value={index}>{index}</option>
                 ))}
               </select>
             </div>
@@ -317,7 +320,7 @@ const handleAddSensor = async (e) => {
                 <label htmlFor={`spanno-${index}`} className="block text-gray-700">Span Number:</label>
                 <select id={`spanno-${index}`} name={`spanno-${index}`} value={location.spanno} onChange={(e) => handleLocationChange(index, 'spanno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
                   {Array.from({ length: parseInt(nobridgespan) }, (_, i) => (
-                    <option key={`span-${i + 1}`} value={i + 1}>{i + 1}</option>
+                    <option key={`span-${i + 1}`} value={i}>{i}</option>
                   ))}
                 </select>
               </div>
@@ -325,7 +328,7 @@ const handleAddSensor = async (e) => {
                 <label htmlFor={`girderno-${index}`} className="block text-gray-700">Girder Number:</label>
                 <select id={`girderno-${index}`} name={`girderno-${index}`} value={location.girderno} onChange={(e) => handleLocationChange(index, 'girderno', e.target.value)} className="border border-gray-300 p-1 w-full rounded">
                   {Array.from({ length: parseInt(noofgirders) }, (_, i) => (
-                    <option key={`girder-${i + 1}`} value={i + 1}>{i + 1}</option>
+                    <option key={`girder-${i + 1}`} value={i}>{i}</option>
                   ))}
                 </select>
               </div>
