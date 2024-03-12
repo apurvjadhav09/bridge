@@ -117,7 +117,7 @@ const Home = () => {
             <tbody>
               {filteredData.length > 0 ? (
                 filteredData.map((data, index) => (
-                  <tr key={index} onClick={() => handleRowClick(data.bridge.bridgeName)} className="hover:bg-gray-200 cursor-pointer border border-gray-300" >
+                  <tr key={index} onClick={() => handleRowClick(data.bridge.bridgeName)} className="hover:bg-gray-200 text-center cursor-pointer border border-gray-300" >
                     <td className="border px-2 py-3">{data.bridge.bridgeid}</td>
                     <td className="border px-16 py-3">{data.bridge.bridgeName}</td>
                     <td className="border px-8 py-3">{data.bridge.country}</td>
