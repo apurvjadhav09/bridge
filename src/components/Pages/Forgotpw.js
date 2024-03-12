@@ -9,14 +9,11 @@ import { IoArrowBackCircleSharp } from "react-icons/io5";
 import logo from '../Assets/logo.png';
 import logo2 from '../Assets/logo2.png';
 
-import loadingIcon from '../Assets/loading.gif';
-
 
 function Forgotpw() {
     const [email, setEmail] = useState('');
     const [randomCharacters, setRandomCharacters] = useState('');
     const [userInput, setUserInput] = useState('');
-    const [loading, setLoading] = useState(false);
     const [showTimeout, setshowTimeout] = useState(false);
     const navigate = useNavigate();
 
@@ -44,25 +41,21 @@ function Forgotpw() {
           }
           else {
             try {
-              setLoading(true);
               const response = await axios.post('http://localhost:9090/login', {
                 email: email,
               });
               if (response.status >= 200 && response.status < 300) {
-                console.log('Successful', response);      
-                setLoading(false);
+                console.log('Successful', response);
                 setshowTimeout(true);
               } 
               else {
                 alert('Incorrect Inputs!');
                 setEmail('');
                 setRandomCharacters('');
-                setLoading(false);
               }
             } catch (error) {
               console.error('Error during login:', error);
               alert('An error occurred during login.');
-              setLoading(false);
             }
           }
     };
@@ -101,11 +94,7 @@ function Forgotpw() {
                     <p className='text-center mt-12 font-semibold'>Captcha</p>
                     <p className='text-center mb-6 bg-gray-800 text-white mx-72 p-4 rounded text-2xl'><strong>{randomCharacters}</strong></p>
                     <div className='text-center'>
-                      {loading ? (
-                        <img id='Licon-forgotpw' className='absolute' src={loadingIcon} alt="Loading" />
-                        ) : (
                         <button onClick={handleSubmit} className='p-2 bg-blue-600 hover:bg-blue-900 px-5 text-white rounded-sm'>Submit</button>
-                        )}
                     </div>
                 </div>
             </div>

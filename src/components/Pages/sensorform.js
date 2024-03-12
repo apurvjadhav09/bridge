@@ -17,6 +17,7 @@ const SensorForm = () => {
   const [numSensors, setNumSensors] = useState('');
   const [sensorLocations, setSensorLocations] = useState([]);
   const [showAddLocation, setshowAddLocation] = useState(false);
+  const [showLocations, setshowLocations] = useState(false);
 
   const [sensortype, setsensortype]= useState('');
   const [country, setCountry] = useState('');
@@ -119,6 +120,7 @@ const SensorForm = () => {
     }));
     setshowAddLocation(!showAddLocation);
     setSensorLocations(locations);
+    setshowLocations(!showLocations);
   };
 
 
@@ -187,6 +189,10 @@ const SensorForm = () => {
     }
   };
 
+  const viewLocation = (e) => {
+    e.preventDefault();
+    setshowAddLocation(true);
+  }
 
   const handleCancel = () => {
     setsensortype('');
@@ -237,8 +243,14 @@ const handleAddSensor = async (e) => {
   }
 };
 
-  const handleSubmit2 = () => {
-    setshowAddLocation(false);
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+    if (girderno === '' || spanno === '') {
+      alert('Please fill all the fields!');
+    }
+    else{
+      setshowAddLocation(false);
+    }
   };
 
   const handleCancel2 = () => {
@@ -274,10 +286,15 @@ const handleAddSensor = async (e) => {
             <div id='sensorform-pop1' className="mx-5 mb-4">
               <label htmlFor="numSensors" className="block text-gray-700">Number of Sensors:</label>
               <select id="numSensors" onChange={handleNumSensorsChange} value={numSensors} className="border border-gray-300 p-1 w-full rounded">
-                {Array.from({ length: 20 }, (_, index) => (
+                {Array.from({ length: 21 }, (_, index) => (
                   <option key={index} value={index}>{index}</option>
                 ))}
               </select>
+            </div>
+          )}
+          {showLocations && (
+            <div className='mx-5 mb-12 mt-9'>
+              <button id="numSensors" onClick={viewLocation} className="border border-gray-300 bg-black text-white p-1 w-full hover:bg-pink-600 rounded">Show Added Sensor Location(s)</button>
             </div>
           )}
         </div>
@@ -310,7 +327,7 @@ const handleAddSensor = async (e) => {
     {showAddLocation && (
         <div className='absolute bg-white shadow-2xl w-full justify-center text-left'>
           <h1 className='p-4 w-12 cursor-pointer' onClick={handleCancel2}><MdCancel size={30}/></h1>
-          <label htmlFor="sensorlocation" className="mb-4 mt-6 font-semibold px-5 text-center block text-gray-700">Sensor Location(s):</label>
+          <label htmlFor="sensorlocation" className="mb-8 font-semibold px-5 text-center text-3xl block text-gray-700">Sensor Location(s):</label>
           {sensorLocations.map((location, index) => (
             <div key={index} className="mb-4 px-5 flex">
               <div className='w-1/3 mt-6 font-semibold'>
@@ -336,7 +353,7 @@ const handleAddSensor = async (e) => {
           ))}
           <div className='my-12 text-center'>
             <button className="bg-blue-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900" onClick={handleSubmit2}>Confirm</button>
-            <button className="bg-blue-600 px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-blue-900" onClick={handleCancel2}>Cancel</button>
+            <button className="bg-black px-5 mx-2 py-2 text-gray-100 rounded-sm hover:bg-pink-600" onClick={handleCancel2}>Cancel</button>
           </div>
         </div>
       )}

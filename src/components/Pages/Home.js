@@ -71,7 +71,7 @@ const Home = () => {
     <table className="table-auto w-full border-collapse border">
         <thead>
             <tr>
-                <th className="border bg-black text-lg text-white px-2 py-4 font-bold">ID</th>
+                <th className="border bg-black text-lg text-white px-2 py-4 font-bold">#</th>
                 <th className="border bg-black text-lg text-white px-16 py-4 font-bold">Name</th>
                 <th className="border bg-black text-lg text-white px-8 py-4 font-bold">Country</th>
                 <th className="border bg-black text-lg text-white px-8 py-4 font-bold">State</th>

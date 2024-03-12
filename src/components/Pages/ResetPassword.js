@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import loadingIcon from '../Assets/loading.gif';
-
 import { FaLock } from "react-icons/fa";
 import { LuRepeat } from "react-icons/lu";
 
@@ -14,7 +12,6 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [token, setToken] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,7 +22,6 @@ const ResetPassword = () => {
   }, [location.search]);
 
   const handleConfirm = async () => {
-    setLoading(true);
     try {
       if (!token) {
         alert('Authorization token not found. Please open this page with the provided link on your email.');
@@ -48,15 +44,12 @@ const ResetPassword = () => {
         navigate('/');
       } else {
         console.error('Failed to change password:', response.data);
-        setLoading(false);
         alert('Failed to change password. Please try again.', response.data);
         
       }
     } catch (error) {
       console.error('An error occurred during password change:', error);
       alert('An error occurred during password change. Please try again.');
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -92,11 +85,7 @@ const ResetPassword = () => {
           </div>
           <div className="">
             <div className="text-center">
-              {loading ? (
-                <img id='Licon-resetpw' src={loadingIcon} alt="Loading" />
-              ) : (
                 <button className='p-2 bg-blue-600 hover:bg-blue-900 px-5 text-white rounded-sm' onClick={handleConfirm}>Confirm</button>
-              )}
             </div>
           </div>
         </div>
