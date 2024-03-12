@@ -5,7 +5,7 @@ import axios from 'axios';
 import logo from '../Assets/logo.png'
 import logo2 from '../Assets/logo2.png';
 
-import { MdSearch } from 'react-icons/md'
+import { MdSearch } from 'react-icons/md';
 
 
 function Bridges() {
