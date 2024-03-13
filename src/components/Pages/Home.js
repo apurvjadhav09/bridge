@@ -3,16 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './tailwind.css';
 
-import { MdSearch } from 'react-icons/md'
+import { MdSearch } from 'react-icons/md';
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 import logo from '../Assets/logo2.png';
 
 const Home = () => {
   const navigate = useNavigate();
   const [showBridge, setshowBridge] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const showAddBridge = (e) => {
     setshowBridge(!showBridge);
+    setIsExpanded(!isExpanded);
   };
 
   const addbridge = () => {
@@ -68,7 +71,8 @@ const Home = () => {
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-        <button onClick={showAddBridge} className='text-center absolute mb-16 py-4 z-50 font-semibold text-2xl w-full bg-pink-600 hover:bg-pink-900 cursor-pointer text-white'>Click here to add a new bridge</button>
+        <button onClick={showAddBridge} className='justify-center absolute mb-16 py-4 z-50 font-semibold text-2xl w-full bg-pink-600 hover:bg-pink-900 flex cursor-pointer text-white'>Click here to add a new bridge &nbsp;
+        {isExpanded ? <FaChevronUp size={30} style={{marginTop:'2px'}} /> : <FaChevronDown size={30} style={{marginTop:'2px'}} />}</button>
         {showBridge && (
           <div className="absolute w-full mt-16 pb-24 pt-20 bg-gray-200 shadow-2xl text-center border border-gray-300 rounded-sm">
           <div className="w-full flex justify-center">
@@ -117,7 +121,7 @@ const Home = () => {
             <tbody>
               {filteredData.length > 0 ? (
                 filteredData.map((data, index) => (
-                  <tr key={index} onClick={() => handleRowClick(data.bridge.bridgeName)} className="hover:bg-gray-200 text-center cursor-pointer border border-gray-300" >
+                  <tr key={index} onClick={() => handleRowClick(data.bridge.bridgeName)} className="hover:bg-gray-300 text-center cursor-pointer border border-gray-300" >
                     <td className="border px-2 py-3">{data.bridge.bridgeid}</td>
                     <td className="border px-16 py-3">{data.bridge.bridgeName}</td>
                     <td className="border px-8 py-3">{data.bridge.country}</td>
