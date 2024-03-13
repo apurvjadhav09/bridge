@@ -394,9 +394,6 @@ const bridgeName = localStorage.getItem('bridgeName');
         owner1countryCode:'',
         owner2countryCode:'',
         owner3countryCode:'',
-
-        girderno:'',
-        spanno:'',
     });
 
     useEffect(() => {
@@ -417,7 +414,7 @@ const bridgeName = localStorage.getItem('bridgeName');
                     ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders,
                     admin1countryCode,admin2countryCode,admin3countryCode,owner1countryCode,owner2countryCode,
                     owner3countryCode,manager1countryCode ,manager2countryCode ,manager3countryCode ,manager4countryCode,
-                    manager5countryCode ,manager6countryCode, girderno, spanno } = response.data;
+                    manager5countryCode ,manager6countryCode} = response.data;
 
                 setUserData({country, state, coordinates, division, location, bridgeName, 
                     adminName, adminEmail, adminPhone, adminName2, adminEmail2, adminPhone2, 
@@ -428,7 +425,7 @@ const bridgeName = localStorage.getItem('bridgeName');
                     ownerEmail2, ownerPhone2, ownerName3, ownerEmail3, ownerPhone3, nobridgespan, noofgirders,
                     admin1countryCode,admin2countryCode,admin3countryCode,owner1countryCode,owner2countryCode,
                     owner3countryCode,manager1countryCode ,manager2countryCode ,manager3countryCode ,manager4countryCode,
-                    manager5countryCode ,manager6countryCode, girderno, spanno});
+                    manager5countryCode ,manager6countryCode});
               } else {
                 console.error('Failed to fetch data:', response.statusText);
               }
@@ -520,9 +517,6 @@ const bridgeName = localStorage.getItem('bridgeName');
                 manager4countryCode: userData.manager4countryCode,
                 manager5countryCode: userData.manager5countryCode,
                 manager6countryCode: userData.manager6countryCode,
-
-                nobridgespan:userData.nobridgespan,
-                noofgirders:userData.noofgirders,
             };
             const response = await axios.put(`http://localhost:9090/bridge/updatebridge/${id}`, dataToUpdate);
             if(response.status >= 200 && response.status < 300){
@@ -545,8 +539,8 @@ const bridgeName = localStorage.getItem('bridgeName');
 
       const [sensorData, setsensorData] = useState({
         sensortype:'',
-        bridgesensorsrno:'',
-        sensorlocation:'',
+        spanno:'',
+        girderno:'',
     });
 
     useEffect(() => {
@@ -559,9 +553,9 @@ const bridgeName = localStorage.getItem('bridgeName');
               if (response.status >= 200 && response.status < 300) {
                 console.log(response.data);
                 setSensorDataList(response.data);
-                const { sensortype, bridgesensorsrno, sensorlocation } = response.data;
+                const { sensortype, spanno, girderno } = response.data;
 
-                setsensorData({ sensortype, bridgesensorsrno, sensorlocation });
+                setsensorData({ sensortype, spanno, girderno});
               } else {
                 console.error('Failed to fetch data:', response.statusText);
               }
@@ -578,8 +572,8 @@ const bridgeName = localStorage.getItem('bridgeName');
         try {
             const SensordataToUpdate = {
                 sensortype: sensorData.sensortype,
-                sensorlocation: sensorData.sensorlocation,
-                bridgesensorsrno: sensorData.bridgesensorsrno,
+                spanno: sensorData.spanno,
+                girderno: sensorData.girderno,
             };
             const response = await axios.put(`http://localhost:9090/bridge/updatesensor/${id}`, SensordataToUpdate);
             if(response.status >= 200 && response.status < 300){
@@ -1013,7 +1007,7 @@ const bridgeName = localStorage.getItem('bridgeName');
               <h1 className='font-semibold text-lg'>Sensor Location</h1>  
               <div className="mb-2 w-full px-5">
                 <label htmlFor={`spanno-${index}`} className="block text-gray-700">Span Number:</label>
-                <select id={`spanno-${index}`} name={`spanno-${index}`} value={userData.spanno}  onChange={(e) => setUserData(prevData => ({...prevData, spanno: e.target.value}))} className="border border-gray-300 p-1 w-full rounded">
+                <select id={`spanno-${index}`} name={`spanno-${index}`} value={sensorData.spanno}  onChange={(e) => setUserData(prevData => ({...prevData, spanno: e.target.value}))} className="border border-gray-300 p-1 w-full rounded">
                   {Array.from({ length: parseInt(userData.nobridgespan) }, (_, i) => (
                     <option key={`span-${i + 1}`} value={i}>{i}</option>
                   ))}
@@ -1021,7 +1015,7 @@ const bridgeName = localStorage.getItem('bridgeName');
               </div>
               <div className="mb-2 w-full px-5">
                 <label htmlFor={`girderno-${index}`} className="block text-gray-700">Girder Number:</label>
-                <select id={`girderno-${index}`} name={`girderno-${index}`} value={userData.girderno}  onChange={(e) => setUserData(prevData => ({...prevData, girderno: e.target.value}))} className="border border-gray-300 p-1 w-full rounded">
+                <select id={`girderno-${index}`} name={`girderno-${index}`} value={sensorData.girderno}  onChange={(e) => setUserData(prevData => ({...prevData, girderno: e.target.value}))} className="border border-gray-300 p-1 w-full rounded">
                   {Array.from({ length: parseInt(userData.noofgirders) }, (_, i) => (
                     <option key={`girder-${i + 1}`} value={i}>{i}</option>
                   ))}

@@ -68,7 +68,7 @@ const Home = () => {
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-        <button onClick={showAddBridge} className='text-center absolute mb-16 py-4 z-50 font-semibold text-3xl w-full bg-pink-600 hover:bg-pink-900 cursor-pointer text-white'>Click here to add a new bridge</button>
+        <button onClick={showAddBridge} className='text-center absolute mb-16 py-4 z-50 font-semibold text-2xl w-full bg-pink-600 hover:bg-pink-900 cursor-pointer text-white'>Click here to add a new bridge</button>
         {showBridge && (
           <div className="absolute w-full mt-16 pb-24 pt-20 bg-gray-200 shadow-2xl text-center border border-gray-300 rounded-sm">
           <div className="w-full flex justify-center">
