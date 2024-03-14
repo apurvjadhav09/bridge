@@ -15,8 +15,7 @@ import SensorForm from './components/Pages/sensorform';
 import Addexcelfile from './components/Pages/Addexcelfile'
 import Forgotpw from './components/Pages/Forgotpw';
 import Bridges from './components/Pages/Bridges';
-
-
+import Sensorformexcel from './components/Pages/Sensorformexcel';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -31,6 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Route path="/home/addexcel" element={< Addexcelfile/>} />
       <Route path="/home/bridgeform" element={<BridgeForm />} />
       <Route path="/home/bridgeform/sensorform" element={<SensorForm/>} />
+      <Route path="/home/sensorform-excel" element={<Sensorformexcel/>} />
       <Route path="/home/dashboard" element={<Superuserhome />} />
       <Route path="/masterhome" element={<Masterhome />} />
       <Route path="/bridges" element={<Bridges />} />

@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 import './tailwind.css';
 
 import { MdSearch } from 'react-icons/md';
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
 
 import logo from '../Assets/logo2.png';
+import loadingIcon from '../Assets/loading.gif';
 
 const Home = () => {
   const navigate = useNavigate();
   const [showBridge, setshowBridge] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const showAddBridge = (e) => {
+    e.preventDefault();
     setshowBridge(!showBridge);
     setIsExpanded(!isExpanded);
   };
@@ -22,10 +27,12 @@ const Home = () => {
     navigate('./bridgeform');
   };
 
+const [showexcelfile, setshowexcelfile] = useState(false);
 
-
-  const addcsv = () => {
-    navigate('./Addexcel');
+  const addcsv = async(e) => {
+    e.preventDefault();
+    setshowexcelfile(!showexcelfile);
+    setshowBridge(false);
   };
 
   const [BackEndData, setBackEndData] = useState([]);
@@ -46,7 +53,6 @@ const Home = () => {
         console.error('Error:', error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -68,10 +74,78 @@ const Home = () => {
       data.bridge.division.toLowerCase().includes(searchKeyword.toLowerCase())
   );
 
+  const [data, setData] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileUpload = (e) => {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsBinaryString(file);
+      reader.onload = (e) => {
+          const data = e.target.result;
+          const workbook = XLSX.read(data, { type: "binary" });
+          const sheetName = workbook.SheetNames[0];
+          const sheet = workbook.Sheets[sheetName];
+          const parsedData = XLSX.utils.sheet_to_json(sheet);
+          setData(parsedData);
+          setSelectedFile({ file, data: parsedData });
+      };
+  };
+
+
+  const postDataToServer = async() => {
+      if(!selectedFile){
+          alert('Please add a file!')
+      }
+      else{
+        setLoading(true);
+          try{
+              const formData = new FormData();
+                formData.append('file', selectedFile.file);
+              const response = await axios.post('http://localhost:9090/files/upload', formData,{
+                  headers:{
+                      'Content-Type': 'multipart/form-data',
+                  }
+              });
+              if(response.status >= 200 && response.status < 300){
+                setLoading(false);
+                console.log('Backend Response: ',response.data);
+                alert('File successfully uploaded!');
+                navigate('/home/sensorform-excel');
+              }
+          }
+          catch(error){
+            setLoading(false);
+            console.log(error);
+            alert('Unable to submit form, please check your file format!')
+          }
+
+      }
+  };
+
+  const back = (e) => {
+    setshowexcelfile(false);
+    setshowBridge(false);
+    setIsExpanded(!isExpanded);
+  };
+
+  const sample_csv = 'https://shm-frontserver.azurewebsites.net/sample.xlsx'
+
+  const downloadFileAtURL = (url) => {
+      const fileName = url.split("/").pop();
+      const aTag = document.createElement("a");
+      aTag.href = url;
+      aTag.href = url;
+      aTag.setAttribute("download", fileName);
+      document.body.appendChild(aTag);
+      aTag.click();
+      aTag.remove();
+  };
+
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-        <button onClick={showAddBridge} className='justify-center absolute mb-16 py-4 z-50 font-semibold text-2xl w-full bg-pink-600 hover:bg-pink-900 flex cursor-pointer text-white'>Click here to add a new bridge &nbsp;
+        <button onClick={showAddBridge} className='justify-center absolute mb-16 py-4 z-40 font-semibold text-2xl w-full bg-pink-600 hover:bg-pink-900 flex cursor-pointer text-white'>Click here to add a new bridge &nbsp;
         {isExpanded ? <FaChevronUp size={30} style={{marginTop:'2px'}} /> : <FaChevronDown size={30} style={{marginTop:'2px'}} />}</button>
         {showBridge && (
           <div className="absolute w-full mt-16 pb-24 pt-20 bg-gray-200 shadow-2xl text-center border border-gray-300 rounded-sm">
@@ -90,6 +164,34 @@ const Home = () => {
           </div>
           </div>
         )}
+
+        {showexcelfile && (
+          <div className='absolute bg-gray-100 w-full text-center z-50'>
+            <button className='flex justify-start p-6 underline' onClick={back}><IoArrowBackCircleSharp size={28}/>Back</button>
+            <div className="flex justify-center mb-6">
+              <img src={logo} alt="" />
+            </div><br />
+            <div>
+              <h1 className='text-3xl font-semibold py-6'>Sample File</h1><br />
+              <p className='text-gray-800'>Download this sample excel file for additional reference. <br />Create your own excel file by referring to the format of the sample file.</p><br />
+              <button className="cursor-pointer bg-pink-600 text-white p-2 mt-6 rounded-sm hover:bg-pink-900" onClick={()=>{downloadFileAtURL(sample_csv)}}>Sample Download</button>
+            </div>
+            <br /><br /><hr /><br />
+            <h1 className='text-3xl font-semibold py-6'>Select File</h1><br />
+            <p className='text-gray-800'>Choose your excel file with reference to our sample excel file and upload it. <br />Make sure that the format matches that of our provided sample file.</p>
+            <br />
+            <div className="flex py-6 w-full justify-center">
+              <input id='fileinput' className='hidden' type="file" accept='.xlsx , .xls , .csv' onChange={handleFileUpload} />
+              <label htmlFor="fileinput" className="cursor-pointer bg-blue-600 text-white p-2 px-8 rounded-sm hover:bg-blue-900" >{selectedFile ? `${selectedFile.file.name}` : 'Choose File'}</label>
+              {loading ? (
+              <img id='homeload' src={loadingIcon} alt="Loading" />
+              ) : (
+              <button className='bg-green-600 justify-end text-white p-2 px-4 rounded-sm ml-12 hover:bg-green-900' onClick={postDataToServer}>Submit</button>
+              )}
+            </div>
+          </div>
+        )}
+
       <div className="w-full pt-16">
         <div className='flex py-5 px-6 bg-gray-200 border border-gray-300 shadow-2xl'>
           <div className="w-full justify-left">
@@ -122,7 +224,7 @@ const Home = () => {
               {filteredData.length > 0 ? (
                 filteredData.map((data, index) => (
                   <tr key={index} onClick={() => handleRowClick(data.bridge.bridgeName)} className="hover:bg-gray-300 text-center cursor-pointer border border-gray-300" >
-                    <td className="border px-2 py-3">{data.bridge.bridgeid}</td>
+                    <td className="border px-2 py-3">{data.bridge.id}</td>
                     <td className="border px-16 py-3">{data.bridge.bridgeName}</td>
                     <td className="border px-8 py-3">{data.bridge.country}</td>
                     <td className="border px-10 py-3">{data.bridge.state}</td>
@@ -141,6 +243,26 @@ const Home = () => {
           </table>
         </div>
       </div>
+      {data.length > 0 && (
+            <table className='hidden text-left'>
+                <thead>
+                    <tr className='grid'>
+                        {Object.keys(data[0]).map((key)=>(
+                            <th className='p-2 w-full' key={key}><label htmlFor="label">{key}:</label></th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((row, index) => (
+                        <tr className='grid' key={index}>
+                            {Object.values(row).map((value, index) => (
+                                <td key={index}><input className='p-2 w-full' type="text" value={value} readOnly/></td>
+                            ))}
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        )}
     </>
   );
 };

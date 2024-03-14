@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './tailwind.css';
 
-import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaLock } from "react-icons/fa";
 import loadingIcon from '../Assets/loading.gif';
 
 import logo from '../Assets/logo.png';
@@ -12,7 +12,6 @@ import logo2 from '../Assets/logo2.png';
 const Login = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -60,10 +59,6 @@ const Login = () => {
       handleLogin();
     }
   };
-
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
   
   return (
     <>
@@ -74,23 +69,20 @@ const Login = () => {
           <img className='w-32 p-6' src={logo} alt="" />
         </div>
         <div className="w-1/2 text-center justify-center">
-          <div className="text-center justify-center px-72 mx-4 pt-8 pb-12">
-            <img className='text-center justify-center' src={logo2} alt="" />
+          <div className="flex justify-center pt-8 pb-12">
+            <img className='w-40' src={logo2} alt="" />
           </div>
           <div className="text">
               <h1 className='text-2xl pb-24 font-semibold text-indigo-900'>Login</h1>
             </div>
           <div className="">
-            <div className="pb-6 ml-5 flex justify-center">
+            <div className="pb-6 flex justify-center">
               <FaUser style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-              <input className="border border-gray-500 bg-gray-100 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type="email" placeholder="Enter Email" value={email} onChange={(e) => setemail(e.target.value)}/>
+              <input className="border border-gray-400 bg-gray-100 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type="email" placeholder="Enter Email" value={email} onChange={(e) => setemail(e.target.value)}/>
             </div>
             <div className="pb-2 flex justify-center">
             <FaLock style={{ alignItems: 'center', marginTop: '2%' }} size={22} />
-            <input className="border bg-gray-100 border-gray-500 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type={showPassword ? 'text' : 'password'} placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
-            <button id='btn' className="ml-2 focus:outline-none" onClick={handleTogglePasswordVisibility}>
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
+            <input className="border bg-gray-100 border-gray-400 p-3 w-1/3 ml-3 pl-3 mr-2 rounded" type="password" placeholder="Enter Password" value={password} onChange={(e) => setPassword(e.target.value)} onKeyDown={handleKeyDown}/>
         </div>
           </div>
           <div className="pt-16">
