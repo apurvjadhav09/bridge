@@ -20,11 +20,9 @@ const Login = () => {
   const handleLogin = async () => {
     if (email === '') {
       enqueueSnackbar('Please enter an email!', { variant: 'error'});
-    } 
-    else if (password === '') {
+    } else if (password === '') {
       enqueueSnackbar('Please enter a password!', { variant: 'error'});
-    }
-    else {
+    } else {
       try {
         setLoading(true);
         const response = await axios.post('http://localhost:9090/login', {
@@ -32,19 +30,19 @@ const Login = () => {
           password: password,
         });
         localStorage.setItem('email', email);
-        console.log(email);
-
+  
         if (response.status >= 200 && response.status < 300) {
           console.log('Login successful');
           enqueueSnackbar('Logged in successfully!', { variant: 'success'});
           setLoading(false);
-          const token = response.data.token;
+          
+          const { token, superadminId, dashboardUrl } = response.data;
+          
           localStorage.setItem('authToken', token);
-          const dashboardUrl = response.data.dashboardUrl;
+          localStorage.setItem('superadminId', superadminId);
           localStorage.setItem('dashboardUrl', dashboardUrl);          
           navigate(dashboardUrl);
-        } 
-        else {
+        } else {
           enqueueSnackbar('Incorrect Login Credentials!', { variant: 'error'});
           setemail('');
           setPassword('');
@@ -56,7 +54,8 @@ const Login = () => {
         setLoading(false);
       }
     }
-  };  
+  };
+  
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {

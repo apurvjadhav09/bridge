@@ -55,7 +55,7 @@ const [showexcelfile, setshowexcelfile] = useState(false);
         
         if (superadminResponse.status >= 200 && superadminResponse.status < 300) {
           const superadminId = superadminResponse.data.id;
-  
+
           // Fetch bridge details based on superadmin ID
           const bridgeResponse = await axios.get(`http://localhost:9090/bridge/superbridges/?superadminId=${superadminId}`);
           
@@ -73,7 +73,7 @@ const [showexcelfile, setshowexcelfile] = useState(false);
       }
     };
     fetchData();
-  }, [navigate, enqueueSnackbar]);
+  }, [navigate, enqueueSnackbar]);  
   
   
 
