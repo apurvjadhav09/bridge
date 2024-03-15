@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSnackbar } from 'notistack';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './tailwind.css';
@@ -14,8 +15,8 @@ function Forgotpw() {
     const [email, setEmail] = useState('');
     const [randomCharacters, setRandomCharacters] = useState('');
     const [userInput, setUserInput] = useState('');
-    const [showTimeout, setshowTimeout] = useState(false);
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         generateRandomCharacters();
@@ -33,10 +34,10 @@ function Forgotpw() {
     const handleSubmit = async(e) => {
         e.preventDefault();
         if (email === '') {
-            alert('Please Enter User ID');
+          enqueueSnackbar('Please enter an email!', { variant: 'error'});
           } 
           else if(userInput !== randomCharacters){
-            alert('Incorrect Captcha!')
+            enqueueSnackbar('Incorrect Captcha!', { variant: 'error'});
             setUserInput('');
           }
           else {
@@ -46,17 +47,17 @@ function Forgotpw() {
               });
               if (response.status >= 200 && response.status < 300) {
                 console.log('Successful', response);
-                setshowTimeout(true);
+                enqueueSnackbar('Kindly check your email! We have sent you a link to reset your password.', { variant: 'success'});
                 navigate('/')
               } 
               else {
-                alert('Incorrect Inputs!');
+                enqueueSnackbar('Incorrect Credentials!', { variant: 'error'});
                 setEmail('');
                 setRandomCharacters('');
               }
             } catch (error) {
               console.error('Error during login:', error);
-              alert('An error occurred during login.');
+              enqueueSnackbar('An Error Occurred!', { variant: 'error'});
             }
           }
     };
@@ -101,11 +102,6 @@ function Forgotpw() {
                     </div>
                 </div>
             </div>
-            {showTimeout && (
-              <div>
-                <h1>We have sent you a link on your mail if your email id is registered</h1>
-              </div>
-            )}
         </>
     )
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 import './tailwind.css';
@@ -16,6 +17,7 @@ const Home = () => {
   const [showBridge, setshowBridge] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const showAddBridge = (e) => {
     e.preventDefault();
@@ -42,6 +44,11 @@ const [showexcelfile, setshowexcelfile] = useState(false);
     const fetchData = async () => {
       try {
         const email = localStorage.getItem('email');
+        if (!email) {
+          enqueueSnackbar('Please Login to Navigate!', { variant: 'error'});
+          navigate('/');
+          return;
+        }
         const response = await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`);
         if (response.status >= 200 && response.status < 300) {
           console.log(response.data);
@@ -54,7 +61,8 @@ const [showexcelfile, setshowexcelfile] = useState(false);
       }
     };
     fetchData();
-  }, []);
+  }, [navigate, enqueueSnackbar]); // Including enqueueSnackbar in the dependency array
+  
 
   const RedirectDashboard = (bridgeName) => {
     localStorage.setItem('bridgeName', bridgeName);

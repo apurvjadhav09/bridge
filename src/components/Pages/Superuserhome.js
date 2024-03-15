@@ -308,7 +308,6 @@ const bridgeName = localStorage.getItem('bridgeName');
     console.log(bridgeName);
     useEffect(() => {
         const findBridgeID = async () => {
-        
                 try {
                     const response = await axios.get(`http://localhost:9090/bridge/bridgeid?bridgeName=${bridgeName}`)
                     if (response.status >= 200 && response.status < 300) {
@@ -656,7 +655,6 @@ const bridgeName = localStorage.getItem('bridgeName');
     }
 
     const Logout = async () => {
-    
         try {
             const token = localStorage.getItem('authToken'); // Corrected key
             console.log(token);

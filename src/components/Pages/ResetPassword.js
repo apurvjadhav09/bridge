@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { FaLock } from "react-icons/fa";
@@ -14,6 +15,7 @@ const ResetPassword = () => {
   const [token, setToken] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const tokenFromURL = new URLSearchParams(location.search).get('token');
@@ -24,12 +26,11 @@ const ResetPassword = () => {
   const handleConfirm = async () => {
     try {
       if (!token) {
-        alert('Authorization token not found. Please open this page with the provided link on your email.');
-        setNewPassword('');
-        setConfirmNewPassword('');
+        enqueueSnackbar('Authorization token not found! Kindly open this page with the provided link on your email.', { variant: 'error'});
+        navigate('/');
         return;
       } else if (newPassword !== confirmNewPassword) {
-        alert('Incorrect Confirmation');
+        enqueueSnackbar('Passwords do not match!', { variant: 'error'});
         setConfirmNewPassword('');
         return;
       }
@@ -38,18 +39,18 @@ const ResetPassword = () => {
         newPassword: newPassword,
         confirmNewPassword: confirmNewPassword,
       });
-
       if (response.status >= 200 && response.status < 300) {
         console.log('Password changed successfully');
+        enqueueSnackbar('Password Changed Successfully!', { variant: 'success'});
         navigate('/');
       } else {
         console.error('Failed to change password:', response.data);
-        alert('Failed to change password. Please try again.', response.data);
-        
+        enqueueSnackbar('Failed to change password. Please try again!', { variant: 'error'});
       }
     } catch (error) {
       console.error('An error occurred during password change:', error);
-      alert('An error occurred during password change. Please try again.');
+      enqueueSnackbar('An error occurred during password change. Please try again!', { variant: 'error'});
+
     }
   };
 

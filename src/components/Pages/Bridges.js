@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import axios from 'axios';
 import './tailwind.css';
 
@@ -11,8 +12,7 @@ import logo from '../Assets/logo2.png';
 const Home = () => {
   const navigate = useNavigate();
 //   const [loading, setLoading] = useState(false);
-
-
+  const { enqueueSnackbar } = useSnackbar();
   const [BackEndData, setBackEndData] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -20,6 +20,11 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const email = localStorage.getItem('email');
+        if(!email){
+            navigate('/');
+            enqueueSnackbar('Please Login to Navigate!', { variant: 'error'});
+            return;
+        }
         const response = await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`);
         if (response.status >= 200 && response.status < 300) {
           console.log(response.data);
@@ -32,7 +37,7 @@ const Home = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [navigate, enqueueSnackbar]);
 
   const RedirectDashboard = (bridgeName) => {
     localStorage.setItem('bridgeName', bridgeName);
@@ -86,17 +91,17 @@ const Home = () => {
             <tbody>
               {filteredData.length > 0 ? (
                 filteredData.map((data, index) => (
-                  <tr key={index} onClick={() => handleRowClick(data.bridge.bridgeName)} className="hover:bg-gray-300 text-center cursor-pointer border border-gray-300" >
-                    <td className="border px-2 py-3">{data.bridge.id}</td>
-                    <td className="border px-16 py-3">{data.bridge.bridgeName}</td>
-                    <td className="border px-8 py-3">{data.bridge.country}</td>
-                    <td className="border px-10 py-3">{data.bridge.state}</td>
-                    <td className="border px-8 py-3">{data.bridge.division}</td>
-                    <td className="border px-8 py-3">{data.bridge.coordinates}</td>
-                    <td className="border px-2 py-3">{data.bridge.noofgirders}</td>
-                    <td className="border px-2 py-3">{data.bridge.nobridgespan}</td>
-                  </tr>
-                ))
+                    <tr key={index} onClick={() => handleRowClick(data.bridge.bridgeName)} className="hover:bg-gray-300 text-center cursor-pointer border border-gray-300">
+                      <td className="border px-2 py-3">{data.bridge.id}</td>
+                      <td className="border px-16 py-3">{data.bridge.bridgeName}</td>
+                      <td className="border px-8 py-3">{data.bridge.country}</td>
+                      <td className="border px-10 py-3">{data.bridge.state}</td>
+                      <td className="border px-8 py-3">{data.bridge.division}</td>
+                      <td className="border px-8 py-3">{data.bridge.coordinates}</td>
+                      <td className="border px-2 py-3">{data.bridge.noofgirders}</td>
+                      <td className="border px-2 py-3">{data.bridge.nobridgespan}</td>
+                    </tr>
+                  ))
               ) : (
                 <tr>
                   <td colSpan="8" className="py-3 text-center text-lg hover:bg-gray-200 cursor-pointer">No bridges found</td>

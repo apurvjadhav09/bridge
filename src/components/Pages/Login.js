@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 import './tailwind.css';
 
@@ -14,13 +15,14 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleLogin = async () => {
     if (email === '') {
-      alert('Please Enter User ID');
+      enqueueSnackbar('Please enter an email!', { variant: 'error'});
     } 
     else if (password === '') {
-      alert('Please Enter Password');
+      enqueueSnackbar('Please enter a password!', { variant: 'error'});
     }
     else {
       try {
@@ -30,9 +32,11 @@ const Login = () => {
           password: password,
         });
         localStorage.setItem('email', email);
+        console.log(email);
 
         if (response.status >= 200 && response.status < 300) {
           console.log('Login successful');
+          enqueueSnackbar('Logged in successfully!', { variant: 'success'});
           setLoading(false);
           const token = response.data.token;
           localStorage.setItem('authToken', token);
@@ -41,14 +45,14 @@ const Login = () => {
           navigate(dashboardUrl);
         } 
         else {
-          alert('Incorrect User ID or Password');
+          enqueueSnackbar('Incorrect Login Credentials!', { variant: 'error'});
           setemail('');
           setPassword('');
           setLoading(false);
         }
       } catch (error) {
         console.error('Error during login:', error);
-        alert('Incorrect login credentials!');
+        enqueueSnackbar('Login Failed!', { variant: 'error'});
         setLoading(false);
       }
     }
