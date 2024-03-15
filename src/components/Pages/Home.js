@@ -49,19 +49,32 @@ const [showexcelfile, setshowexcelfile] = useState(false);
           navigate('/');
           return;
         }
-        const response = await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`);
-        if (response.status >= 200 && response.status < 300) {
-          console.log(response.data);
-          setBackEndData(response.data);
+        
+        // Fetch superadmin details based on email
+        const superadminResponse = await axios.get(`http://localhost:9090/superadmin/getbyemail?email=${email}`);
+        
+        if (superadminResponse.status >= 200 && superadminResponse.status < 300) {
+          const superadminId = superadminResponse.data.id;
+  
+          // Fetch bridge details based on superadmin ID
+          const bridgeResponse = await axios.get(`http://localhost:9090/bridge/superbridges/?superadminId=${superadminId}`);
+          
+          if (bridgeResponse.status >= 200 && bridgeResponse.status < 300) {
+            console.log(bridgeResponse.data);
+            setBackEndData(bridgeResponse.data);
+          } else {
+            console.error('Failed to fetch bridge data:', bridgeResponse.statusText);
+          }
         } else {
-          console.error('Failed to fetch data:', response.statusText);
+          console.error('Failed to fetch superadmin data:', superadminResponse.statusText);
         }
       } catch (error) {
         console.error('Error:', error);
       }
     };
     fetchData();
-  }, [navigate, enqueueSnackbar]); // Including enqueueSnackbar in the dependency array
+  }, [navigate, enqueueSnackbar]);
+  
   
 
   const RedirectDashboard = (bridgeName) => {

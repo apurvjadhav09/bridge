@@ -21,15 +21,17 @@ const ResetPassword = () => {
     const tokenFromURL = new URLSearchParams(location.search).get('token');
     console.log('Token from URL:', tokenFromURL);
     setToken(tokenFromURL);
-  }, [location.search]);
+
+    if (!tokenFromURL) {
+      enqueueSnackbar('Authorization token not found! Kindly open this page with the provided link on your email.', { variant: 'error'});
+      navigate('/');
+      return;
+    }
+  }, [location.search, navigate, enqueueSnackbar]);
 
   const handleConfirm = async () => {
     try {
-      if (!token) {
-        enqueueSnackbar('Authorization token not found! Kindly open this page with the provided link on your email.', { variant: 'error'});
-        navigate('/');
-        return;
-      } else if (newPassword !== confirmNewPassword) {
+      if (newPassword !== confirmNewPassword) {
         enqueueSnackbar('Passwords do not match!', { variant: 'error'});
         setConfirmNewPassword('');
         return;
