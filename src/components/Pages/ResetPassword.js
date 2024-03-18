@@ -64,7 +64,6 @@ const ResetPassword = () => {
 
   return (
     <>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
       <div className="flex">
         <div className="background w-1/2">
           <img className='p-6 w-32' src={logo} alt="" />

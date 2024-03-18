@@ -59,7 +59,6 @@ const Home = () => {
 
   return (
     <>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
       <div className="w-full">
         <div className='flex py-5 px-6 bg-gray-200 border border-gray-300 shadow-2xl'>
           <div className="w-full justify-left">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import './Login.css';
+import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 
 import logo from '../Assets/logo.png';
@@ -10,22 +10,23 @@ const ChangePassword = () => {
   const [newPassword, setnewPassword] = useState('');
   const [newPasswordAgain, setnewPasswordAgain] = useState('');
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleConfirm = async () => {
     try {
       const token = localStorage.getItem('authToken');
 
       if (!token) {
-        alert('Authorization token not found. Please log in.');
+        enqueueSnackbar('Authorization token not found! Please log in.', { variant: 'error'});
         return;
       }
       if (!currentPassword || !newPassword || !newPasswordAgain) {
-        alert('Please fill in all the fields');
+        enqueueSnackbar('Please fill in all the fields!', { variant: 'error'});
         return;
       }
   
       if (currentPassword === newPassword) {
-        alert('New Password cannot be the same as the old one');
+        enqueueSnackbar('New Password cannot be the same as the old one!', { variant: 'error'});
         setcurrentPassword('');
         setnewPassword('');
         setnewPasswordAgain('');
@@ -33,7 +34,7 @@ const ChangePassword = () => {
       }
   
       if (newPassword !== newPasswordAgain) {
-        alert('Incorrect Confirmation');
+        enqueueSnackbar('Incorrect Confirmation!', { variant: 'error'});
         setnewPasswordAgain('');
         return;
       }
@@ -51,15 +52,15 @@ const ChangePassword = () => {
       );
   
       if (response.status >= 200 && response.status < 300) {
-        console.log('Password changed successfully');
-        navigate('/login');
+        enqueueSnackbar('Password changed successfully!', { variant: 'success'});
+        navigate('/');
       } else {
         console.error('Failed to change password:', response.data);
-        alert('Failed to change password. Please try again.');
+        enqueueSnackbar('Failed to change password. Please try again.', { variant: 'error'});
       }
     } catch (error) {
       console.error('An error occurred during password change:', error);
-      alert('An error occurred during password change. Please try again.');
+      enqueueSnackbar('An error occurred during password change. Please try again.', { variant: 'error'});
     } finally {
       // Reset password fields regardless of the outcome
       setcurrentPassword('');
@@ -83,34 +84,17 @@ const ChangePassword = () => {
           </div>
           <div className="inputs">
             <div className="input">
-              <input
-                type="text"
-                placeholder="Enter Current Password"
-                value={currentPassword}
-                onChange={(e) => setcurrentPassword(e.target.value)}
-              />
+              <input type="text" placeholder="Enter Current Password" value={currentPassword} onChange={(e) => setcurrentPassword(e.target.value)} />
             </div>
             <div className="input">
-              <input
-                type="password"
-                placeholder="Enter New Password"
-                value={newPassword}
-                onChange={(e) => setnewPassword(e.target.value)}
-              />
+              <input type="password" placeholder="Enter New Password" value={newPassword} onChange={(e) => setnewPassword(e.target.value)} />
             </div>
             <div className="input">
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                value={newPasswordAgain}
-                onChange={(e) => setnewPasswordAgain(e.target.value)}
-              />
+              <input type="password" placeholder="Confirm Password" value={newPasswordAgain} onChange={(e) => setnewPasswordAgain(e.target.value)} />
             </div>
           </div>
           <div className="submit-container">
-            <div className="submit1" onClick={handleConfirm}>
-              Confirm
-            </div>
+            <div className="submit1" onClick={handleConfirm}>Confirm</div>
           </div>
         </div>
       </div>
@@ -129,34 +113,17 @@ const ChangePassword = () => {
             </div>
             <div className="inputs1">
               <div className="input1">
-                <input
-                  type="text"
-                  placeholder="Enter Current Password"
-                  value={currentPassword}
-                  onChange={(e) => setcurrentPassword(e.target.value)}
-                />
+                <input type="text" placeholder="Enter Current Password" value={currentPassword} onChange={(e) => setcurrentPassword(e.target.value)}/>
               </div>
               <div className="input1">
-                <input
-                  type="password"
-                  placeholder="Enter New Password"
-                  value={newPassword}
-                  onChange={(e) => setnewPassword(e.target.value)}
-                />
+                <input type="password" placeholder="Enter New Password" value={newPassword} onChange={(e) => setnewPassword(e.target.value)}/>
               </div>
               <div className="input1">
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  value={newPasswordAgain}
-                  onChange={(e) => setnewPasswordAgain(e.target.value)}
-                />
+                <input type="password" placeholder="Confirm Password" value={newPasswordAgain} onChange={(e) => setnewPasswordAgain(e.target.value)} />
               </div>
             </div>
             <div className="submit-container1">
-              <div className="submit1" onClick={handleConfirm}>
-                Confirm
-              </div>
+              <div className="submit1" onClick={handleConfirm}>Confirm</div>
             </div>
           </div>
         </div>

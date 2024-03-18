@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
 import './tailwind.css';
+import { useSnackbar } from 'notistack';
 
 import logo2 from '../Assets/logo.png';
 import axios from 'axios';
@@ -10,6 +11,7 @@ const Addexcelfile = () => {
 
     const [data, setData] = useState([]);
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileUpload = (e) => {
@@ -29,7 +31,7 @@ const Addexcelfile = () => {
 
     const postDataToServer = async() => {
         if(!selectedFile){
-            alert('Please add a file!')
+            enqueueSnackbar('Please add a file!', { variant: 'error'});
         }
         else{
             try{
@@ -42,14 +44,14 @@ const Addexcelfile = () => {
                 });
                 if(response.status >= 200 && response.status < 300){
                     console.log('Backend Response: ',response.data);
-                    alert('File successfully uploaded!');
+                    enqueueSnackbar('File uploaded successfully!', { variant: 'success'});
                     navigate('/home');
                 }
  
             }
             catch(error){
                 console.log(error);
-                alert('Error: ', error)
+                enqueueSnackbar('Error Submitting file! Please check your file format! ', { variant: 'error'});
             }
 
         }
@@ -68,23 +70,13 @@ const Addexcelfile = () => {
         aTag.remove();
     };
 
-
-
-
-
-
   return (
     <>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
       <div className='flex'>
 
         <div id='excel' className='w-1/3'>
             <img className='w-32 p-7' src={logo2} alt="" />
-
         </div>
-
-
 
         <div className='w-2/3 pl-20 pb-6'>
             <div>
@@ -102,15 +94,11 @@ const Addexcelfile = () => {
               <button className='bg-green-600 justify-end text-white p-2 px-4 rounded-sm ml-12 hover:bg-green-900' onClick={postDataToServer}>Submit</button>
             </div>
             
-            
         </div>
         <div className='justify-center w-1/6'>
         </div>
       </div>
       
-
-
-
         {data.length > 0 && (
             <table className='hidden text-left'>
                 <thead>
@@ -131,7 +119,6 @@ const Addexcelfile = () => {
                 </tbody>
             </table>
         )}
-        
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 import axios from 'axios';
 import './tailwind.css';
 
@@ -17,6 +18,7 @@ import logo2 from '../Assets/logo2.png';
 const Masterhome = () => {
 
   const [loading, setLoading] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
 
     const navigate = useNavigate();
     const [isSelected0, setIsSelected0] = useState(true);
@@ -127,27 +129,26 @@ const Masterhome = () => {
         console.error('Error submitting form', error);
         if (error.response && error.response.status === 400) {
           if (error.response.data.message === "Email already exists. Please choose a different email.") {
-            alert('Email already exists. Please choose a different email.');
+            enqueueSnackbar('Email already exists. Please choose a different email.', { variant: 'error'});
             setLoading(false);
           }
           else if (error.response.data.message === "Name must be unique. Please choose a different name.") {
-            alert('Name must be unique. Please choose a different name.');
+            enqueueSnackbar('Name must be unique. Please choose a different name.', { variant: 'error'});
             setLoading(false);
           } 
           else {
-            alert('Error submitting form');
+            enqueueSnackbar('Error submitting form', { variant: 'error'});
             setLoading(false);
           }
         } 
         else {
-          alert('Error submitting form');
+          enqueueSnackbar('Error submitting form', { variant: 'error'});
           setLoading(false);
 
         }
       }
     };
     
-
     const Logout = async () => {
         try {
             const token = localStorage.getItem('authToken'); // Corrected key
@@ -208,8 +209,6 @@ const Masterhome = () => {
 
   return (
     <>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
       <div className="flex fixed z-10 w-full justify-center bg-gray-100 py-2 shadow-xl">
         <div className='w-1/4'>   
            <img className='h-10 pt-2 cursor-pointer pl-5'  src={logo2} alt=""/>

@@ -44,14 +44,14 @@ const [showexcelfile, setshowexcelfile] = useState(false);
     const fetchData = async () => {
       try {
         const email = localStorage.getItem('email');
-        if (!email) {
-          enqueueSnackbar('Please Login to Navigate!', { variant: 'error'});
-          navigate('/');
-          return;
-        }
+        // if (!email) {
+        //   enqueueSnackbar('Please Login to Navigate!', { variant: 'error'});
+        //   navigate('/');
+        //   return;
+        // }
         
         // Fetch superadmin details based on email
-        const superadminResponse = await axios.get(`http://localhost:9090/superadmin/getbyemail?email=${email}`);
+        const superadminResponse = await axios.get(`http://localhost:9090/bridge/showbridge?email=${email}`);
         
         if (superadminResponse.status >= 200 && superadminResponse.status < 300) {
           const superadminId = superadminResponse.data.id;
@@ -116,7 +116,7 @@ const [showexcelfile, setshowexcelfile] = useState(false);
 
   const postDataToServer = async() => {
       if(!selectedFile){
-          alert('Please add a file!')
+        enqueueSnackbar('Please add a file!', { variant: 'error'});
       }
       else{
         setLoading(true);
@@ -131,14 +131,14 @@ const [showexcelfile, setshowexcelfile] = useState(false);
               if(response.status >= 200 && response.status < 300){
                 setLoading(false);
                 console.log('Backend Response: ',response.data);
-                alert('File successfully uploaded!');
+                enqueueSnackbar('File successfully uploaded!', { variant: 'success'});
                 navigate('/home/sensorform-excel');
               }
           }
           catch(error){
             setLoading(false);
             console.log(error);
-            alert('Unable to submit form, please check your file format!')
+            enqueueSnackbar('Unable to submit form, please check your file format!', { variant: 'success'});
           }
 
       }
@@ -165,7 +165,6 @@ const [showexcelfile, setshowexcelfile] = useState(false);
 
   return (
     <>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
         <button onClick={showAddBridge} className='justify-center absolute mb-16 py-4 z-40 font-semibold text-2xl w-full bg-pink-600 hover:bg-pink-900 flex cursor-pointer text-white'>Click here to add a new bridge &nbsp;
         {isExpanded ? <FaChevronUp size={30} style={{marginTop:'2px'}} /> : <FaChevronDown size={30} style={{marginTop:'2px'}} />}</button>
         {showBridge && (

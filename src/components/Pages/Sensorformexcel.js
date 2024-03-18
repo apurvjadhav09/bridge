@@ -204,7 +204,6 @@ const handleAddSensor = async (e) => {
 
   return (
       <>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
       { showSensorError && ( 
         <div className='absolute text-center mt-12 w-full flex justify-center items-center'>
           <h1 className='p-4 px-6 border flex border-black rounded-sm shadow-2xl bg-yellow-200 font-semibold'><IoIosWarning size={24}/>Please Fill in all the fields!</h1>

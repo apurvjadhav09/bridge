@@ -19,9 +19,9 @@ const Login = () => {
 
   const handleLogin = async () => {
     if (email === '') {
-      enqueueSnackbar('Please enter an email!', { variant: 'error'});
+      enqueueSnackbar('Please enter your email!', { variant: 'error'});
     } else if (password === '') {
-      enqueueSnackbar('Please enter a password!', { variant: 'error'});
+      enqueueSnackbar('Please enter your password!', { variant: 'error'});
     } else {
       try {
         setLoading(true);
@@ -50,7 +50,7 @@ const Login = () => {
         }
       } catch (error) {
         console.error('Error during login:', error);
-        enqueueSnackbar('Login Failed!', { variant: 'error'});
+        enqueueSnackbar('User not found!', { variant: 'error'});  
         setLoading(false);
       }
     }
@@ -65,8 +65,6 @@ const Login = () => {
   
   return (
     <>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
       <div className="w-full flex">
         <div className="background w-1/2">
           <img className='w-32 p-6' src={logo} alt="" />

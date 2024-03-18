@@ -162,7 +162,7 @@ const Superuserhome = () => {
                 data: BatteryVoltage,
                 borderColor: 'blue',
                 borderWidth: 1,
-                pointBorderColor: 'black',
+                pointBorderColor: 'black',  
                 pointRadius: 1,
                 pointHoverRadius: 1,
                 tension: 0,
@@ -682,8 +682,6 @@ const bridgeName = localStorage.getItem('bridgeName');
 
   return (
     <>
-      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
       <div className="flex fixed z-10 w-full justify-center bg-gray-100 py-2 shadow-xl">
         <div className='w-full'>   
            <img className='h-10 pt-2 cursor-pointer px-5'  src={logo2} alt=""/>
