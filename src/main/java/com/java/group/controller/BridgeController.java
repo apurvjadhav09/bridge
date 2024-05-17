@@ -2,10 +2,17 @@ package com.java.group.controller;
 
 
 import java.io.IOException;
+
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,7 +41,7 @@ import com.java.group.service.SensorService;
 @RequestMapping("/bridge")
 
 public class BridgeController {
-
+	private static final Logger logger = LoggerFactory.getLogger(BridgeController.class);
     
 
     @Autowired
@@ -52,17 +59,36 @@ public class BridgeController {
     @Autowired
     private UserRepository repository;
     
+    @Autowired
+    private HttpServletRequest request;
+    
+    public BridgeController() {
+		super();
+		logger.info("Fetching bridgecontroller{}");
+//		  logger.info("Request URL: {}", request.getRequestURL());
+//	        logger.info("Param1: {}, Param2: {}", request.getpa);
+		
+	}
+
+
     @GetMapping("/superbridges")
     public ResponseEntity<?> getBridgesBySuperadminId(@RequestParam Long superadminId) {
         try {
+            logger.info("Fetching bridges for superadminId: {}", superadminId);
             List<Bridge> bridges = bridgeRepository.findBySuperadminId(superadminId);
+            if (bridges == null || bridges.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No bridges found for superadminId: " + superadminId);
+            }
             return ResponseEntity.ok(bridges);
         } catch (Exception e) {
+            logger.error("Failed to fetch bridges: {}", e.getMessage());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to fetch bridges: " + e.getMessage());
         }
     }
+
     
     @PostMapping("/register")
     public ResponseEntity<RegistrationResponse> registerBridge(@RequestBody Bridge bridge) {
@@ -76,6 +102,7 @@ public class BridgeController {
             errorResponse.setMessage("Failed to register the bridge. User details do not match.");
             return ResponseEntity.status(400).body(errorResponse);
         } catch (Exception e) {
+        	 logger.error("Failed to regsiter bridges: {}", e.getMessage());
             e.printStackTrace();
             RegistrationResponse errorResponse = new RegistrationResponse();
             errorResponse.setMessage("Failed to register the bridge. Please check your request.");
@@ -114,12 +141,14 @@ public class BridgeController {
         }
         return bridgesWithSensors.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(bridgesWithSensors);
     }
+
     @GetMapping("/getallbridge")
-    public ResponseEntity<?> getAllBridges() {
+    public ResponseEntity<List<Bridge>> getAllBridges() {
         try {
             List<Bridge> bridges = bridgeRepository.findAll();
-            return ResponseEntity.ok(bridges);
+            return ResponseEntity.ok(bridges != null ? bridges : Collections.emptyList());
         } catch (Exception e) {
+            logger.error("Failed to show bridges: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -135,7 +164,7 @@ public class BridgeController {
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
-            
+        	 logger.error("Failed to getbridgeid bridges: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -148,6 +177,7 @@ public class BridgeController {
         if (bridgeId != null) {
             return ResponseEntity.ok(bridgeId);
         } else {
+        	 logger.error("Failed to bridgeid  bridges: {}");
             return ResponseEntity.notFound().build();
         }
     }
@@ -158,8 +188,10 @@ public class BridgeController {
     public ResponseEntity<RegistrationResponse> updateBridge(@PathVariable Long bridgeId, @RequestBody Bridge updatedBridge) {
         RegistrationResponse response = bridgeService.updateBridge(bridgeId, updatedBridge);
         if (response.getMessage().startsWith("Bridge not found")) {
+        	 logger.error("Failed to updatebridge1 bridges: {}");
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         } else if (response.getMessage().startsWith("Error updating bridge")) {
+        	 logger.error("Failed to updatebridge2 bridges:" );
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -236,9 +268,11 @@ public class BridgeController {
 
                 return ResponseEntity.ok("Bridge and associated sensors removed successfully.");
             } else {
+            	 logger.error("Failed to delete bridges: {}");
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
+        	 logger.error("Failed to delete bridges: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -300,6 +334,7 @@ public class BridgeController {
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             RegistrationResponse errorResponse = new RegistrationResponse();
+            logger.error("Failed to addsensordata bridges: {}", e.getMessage());
             errorResponse.setMessage("Failed to add sensor data. Please check your request.");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
@@ -328,7 +363,7 @@ public class BridgeController {
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
-          
+        	 logger.error("Failed to updatesensordata bridges: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -343,39 +378,37 @@ public class BridgeController {
                 sensorRepository.delete(sensor);
                 return ResponseEntity.ok().build();
             } else {
+            	 logger.error("Failed to deletesensorid bridges: {}");
                 return ResponseEntity.notFound().build();
             }
         } catch (Exception e) {
-         
+        	 logger.error("Failed to deletesensor bridges: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
     
     @GetMapping("/getsensor/{id}")
     public ResponseEntity<?> getSensorData(@PathVariable Long id) {
-    	try {
-    	List <Sensor> optionalSensor = sensorRepository.findByBridgeid(id);
-    		if (!optionalSensor.isEmpty()) {
-    			return ResponseEntity.ok(optionalSensor);
-    		} else {
-    			return ResponseEntity.notFound().build();
-    		}
-    	} catch (Exception e) {
-    		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-    	}
-    }
-    
-    
-    @GetMapping("/getallsensor")
-    public ResponseEntity<List<Sensor>> getSensorData() {
         try {
-            List<Sensor> sensors = sensorRepository.findAll();
-            return ResponseEntity.ok(sensors);
+            List<Sensor> sensors = sensorRepository.findByBridgeid(id);
+            return !sensors.isEmpty() ? ResponseEntity.ok(sensors) : ResponseEntity.notFound().build();
         } catch (Exception e) {
-            
-            return ResponseEntity.status(500).build();
+            logger.error("Failed to get sensor data for bridge with id {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/getallsensor")
+    public ResponseEntity<?> getSensorData() {
+        try {
+            List<Sensor> sensors = sensorRepository.findAll();
+            return sensors.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(sensors);
+        } catch (Exception e) {
+            logger.error("Failed to get all sensor data: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     
 
     

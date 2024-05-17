@@ -29,10 +29,13 @@ import com.java.group.repository.BridgeRepository;
 import com.java.group.repository.UserRepository;
 import com.java.group.response.RegistrationResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
 
 
 @Service
 @Transactional
+@Slf4j
 public class BridgeService {
 	
 	@Autowired
@@ -61,6 +64,7 @@ public class BridgeService {
                 bridge.setNoofgirders(bridge.getNoofgirders());
                 bridge.setNobridgespan(bridge.getNobridgespan());
                 bridge.setSuperadminId(bridge.getSuperadminId());
+                bridge.setSuperadminname(bridge.getSuperadminname());
                 bridge.setCity(bridge.getCity());
                 
 
@@ -81,6 +85,7 @@ public class BridgeService {
                 return response;
             }
         } catch (DataIntegrityViolationException e) {
+        	
             String errorMessage = e.getMessage();
             if (errorMessage.contains("unique_constraint_name_for_bridgeName")) {
                 RegistrationResponse response = new RegistrationResponse();

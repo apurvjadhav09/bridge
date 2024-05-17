@@ -28,6 +28,7 @@ public class Bridge {
  private String bridgeName;
  private String location;
  private String coordinates;
+ private String superadminname;
  
  private String city;
  
@@ -177,6 +178,20 @@ public void setId(Long id) {
 
 public String getCountry() {
 	return country;
+}
+
+
+
+
+public String getSuperadminname() {
+	return superadminname;
+}
+
+
+
+
+public void setSuperadminname(String superadminname) {
+	this.superadminname = superadminname;
 }
 
 

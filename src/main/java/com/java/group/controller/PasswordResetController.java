@@ -5,6 +5,10 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +29,25 @@ import com.java.group.service.PassMailService;
 @RequestMapping("/newuser")
 public class PasswordResetController {
 
+	private static final Logger logger = LoggerFactory.getLogger(PasswordResetController.class);
+	
     @Autowired
     private UserRepository repository;
     
     @Autowired
 	private PassMailService mailService;
     
+    @Autowired
+    private HttpServletRequest request;
+    
+    public PasswordResetController() {
+		super();
+		logger.info("Fetching bridgecontroller{}");
+//		  logger.info("Request URL: {}", request.getRequestURL());
+//	        logger.info("Param1: {}, Param2: {}", request.getpa);
+		
+	}
+
     @CrossOrigin(origins = "${app.base-url}")
     @PostMapping("/resetpassword")
     public ResponseEntity<String> resetPassword(

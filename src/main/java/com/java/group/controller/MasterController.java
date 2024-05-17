@@ -1,5 +1,6 @@
 package com.java.group.controller;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +42,9 @@ import com.java.group.service.UserService;
 @RequestMapping("/masterhome")
 public class MasterController {
 	
+	
+	private static final Logger logger = LoggerFactory.getLogger(MasterController.class);
+	
 	@Autowired
 	private PassMailService mailService;
 	
@@ -48,6 +55,17 @@ public class MasterController {
 	 @Autowired
 	    private UserService userService;
 	
+	 @Autowired
+	    private HttpServletRequest request;
+	    
+	    public MasterController() {
+			super();
+			logger.info("Fetching mastercontroller{}");
+//			  logger.info("Request URL: {}", request.getRequestURL());
+//		        logger.info("Param1: {}, Param2: {}", request.getpa);
+			
+		}
+
 	 
 	
 	 @PostMapping("/register")
@@ -57,6 +75,7 @@ public class MasterController {
 		        if (repository.existsByEmail(user.getEmail())) {
 		            response.put("status", "error");
 		            response.put("message", "Email already exists. Please choose a different email.");
+		            logger.error("email is already exists");
 		            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 		        }
 
@@ -75,9 +94,11 @@ public class MasterController {
 
 		        response.put("status", "success");
 		        response.put("message", "Superadmin registered successfully. Check your email for registration details.");
+		        logger.info("Superadmin registered successfully. Check your email for registration details.");
 		        return ResponseEntity.ok(response);
 		    } catch (Exception e) {
 		        response.put("status", "error");
+		        logger.error("Failed to regsiter superadmin: {}", e.getMessage());
 		        response.put("message", "An error occurred while processing your registration.");
 		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		    }
@@ -114,6 +135,7 @@ public class MasterController {
             User updatedUserData = userService.updateUserByEmail(email, updatedUser);
             return ResponseEntity.ok(updatedUserData);
         } catch (EntityNotFoundException e) {
+        	logger.error("Failed to update email bridges: {}", e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
@@ -121,6 +143,7 @@ public class MasterController {
     public ResponseEntity<String> deleteUserByEmail(@PathVariable String email) {
         try {
             userService.deleteUserByEmail(email);
+            logger.info("deleted successfully..");
             return ResponseEntity.ok("User with email " + email + " deleted successfully");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -128,7 +151,6 @@ public class MasterController {
     }
     
     @GetMapping("/getuserdata")
-//    @Transactional
     public List<User> getAllUserData() {
     	 List<User> users = repository.findAll();
     	 users = users.stream()
@@ -139,9 +161,9 @@ public class MasterController {
     }
     
     @GetMapping("/getdata/byrole")
-    public ResponseEntity<List<User>> getUsersByRole(@RequestParam String role) {
+    public ResponseEntity<?> getUsersByRole(@RequestParam String role) {
         List<User> users = userService.getUsersByRole(role);
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(users != null ? users : Collections.emptyList());
     }
 
 
@@ -173,6 +195,7 @@ public class MasterController {
 	    public ResponseEntity<?> removeSuperAdminRole(@PathVariable Long userId) {
 	        Optional<User> optionalUser = repository.findById(userId);
 	        if (!optionalUser.isPresent()) {
+	        	
 	            return ResponseEntity.notFound().build();
 	        }
 

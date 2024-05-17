@@ -1,0 +1,33 @@
+24-05-13 17:36:19.532 [http-nio-9090-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+24-05-13 17:36:19.534 [http-nio-9090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet' 
+24-05-13 17:36:19.536 [http-nio-9090-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms 
+24-05-13 17:36:19.618 [http-nio-9090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /masterlogin 
+24-05-13 17:36:19.622 [http-nio-9090-exec-1] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Set SecurityContextHolder to empty SecurityContext 
+24-05-13 17:36:19.632 [http-nio-9090-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext 
+24-05-13 17:36:19.634 [http-nio-9090-exec-1] DEBUG o.s.s.w.a.i.FilterSecurityInterceptor - Authorized public object filter invocation [POST /masterlogin] 
+24-05-13 17:36:19.636 [http-nio-9090-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /masterlogin 
+24-05-13 17:36:20.293 [http-nio-9090-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user 
+24-05-13 17:36:21.028 [http-nio-9090-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Created HttpSession as SecurityContext is non-default 
+24-05-13 17:36:21.029 [http-nio-9090-exec-1] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Stored SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=com.java.group.service.CustomUserDetails [Username=master@gmail.com, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, credentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_DEVELOPER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_DEVELOPER]]] to HttpSession [org.apache.catalina.session.StandardSessionFacade@19be8a99] 
+24-05-13 17:36:21.033 [http-nio-9090-exec-1] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Cleared SecurityContextHolder to complete request 
+24-05-13 17:36:21.107 [http-nio-9090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing GET /bridge/getallbridge 
+24-05-13 17:36:21.108 [http-nio-9090-exec-2] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Set SecurityContextHolder to empty SecurityContext 
+24-05-13 17:36:21.112 [http-nio-9090-exec-2] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext 
+24-05-13 17:36:21.112 [http-nio-9090-exec-2] DEBUG o.s.s.w.a.i.FilterSecurityInterceptor - Authorized public object filter invocation [GET /bridge/getallbridge] 
+24-05-13 17:36:21.112 [http-nio-9090-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured GET /bridge/getallbridge 
+24-05-13 17:36:21.110 [http-nio-9090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing GET /masterhome/getuserdata 
+24-05-13 17:36:21.143 [http-nio-9090-exec-3] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Set SecurityContextHolder to empty SecurityContext 
+24-05-13 17:36:21.151 [http-nio-9090-exec-3] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext 
+24-05-13 17:36:21.152 [http-nio-9090-exec-3] DEBUG o.s.s.w.a.i.FilterSecurityInterceptor - Authorized public object filter invocation [GET /masterhome/getuserdata] 
+24-05-13 17:36:21.152 [http-nio-9090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured GET /masterhome/getuserdata 
+24-05-13 17:36:21.165 [http-nio-9090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing GET /masterhome/getdata/byrole?role=SUPERADMIN 
+24-05-13 17:36:21.165 [http-nio-9090-exec-4] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Set SecurityContextHolder to empty SecurityContext 
+24-05-13 17:36:21.169 [http-nio-9090-exec-2] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Did not store anonymous SecurityContext 
+24-05-13 17:36:21.170 [http-nio-9090-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext 
+24-05-13 17:36:21.170 [http-nio-9090-exec-4] DEBUG o.s.s.w.a.i.FilterSecurityInterceptor - Authorized public object filter invocation [GET /masterhome/getdata/byrole?role=SUPERADMIN] 
+24-05-13 17:36:21.170 [http-nio-9090-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured GET /masterhome/getdata/byrole?role=SUPERADMIN 
+24-05-13 17:36:21.172 [http-nio-9090-exec-2] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Cleared SecurityContextHolder to complete request 
+24-05-13 17:36:21.181 [http-nio-9090-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Did not store anonymous SecurityContext 
+24-05-13 17:36:21.182 [http-nio-9090-exec-3] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Cleared SecurityContextHolder to complete request 
+24-05-13 17:36:21.200 [http-nio-9090-exec-4] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Did not store anonymous SecurityContext 
+24-05-13 17:36:21.202 [http-nio-9090-exec-4] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Cleared SecurityContextHolder to complete request 

@@ -7,6 +7,10 @@ package com.java.group.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +35,20 @@ import com.java.group.service.ServiceFile;
 
 public class FileController {
 
-	
+	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 	@Autowired
 	private ServiceFile serviceFile;
 
+	 @Autowired
+	    private HttpServletRequest request;
+	    
+	    
+	    public FileController() {
+			super();
+			logger.info("Fetching logincontorller{}");
+//			  logger.info("Request URL: {}", request.getRequestURL());
+		}
+	
 	@PostMapping("/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
 	    try {

@@ -1,0 +1,10 @@
+24-05-13 17:29:09.042 [http-nio-9090-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /logout 
+24-05-13 17:29:09.043 [http-nio-9090-exec-3] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Set SecurityContextHolder to empty SecurityContext 
+24-05-13 17:29:09.044 [http-nio-9090-exec-3] DEBUG o.s.s.w.a.logout.LogoutFilter - Logging out [null] 
+24-05-13 17:29:09.047 [http-nio-9090-exec-3] DEBUG o.s.s.w.c.HttpSessionSecurityContextRepository - Did not store empty SecurityContext 
+24-05-13 17:29:09.048 [http-nio-9090-exec-3] DEBUG o.s.s.w.c.SecurityContextPersistenceFilter - Cleared SecurityContextHolder to complete request 
+24-05-13 17:29:18.142 [RMI TCP Connection(63)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+24-05-13 17:29:18.235 [RMI TCP Connection(63)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default' 
+24-05-13 17:29:18.248 [RMI TCP Connection(63)-127.0.0.1] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor' 
+24-05-13 17:29:18.249 [RMI TCP Connection(63)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated... 
+24-05-13 17:29:18.266 [RMI TCP Connection(63)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed. 

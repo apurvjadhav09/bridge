@@ -3,18 +3,6 @@ package com.java.group.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -73,9 +61,18 @@ public class UserController {
  
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-   
-    
     @Autowired
+    private HttpServletRequest request;
+    
+    
+    public UserController() {
+		super();
+		logger.info("Fetching logincontorller{}");
+//		  logger.info("Request URL: {}", request.getRequestURL());
+	}
+
+
+	@Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
     
     
@@ -109,10 +106,12 @@ public class UserController {
                 response.put("message", "Hi " + user.getEmail() + " welcome to DEXT IT SOLUTIONS... !");
                 response.put("username", user.getEmail());
                 response.put("id", existingUser.getId());
+                response.put("name",existingUser.getName());
                 response.put("role", userRole);
                 response.put("uuid", UUID.randomUUID().toString());
                 response.put("token", token);
                 response.put("dashboardUrl", dashboardUrl);
+                logger.info("logged in successfully..");
                 return new ResponseEntity<>(response, HttpStatus.OK);
             } else {
                 logger.warn("Access forbidden for user with roles: {}", userDetails.getAuthorities());
@@ -249,6 +248,7 @@ public class UserController {
             SecurityContextHolder.clearContext();
             return ResponseEntity.ok("Logout successful");
         } else {
+        	 logger.error("Failed to logout bridges: {}");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
         }
     }

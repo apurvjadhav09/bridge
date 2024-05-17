@@ -1,0 +1,33 @@
+24-05-13 17:35:35.846 [main] INFO  c.j.g.JavaGroupServiceApplication - Starting JavaGroupServiceApplication using Java 17.0.8.1 on DESKTOP-3E6C941 with PID 8596 (C:\Users\Admin\SHM-PROJECT\BACKEND-SHM\target\classes started by Admin in C:\Users\Admin\SHM-PROJECT\BACKEND-SHM) 
+24-05-13 17:35:35.855 [main] INFO  c.j.g.JavaGroupServiceApplication - No active profile set, falling back to default profiles: default 
+24-05-13 17:35:37.510 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFERRED mode. 
+24-05-13 17:35:37.694 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 167 ms. Found 5 JPA repository interfaces. 
+24-05-13 17:35:38.548 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9090 (http) 
+24-05-13 17:35:38.564 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9090"] 
+24-05-13 17:35:38.565 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat] 
+24-05-13 17:35:38.567 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.39] 
+24-05-13 17:35:38.791 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext 
+24-05-13 17:35:38.792 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2781 ms 
+24-05-13 17:35:39.038 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor' 
+24-05-13 17:35:39.102 [task-1] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default] 
+24-05-13 17:35:39.162 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+24-05-13 17:35:39.225 [task-1] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.4.23.Final 
+24-05-13 17:35:39.239 [main] INFO  c.j.g.controller.BridgeController - Fetching bridgecontroller{} 
+24-05-13 17:35:39.320 [main] INFO  c.j.group.controller.FileController - Fetching logincontorller{} 
+24-05-13 17:35:39.325 [main] INFO  c.j.g.controller.MasterController - Fetching mastercontroller{} 
+24-05-13 17:35:39.332 [main] INFO  c.j.g.c.PasswordResetController - Fetching bridgecontroller{} 
+24-05-13 17:35:39.340 [main] INFO  c.j.group.controller.UserController - Fetching logincontorller{} 
+24-05-13 17:35:39.465 [task-1] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final} 
+24-05-13 17:35:39.494 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure Ant [pattern='/**', OPTIONS] with [] 
+24-05-13 17:35:39.546 [main] DEBUG o.s.s.w.a.e.ExpressionBasedFilterInvocationSecurityMetadataSource - Adding web access control expression [permitAll] for Ant [pattern='/login'] 
+24-05-13 17:35:39.559 [main] INFO  o.s.s.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@46612bfc, org.springframework.security.web.context.SecurityContextPersistenceFilter@5b0902b4, org.springframework.security.web.header.HeaderWriterFilter@71789580, org.springframework.web.filter.CorsFilter@4f213a2, org.springframework.security.web.authentication.logout.LogoutFilter@1860a7a1, com.java.group.config.JwtRequestFilter@6b649efa, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4ae8fb2a, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@78b0ec3a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f04993d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c1b89ac, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@25699aa7, org.springframework.security.web.session.SessionManagementFilter@165614f5, org.springframework.security.web.access.ExceptionTranslationFilter@1068176, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3b170235] 
+24-05-13 17:35:39.644 [task-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting... 
+24-05-13 17:35:40.150 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9090"] 
+24-05-13 17:35:40.201 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9090 (http) with context path '' 
+24-05-13 17:35:40.204 [main] INFO  o.s.d.r.c.DeferredRepositoryInitializationListener - Triggering deferred initialization of Spring Data repositories… 
+24-05-13 17:35:40.291 [task-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed. 
+24-05-13 17:35:40.323 [task-1] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect 
+24-05-13 17:35:42.111 [task-1] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform] 
+24-05-13 17:35:42.129 [task-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+24-05-13 17:35:42.984 [main] INFO  o.s.d.r.c.DeferredRepositoryInitializationListener - Spring Data repositories initialized! 
+24-05-13 17:35:42.998 [main] INFO  c.j.g.JavaGroupServiceApplication - Started JavaGroupServiceApplication in 7.583 seconds (JVM running for 8.942) 
